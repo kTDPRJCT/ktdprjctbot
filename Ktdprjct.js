@@ -913,7 +913,7 @@ _*⚠️ RULES MASUKIN BOT KE GC ⚠️*_
 🐼. Setelah Click Link Tinggal Isi Data Yang DiBerikan
 ⚠️. Jika Tidak Izin / Isi Data. Bot Akan Saya Keluarkan Dari Gc`
 but1 = [
-{ buttonId: `${prefix}c`, buttonText: { displayText: 'MENUメ' }, type: 1 }, 
+{ buttonId: `${prefix}allmenu`, buttonText: { displayText: 'MENUメ' }, type: 1 }, 
 ]
  sendButton(from, rulsgc, fake, but1, mek)
  break
@@ -1863,7 +1863,7 @@ case 'afk':
 case 'chara':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
+if (!isPrem)return reply(mess.prem)
 if (args.length < 1) return reply('Tolong masukan query!')
 let im = await hx.chara(q)
 sticWait(from)
