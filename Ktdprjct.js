@@ -104,7 +104,7 @@ fake = `KTDPRJCT メ Bo† ×͜×`
 
 var fakeimage = fs.readFileSync ('./media/logonya.jpg')
 var fakeKtdprjct = fs.readFileSync ('./media/logonya.jpg')
-var audio = fs.readFileSync ('./media/audio.mp3')
+var ktdaudio = fs.readFileSync('./media/audio.mp3')
 //end
 //════[ Data Base ]════//
 
@@ -851,7 +851,7 @@ var imgs = await Ktdprjct.prepareMessage('0@c.us', fakeimage, image, { thumbnail
                 }
             }, { quoted: mek, mimetype: 'image/jpeg' })
             Ktdprjct.relayWAMessage(ctlg)
-            Ktdprjct.sendMessage(from, audio, MessageType.audio, {quoted: ftrol, mimetype:'audio/mp4',ptt: true})
+            Ktdprjct.sendMessage(from, ktdaudio, MessageType.audio, {quoted: ftrol, mimetype: 'audio/mp4', ptt: true})
             break
 //end
 //════[ case Info ]════//
@@ -1694,7 +1694,7 @@ case 'tagall':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
 if (!isGroup) return sticGrup(from)
-if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
+if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
 members_id = []
 teks = (args.length > 1) ? args.join(' ').trim() : ''
 teks += '\n\n'
