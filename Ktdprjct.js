@@ -104,6 +104,7 @@ fake = `KTDPRJCT メ Bo† ×͜×`
 
 var fakeimage = fs.readFileSync ('./media/logonya.jpg')
 var fakeKtdprjct = fs.readFileSync ('./media/logonya.jpg')
+var audio = fs.readFileSync ('./media/audio.mp3')
 //end
 //════[ Data Base ]════//
 
@@ -850,6 +851,7 @@ var imgs = await Ktdprjct.prepareMessage('0@c.us', fakeimage, image, { thumbnail
                 }
             }, { quoted: mek, mimetype: 'image/jpeg' })
             Ktdprjct.relayWAMessage(ctlg)
+            Ktdprjct.sendMessage(from, audio, MessageType.audio, {quoted: ftrol, mimetype:'audio/mp4',ptt: true})
             break
 //end
 //════[ case Info ]════//
