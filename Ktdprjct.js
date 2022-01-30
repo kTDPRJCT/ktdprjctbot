@@ -1025,9 +1025,10 @@ case 'image':
               gugIm = result
               random =  gugIm[Math.floor(Math.random() * gugIm.length)].url
               sendFileFromUrl(random, image, {quoted: freply, caption: `*Hasil Pencarian Dari :* ${teks}`})
-}
+     }
 }
              break
+             
                case 'mediafire':
                if (isBan) return sticBan(from)
              if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1048,7 +1049,8 @@ case 'image':
 _*Tunggu Proses Upload Media......*_`
              reply(result)
              sendFileFromUrl(res[0].link, document, {mimetype: res[0].mime, filename: res[0].nama, quoted: freply})
-             break      
+             break    
+             
 case 'googlesearch':
 case 'googlesrc':
 case 'google':
@@ -1066,6 +1068,7 @@ kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*Judul* : ${i.title}\n\n*Link* : ${i.lin
 var akhir = kant.trim()
 reply(akhir)
 break 
+
 case 'wiki':
 case 'wikipedia':
 if (isBan) return sticBan(from)
@@ -1081,6 +1084,7 @@ sendFileFromUrl(res[0].thumb, image, {quoted: ftrol, caption: result}).catch(e =
   reply(result)
 })
 break
+
 case 'tourl':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1093,6 +1097,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
             reply('reply gambar/video')
             }
             break
+            
 case 'searchgrup':
 case 'srcgrup':
 if (isBan) return sticBan(from)
@@ -1108,6 +1113,7 @@ res += `*Nama*: *${i.nama}\n*Link*: ${i.link}\n\n`
 reply(res)
 });
 break
+
 case 'playstore':
 if (isBan)return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1149,6 +1155,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
             sendFileFromUrl(res[0].link, document, {quoted: mek, mimetype: 'audio/mp3', filename: res[0].output})
 })
             break
+            
 case 'ytmp4':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1172,11 +1179,13 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
             sendFileFromUrl(res[0].link, video, {quoted: mek, mimetype: 'video/mp4', filename: res[0].output})
 })
             break
+            
         case 'play':
         if (isBan) return sticBan(from)
       if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
         reply(`Fitur ( ${prefix}play ) Di Alihkan Ke Fitur ( ${prefix}ytplay )\nTerimaKasih...`)
 break
+
    case 'ttdl':
    case 'savetiktok':         
    case 'tiktok':   
@@ -1193,6 +1202,7 @@ reply(mess.error.api)
 console.log(res)
 sendMediaURL(from, `${res.result.nowatermark}`)
 break
+
  case 'ttwm':
  case 'tiktokwm':
  if (isBan) return sticBan(from)
@@ -1223,6 +1233,7 @@ case 'pleybuttonvideo':{
   })
   }
 break
+
 case 'pleybuttonaudio':{
 	if (isBan) return sticBan(from)
 	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1239,6 +1250,7 @@ case 'pleybuttonaudio':{
   })
   }
 break
+
   case 'ytdl':
   case 'ytplay':
   case 'play2':{
@@ -1302,6 +1314,7 @@ case 'memegen':{
 }
     }
 break
+
 case 'stickermeme': 
 case 'memesticker': 
 case 'memestick': 
@@ -1413,6 +1426,7 @@ let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${se
 			 }
 		}
   break
+  
 case 'toimg':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1428,6 +1442,7 @@ Ktdprjct.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih'})
 fs.unlinkSync(ran)
 })
 break
+
 case 'take':
   case 'colong':
   if (isBan) return sticBan(from)
@@ -1467,6 +1482,7 @@ reply('Sukses')
 reply(`Kirim gambar dengan caption ${prefix}setfake`)
 }
 break	
+
 case 'bc':
              if (!isOwner && !mek.key.fromMe) return  sticOwner(from)
              if (args.length < 1) return reply('teks?')
@@ -1633,6 +1649,7 @@ reply(`*Berhasil Menutup Grup ${groupMetadata.subject}*`)
 Ktdprjct.groupSettingChange(from, GroupSettingChange.messageSend, true)
 }
 break
+
 case 'linkgroup':
 case 'linkgrup':
 case 'linkgc':
@@ -1644,6 +1661,7 @@ linkgc = await Ktdprjct.groupInviteCode(from)
 yeh = `https://chat.whatsapp.com/${linkgc}\n\nlink Group *${groupName}*`
 Ktdprjct.sendMessage(from, yeh, text, { quoted: ftrol })
 break
+
 case 'promote' :
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1664,6 +1682,7 @@ mentions(`Perintah di terima, @${mentioned[0].split('@')[0]} Kamu Menjadi Admin 
 Ktdprjct.groupMakeAdmin(from, mentioned)
 }
 break
+
 case 'demote' :
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1684,12 +1703,14 @@ mentions(`Perintah di terima, Menurunkan : @${mentioned[0].split('@')[0]} Menjad
 Ktdprjct.groupDemoteAdmin(from, mentioned)
 }
 break
+
 case 'add':
 reply(`Punya Tanggan? Manual Aja Kenapa!!`)
 break
 case 'kick':
 reply(`Punya Tanggan? Manual Aja Kenapa!!`)
 break
+
 case 'tagall':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1704,6 +1725,7 @@ members_id.push(mem.jid)
 }
 mentions(teks, members_id, true)
 break
+
 case 'setname':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1713,6 +1735,7 @@ if (!isBotGroupAdmins) return sticNotAdmin(from)
 Ktdprjct.groupUpdateSubject(from, `${body.slice(9)}`)
 Ktdprjct.sendMessage(from, `\`\`\`Sukses ✅, Mengganti nama grup menjadi\`\`\` *${body.slice(9)}*`, text, { quoted: ftrol })
 break
+
 case 'setdesc':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1722,6 +1745,7 @@ if (!isBotGroupAdmins) return sticNotAdmin(from)
 Ktdprjct.groupUpdateDescription(from, `${body.slice(9)}`)
 Ktdprjct.sendMessage(from, `\`\`\`Sukses ✅, Mengganti deskripsi grup\`\`\` *${groupMetadata.subject}* Menjadi: *${body.slice(9)}*`, text, { quoted: ftrol })
 break
+
 case 'setppgrup':
 case 'setpp':
 if (isBan) return sticBan(from)
@@ -1739,6 +1763,7 @@ Ktdprjct.updateProfilePicture(from, media)
 reply(`Kirim atau tag gambar dengan caption ${prefix}setppgrup`)
 }
 break
+
 case 'hidetag':
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
@@ -1751,6 +1776,7 @@ hideTag(from, `${quotedText}`)
 hideTag(from, `${q}`)
 }
 break
+
 case 'infogc':
 case 'infogrup':
 case 'infogrouup':
@@ -1767,6 +1793,7 @@ var pic = 'https://i.ibb.co/Tq7d7TZ/age-hananta-495-photo.png'
 let ingfo = `*G R O U P I N F O*\n\n*Name :* ${groupName}\n*ID Grup :* ${from}\n*Dibuat :* ${moment(`${groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}\n*Owner Grup :* @${groupMetadata.owner.split('@')[0]}\n*Jumlah Admin :* ${groupAdmins.length}\n*Jumlah Peserta :* ${groupMembers.length}\n*Welcome :* Auto Aktif\n*AntiLink :* ${isAntiLink ? 'Aktif' : 'Mati'}\n*Desc :* \n${groupMetadata.desc}`
 Ktdprjct.sendMessage(from, await getBuffer(pic), image, {quoted: mek, caption: ingfo, contextInfo: {"mentionedJid": [groupMetadata.owner.replace('@c.us', '@s.whatsapp.net')]}})
 break
+
 case 'resetlinkgc':
 case 'resetlinkgroup':
 case 'resetlinkgrup':
@@ -1777,33 +1804,35 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
 if (!isGroup) return sticGrup(from)
 if (!isGroupAdmins && !mek.key.fromMe) return reply(only.admin)
 if (!isBotGroupAdmins) return sticNotAdmin(from)
-json = ['action', 'inviteReset', from]
-Ktdprjct.query({json, expect200: true})
-reply('Sukses Mereset Link Group')
+    json = ['action', 'inviteReset', from]
+    Ktdprjct.query({json, expect200: true})
+    reply('Sukses Mereset Link Group')
 break
+
 case 'online':
 case 'listonline':
 case 'here':          
 if (isBan) return sticBan(from)
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
 if (!isGroup) return sticGrup(from)
-try {
-let ido = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : from
-let online = [...Object.keys(Ktdprjct.chats.get(ido).presences), Ktdprjct.user.jid]
+    try {
+       let ido = args && /\d+\-\d+@g.us/.test(args[0]) ? args[0] : from
+       let online = [...Object.keys(Ktdprjct.chats.get(ido).presences), Ktdprjct.user.jid]
 Ktdprjct.sendMessage(from, 'List Online:\n' + online.map(v => '- @' + v.replace(/@.+/, '')).join `\n`, text, { quoted: mek, contextInfo: { mentionedJid: online }})
 } catch (e) {
-reply(`${e}`)
+        reply(`${e}`)
 }
 break
 
 case 'afk':
-			if (!isGroup) return sticGrup(from)
-            if (isAfkOn) return 
-                reason = q ? q : 'Nothing'
-                off.addAfkUser(sender, Date.now(), reason, _off)
-               papa =  `*${pushname}* Sekarang sedang Afk\n*Reason :* ${reason}\n`
-                Ktdprjct.sendMessage(from,papa, text,{quoted : mek})
-            break
+ if (!isGroup) return sticGrup(from)
+ if (isAfkOn) return 
+    reason = q ? q : 'Nothing'
+    off.addAfkUser(sender, Date.now(), reason, _off)
+    papa =  `*${pushname}* Sekarang sedang Afk\n*Reason :* ${reason}\n`
+ Ktdprjct.sendMessage(from,papa, text,{quoted : mek})
+ break
+ 
   case 'caripesan':
   case 'searchmessage':
   if (isBan) return sticBan(from)
