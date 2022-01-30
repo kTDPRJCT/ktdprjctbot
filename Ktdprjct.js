@@ -1883,7 +1883,7 @@ case 'afk':
 
 case 'neko':
  if (isBan) return sticBan(from)
- if (!isPrem)return reply(mess.prem)
+ if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
  sticWait(from)
 await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/neko?apikey=Alphabot`).then((gambar) => {
@@ -1892,7 +1892,7 @@ Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random $
 break
   case 'futanari':
   if (isBan) return sticBan(from)
-  if (!isPrem)return reply(mess.prem)  
+if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
 sticWait(from)
 await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/futanari?apikey=Alphabot`).then((gambar) => {
@@ -1901,7 +1901,7 @@ await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/futanari?apikey=Alp
  break
  case 'ero':
  if (isBan) return sticBan(from)
- if (!isPrem)return reply(mess.prem)
+ if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
  sticWait(from)
  await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/ero?apikey=Alphabot`).then((gambar) => {
@@ -1910,7 +1910,7 @@ await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/futanari?apikey=Alp
   break
   case 'tits':
   if (isBan) return sticBan(from)
-  if (!isPrem)return reply(mess.prem) 
+  if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
 if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
   sticWait(from) 
   await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/tits?apikey=Alphabot`).then((gambar) => {
@@ -1919,7 +1919,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
   break
   case 'pussy':
   if (isBan) return sticBan(from)
-  if (!isPrem)return reply(mess.prem)
+  if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
     sticWait(from)
     await getBuffer(`https://api-alphabot.herokuapp.com/api/nsfw/pussyart?apikey=Alphabot`).then((gambar)=>{
@@ -1928,7 +1928,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
     break
   case 'yuri':
 if (isBan) return sticBan(from)
-  if (!isPrem)return reply(mess.prem)  
+  if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
    sticWait(from)
    await getBuffer (`https://api-alphabot.herokuapp.com/api/nsfw/yuri?apikey=Alphabot`).then((gambar)=>{
