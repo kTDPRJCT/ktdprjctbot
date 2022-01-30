@@ -47,15 +47,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LexxyOFC"
+    "url": "git+https://github.com/ktdprjctbot"
   },
   "keywords": [
     "Recode:v"
   ],
-  "author": "LexxyOFC",
+  "author": "ktdprjct",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LexxyOFC"
+    "url": "https://github.com/ktdprjct"
   },
-  "homepage": "https://github.com/LexxyOFC"
+  "homepage": "https://github.com/ktdprjct"
 }
