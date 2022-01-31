@@ -185,7 +185,7 @@ Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
   // owner
     const number = "62895342581896@s.whatsapp.net"
 
-Ktdprjct.on("group-update", async(mem) => {
+/*Ktdprjct.on("group-update", async(mem) => {
     metadata = await Ktdprjct.groupMetadata(mem.jid);
     if (mem.announce == "false") {
       Ktdprjct.sendMessage(metadata.id, `*[ Group Opened ]* \n\n${mns}group telah di buka oleh admin${mns}\n${mns}sekarang semua member bisa mengirim pesan${mns}`, MessageType.text);
@@ -206,7 +206,7 @@ Ktdprjct.on("group-update", async(mem) => {
       Ktdprjct.sendMessage(metadata.id, `*[ Group Setting Change ]*\n\nfitur edit group telah di tutup\nsekarang hanya admin yang dapat mengedit info group`, MessageType.text);
       console.log(`[ GROUP SETTING CHANGE ]\ngroup : ${metadata.subject}`);
     }
-  });
+  });*/
 
 Ktdprjct.on('group-participants-update', async (anu) => {
 
