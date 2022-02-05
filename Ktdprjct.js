@@ -43,6 +43,7 @@ var toMs = require('ms')
 var moment = require('moment-timezone')
 var ffmpeg = require('fluent-ffmpeg')
 var yts = require( 'yt-search')
+//var ytdl = require('ytdl-core');
 //end
 //════[ Ucapan wktu ]════//
 
@@ -100,8 +101,8 @@ botname = `KTDPRJCT メ Bo† ༆`
 ownername = setting.OwnerName
 ktdkey = setting.Apikey
 fake = `KTDPRJCT メ Bo† ༆`
- timestampe = speed();
- latensie = speed() - timestampe
+timestampe = speed();
+latensie = speed() - timestampe
 
 var fakeimage = fs.readFileSync ('./media/logonya.jpg')
 var fakeKtdprjct = fs.readFileSync ('./media/logonya.jpg')
@@ -125,8 +126,8 @@ const cekUser = (sender) => {
 let status = false
 Object.keys(_user).forEach((i) => {
 if (_user[i].id === sender) {
-status = true
-}
+  status = true
+   }
 })
 return status
 }
@@ -141,7 +142,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 		if (mek.key && mek.key.remoteJid == 'status@broadcast') return
 		global.blocked
     	mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-    var content = JSON.stringify(mek.message)
+     var content = JSON.stringify(mek.message)
 		var from = mek.key.remoteJid
 		var { text, extendedText, contact, contactsArray, groupInviteMessage, listMessage, buttonsMessage, location, liveLocation, image, video, sticker, document, audio, product, quotedMsg } = MessageType
 		var tanggal = moment.tz('Asia/Jakarta').format('dddd') + ', ' + moment.tz('Asia/Jakarta').format('LL')
@@ -242,6 +243,9 @@ var isUrl = (url) => {
         var reply1 = (teks) => {
            Ktdprjct.sendMessage(from, teks, text, {quoted:ftrol})
          }
+         const fakethumb = (teks, yes) => {
+Ktdprjct.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/logonya.jpg'),quoted:mek,caption:yes})
+} 
         var sendMess = (hehe, teks) => {
             Ktdprjct.sendMessage(hehe, teks, text)
         }
@@ -626,11 +630,11 @@ Ktdprjct.groupRemove(from, [kic]).catch((e) => { reply(`BOT HARUS JADI ADMIN`) }
 //════[ anti spam & termos ]════//
 
 if (isCmd && msgFilter.isFiltered(from) && !isGroup) {
-						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', timuu, color(command), 'from', color(pushname), 'in Private', 'args :', color(args.length))
+						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
 						return reply2('Don`t Spam, 3 seconds per command')
 						} 
 					if (isCmd && msgFilter.isFiltered(from) && isGroup) {
-						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', timuu, color(command), 'from', color(pushname), 'in', color(groupName), 'args :', color(args.length))
+						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 						return reply2('Don`t Spam, 3 seconds per command')
 					}
 	colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
@@ -639,8 +643,8 @@ if (isCmd && msgFilter.isFiltered(from) && !isGroup) {
 		var isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
 		var isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
 		var isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
-      	if (!isGroup && isCmd) console.log('\x1b[1;31m[ PC\x1b[1;37m ]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
-      	if (isCmd && isGroup) console.log('\x1b[1;31m[ GC\x1b[1;37m ]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
+      	if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
+      	if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 //end
 //════[ command ]════//
 
@@ -761,6 +765,7 @@ var menu = `Hai kak ${pushname}
 ├⊱❥ *${prefix}nulispolio*
 ╰────────────────────╯
 ╭◪ Search
+├❖ *${prefix}ytsearch*
 ├❖ *${prefix}srcgrup*
 ├❖ *${prefix}playstore*
 ├❖ *${prefix}google* error
@@ -1161,6 +1166,35 @@ store += `\n*「 _PLAY STORE_ 」*\n
 }
 reply(store)
 break
+
+case 'ytsearch': case 'yts':
+if (isBan)return sticBan(from)
+if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+if (args.length < 1) return reply('Tolong masukan query!')
+var srch = args.join('');
+sticWait(from)
+try {
+var aramas = await yts(srch);
+} catch {
+return await Ktdprjct.sendMessage(from, 'Error!', MessageType.text, dload)
+}
+aramat = aramas.all 
+var tbuff = await getBuffer(aramat[0].image)
+var ytresult = '';
+ytresult += `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+┆           *YOUTUBE SEARCH*
+└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\n\n`
+aramas.all.map((video) => {
+ytresult += '🐣 Title : ' + video.title + '\n'
+ytresult += '📬 Link : ' + video.url + '\n'
+ytresult += '⏰ Durasi : ' + video.timestamp + '\n'
+ytresult += '👀 view : ' + video.views + '\n'
+ytresult += '👤 Channel : ' + video.author.name + '\n'
+ytresult += '🚀 Upload : ' + video.ago + '\n________________________\n\n'
+});
+ytresult += '*KTDPRJCT メ Bo† ༆*'
+await fakethumb(tbuff,ytresult)
+break
 //end
 //════[ case download ]════//
 
@@ -1250,7 +1284,7 @@ case 'pleybuttonvideo':{
 	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
   reply(`[ ! ] SABAR BOT GA CUMA DI 1 KONTAK/GRUP DOANG!!!`)
   let yut = await yts(q)
-  ytv(yut.videos[0].url)
+  ytv2(yut.videos[0].url)
   .then((res) => {
   const { dl_link, thumb, title, filesizeF, filesize } = res
   axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
@@ -1266,7 +1300,7 @@ case 'pleybuttonaudio':{
 	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
   reply(`[ ! ] SABAR BOT GA CUMA DI 1 KONTAK/GRUP DOANG!!!`)
   let yut = await yts(q)
-  yta(yut.videos[0].url)
+  yta2(yut.videos[0].url)
   .then((res) => {
   const { dl_link, thumb, title, filesizeF, filesize } = res
   axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
@@ -1392,12 +1426,12 @@ let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${se
   .on('error', function (err) {
 	 console.log(color(`ERROR : ${err}`,'red'))
 	  fs.unlinkSync(media)
-	  reply(mess.error)
+	  reply(`error kak silahkan coba lagi nanti`)
  })
   .on('end', function () {
 	console.log(color(`FINISH`,'magenta'))
 	exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-	if (error) return reply(mess.error)
+	if (error) return reply(`error kak silahkan coba lagi nanti`)
 	Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
 	fs.unlinkSync(media)
 	fs.unlinkSync(`./sticker/${sender}.webp`)
@@ -1421,12 +1455,12 @@ let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${se
 	console.log(color(`ERROR : ${err}`,'red'))
 	fs.unlinkSync(media)
 	let tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-	reply(mess.error)
+	reply(`error kak silahkan coba lagi nanti`)
 })
   .on('end', function () {
 	 console.log((`FINISH`,'magenta'))
 	 exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-		if (error) return reply(mess.error)
+		if (error) return reply(`error kak silahkan coba lagi nanti`)
 		Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
 		fs.unlinkSync(media)
 		fs.unlinkSync(`./sticker/${sender}.webp`)
@@ -1441,7 +1475,7 @@ let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${se
 	let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
 		exif.create(packname1, author1, `takestick_${sender}`)
 		exec(`webpmux -set exif ./sticker/takestick_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-		if (error) return reply(mess.error)
+		if (error) return reply(`error kak silahkan coba lagi nanti`)
 		Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
 		fs.unlinkSync(media)
 		fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
@@ -1494,7 +1528,7 @@ case 'clearall':
 					reply('Sukses delete all chat :)')
 					break
 					
-case 'setfake':
+case 'setthumb':
 if (!isOwner) return sticOwner(from)
 if ((isMedia && !mek.message.videoMessage || isQuotedImage || isQuotedSticker) && args.length == 0) {
 boij = isQuotedImage || isQuotedSticker ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
@@ -1505,6 +1539,17 @@ reply('Sukses')
 reply(`Kirim gambar dengan caption ${prefix}setfake`)
 }
 break	
+case 'setfake':
+if (!isOwner) return sticOwner(from)
+if ((isMedia && !mek.message.videoMessage || isQuotedImage || isQuotedSticker) && args.length == 0) {
+boij = isQuotedImage || isQuotedSticker ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+delb = await Ktdprjct.downloadMediaMessage(boij)
+fs.writeFileSync(`./media/logonya2.png`, delb)
+reply('Sukses')
+} else {
+reply(`Kirim gambar dengan caption ${prefix}setfake`)
+}
+break
 case 'bc':
              if (!isOwner && !mek.key.fromMe) return  sticOwner(from)
              if (args.length < 1) return reply('teks?')
@@ -1985,7 +2030,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
 									fixHeight,
 									'./media/nulis/images/folio/setelahkanan.jpg'
 									])
-									.on('error', () => reply(mess.error))
+									.on('error', () => reply(`error kak silahkan coba lagi nanti`))
 									.on('exit', () => {
 										Ktdprjct.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkanan.jpg'), image, {thumbnail:Buffer.alloc(0),quoted: mek, caption: `Jangan Malas`})
 										//limitAdd(sender, limit)
@@ -2069,7 +2114,7 @@ case 'bisakah':
 				bisakah = q
 					const bisa =['Tentu Saja Bisa! Kamu Adalah Orang Paling beruntung','Gak Bisa','Hmm Gua Gak Tau Yaa, tanya ama bapakau','Ulangi Tod Gua Ga Paham']
 					const keh = bisa[Math.floor(Math.random() * bisa.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : *'+bisakah+'*\n\nJawaban : '+ keh, text, { quoted: mek })
+					Ktdprjct.sendMessage(from, 'Pertanyaan : Bisakah *'+bisakah+'*\n\nJawaban : '+ keh, text, { quoted: mek })
 					break
 					
 				case 'kapankah':
@@ -2077,7 +2122,7 @@ case 'bisakah':
 				kapankah = q
 					const kapan =['Besok','Lusa','Tadi','4 Hari Lagi','5 Hari Lagi','6 Hari Lagi','1 Minggu Lagi','2 Minggu Lagi','3 Minggu Lagi','1 Bulan Lagi','2 Bulan Lagi','3 Bulan Lagi','4 Bulan Lagi','5 Bulan Lagi','6 Bulan Lagi','1 Tahun Lagi','2 Tahun Lagi','3 Tahun Lagi','4 Tahun Lagi','5 Tahun Lagi','6 Tahun Lagi','1 Abad lagi','3 Hari Lagi']
 					const koh = kapan[Math.floor(Math.random() * kapan.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : *'+kapankah+'*\n\nJawaban : '+ koh, text, { quoted: mek })
+					Ktdprjct.sendMessage(from, 'Pertanyaan : Kapankah *'+kapankah+'*\n\nJawaban : '+ koh, text, { quoted: mek })
 					break
 					
            case 'apakah':
@@ -2085,13 +2130,12 @@ case 'bisakah':
            apakah = q
 					const apa =['Iya','Tidak','Bisa Jadi']
 					const kah = apa[Math.floor(Math.random() * apa.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : *'+apakah+'*\n\nJawaban : '+ kah, text, { quoted: mek })
+					Ktdprjct.sendMessage(from, 'Pertanyaan : Apakah *'+apakah+'*\n\nJawaban : '+ kah, text, { quoted: mek })
 					break
 //end
 //════[ fun group ]════//
 
 case 'ganteng': case 'cantik': case 'jelek': case 'goblok':  case 'bego': case 'pinter': case 'jago': case 'nolep': case 'beban': case 'baik': case 'jahat': case 'haram': case 'pakboy': case 'pakgirl': case 'wibu': case 'hebat': case 'sadboy': case 'sadgirl':  
-               	await gameAdd(sender, glimit)
 				   if (!isGroup) return sticGrup(from)
  				   jds = []
 				   const A1 = groupMembers
@@ -2117,65 +2161,70 @@ let im = await hx.chara(q)
 sticWait(from)
 let acak = im[Math.floor(Math.random() * im.length)]
 let li = await getBuffer(acak)
-await Ktdprjct.sendMessage(from,li,image,{quoted: mek})           
+await Ktdprjct.sendMessage(from,li,image,{quoted: mek, caption: `Random Character ${q}`})           
 break            
 //end
 //════[ anime h ]════//
 
 case 'neko':
- if (isBan) return sticBan(from)
-if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
- if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
- sticWait(from)
-await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/neko?apikey=${ktdkey}`).then((gambar) => {
-Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random ${command}*` })
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from)
+        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/neko?apikey=${ktdkey}`).then((gambar) => {
+        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
 })
 break
-  case 'futanari':
-  if (isBan) return sticBan(from)
- if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});  
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-sticWait(from)
-await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/futanari?apikey=${ktdkey}`).then((gambar) => {
- Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random ${command}*` })
- })
- break
- case 'ero':
- if (isBan) return sticBan(from)
-if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
- if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
- sticWait(from)
- await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/ero?apikey=${ktdkey}`).then((gambar) => {
-  Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random ${command}*` })
+
+case 'futanari':
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});  
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from)
+        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/futanari?apikey=${ktdkey}`).then((gambar) => {
+        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
+})
+break
+
+case 'ero':
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from)
+        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/ero?apikey=${ktdkey}`).then((gambar) => {
+        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}*` })
+})
+break
+  
+case 'tits':
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from) 
+        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/tits?apikey=${ktdkey}`).then((gambar) => {
+        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
   })
   break
-  case 'tits':
-  if (isBan) return sticBan(from)
-if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-  sticWait(from) 
-  await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/tits?apikey=${ktdkey}`).then((gambar) => {
-   Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random ${command}*` })
+  
+case 'pussy':
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from)
+        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/pussyart?apikey=${ktdkey}`).then((gambar)=>{
+        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
   })
   break
-  case 'pussy':
-  if (isBan) return sticBan(from)
- if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-    sticWait(from)
-    await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/pussyart?apikey=${ktdkey}`).then((gambar)=>{
-      Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `*©Random ${command}*` })
-    })
-    break
-  case 'yuri':
-if (isBan) return sticBan(from)
- if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});  
-  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-   sticWait(from)
-   await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=>{
-     Ktdprjct.sendMessage(from, gambar, image, {quoted: ftrol})
-   })
-   break
+  
+case 'yuri':
+     if (isBan) return sticBan(from)
+     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});  
+     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        sticWait(from)
+        await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=>{
+        Ktdprjct.sendMessage(from, gambar, image, {quoted: ftrol, caption: `©Random ${command}` })
+  })
+  break
 //end
 //════[ Module ]════//
 
