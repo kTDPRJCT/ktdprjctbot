@@ -136,74 +136,76 @@ return status
 
 module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 	try {
-    if (!mek.hasNewMessage) return
-        mek = mek.messages.all()[0]
-		if (!mek.message) return
-		if (mek.key && mek.key.remoteJid == 'status@broadcast') return
-		global.blocked
-    	mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
-     var content = JSON.stringify(mek.message)
-		var from = mek.key.remoteJid
-		var { text, extendedText, contact, contactsArray, groupInviteMessage, listMessage, buttonsMessage, location, liveLocation, image, video, sticker, document, audio, product, quotedMsg } = MessageType
-		var tanggal = moment.tz('Asia/Jakarta').format('dddd') + ', ' + moment.tz('Asia/Jakarta').format('LL')
-		var time = moment().tz('Asia/Jakarta').format("HH:mm:ss")
-		var timeMak = moment().tz('Asia/Makassar').format("HH:mm:ss");
-    var timeJay = moment().tz('Asia/Jayapura').format("HH:mm:ss");
-    var type = Object.keys(mek.message)[0]        
-    var cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
-    var prefix = /^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*@,;]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*,;]/gi) : '#'          	
-    body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'videoMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'extendedTextMessage') && mek.message[type].text.startsWith(prefix) ? mek.message[type].text : (type == 'listResponseMessage') && mek.message[type].singleSelectReply.selectedRowId ? mek.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && mek.message[type].selectedButtonId ? mek.message[type].selectedButtonId : ''
-		budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
-		let chats = cmd.match(prefix)
-      ? cmd
-          .split(prefix)
-          .find((v) => v === cmd.replace(prefix, ""))
-      : cmd;
-    var command = body.slice(1).trim().split(/ +/).shift().toLowerCase()		
-		var is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
-		var args = body.trim().split(/ +/).slice(1)
-		var arg = budy.slice(command.length + 2, budy.length)
-		var ar = args.map((v) => v.toLowerCase())
-		var c = args.join(' ')
-		var isCmd = body.startsWith(prefix)
-		var q = args.join(' ')
-		var Verived = "0@s.whatsapp.net"
-		var txt = mek.message.conversation
-		var botNumber = Ktdprjct.user.jid
-		var ownerNumber = [`${owner}`]
-		var isGroup = from.endsWith('@g.us')
-		let sender = isGroup ? mek.participant : mek.key.remoteJid
-		let senderr = mek.key.fromMe ? Ktdprjct.user.jid : mek.key.remoteJid.endsWith('@g.us') ? mek.participant : mek.key.remoteJid
-		var groupMetadata = isGroup ? await Ktdprjct.groupMetadata(from) : ''
-		var groupName = isGroup ? groupMetadata.subject : ''
-		var groupId = isGroup ? groupMetadata.jid : ''
-		var groupMembers = isGroup ? groupMetadata.participants : ''
-		var groupDesc = isGroup ? groupMetadata.desc : ''
-		var groupOwner = isGroup ? groupMetadata.owner : ''
-		var groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
-		var isBotGroupAdmins = groupAdmins.includes(botNumber) || false
-		var isGroupAdmins = groupAdmins.includes(sender) || false
-		var isBan = ban.includes(sender)
-		var isPrem = isOwner || mek.key.fromMe ? true : premiuma.checkPremiumUser(sender, premium)
-		var isUser = cekUser(sender)
-		var isAfkOn = off.checkAfkUser(sender, _off)
-    var senderNumber = sender.split("@")[0]
-    var hour_now = moment().format('HH:mm:ss')
-		var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
-    var pushname = mek.key.fromMe ? Ktdprjct.user.name : conts.notify || conts.vname || conts.name || '-'    
-    var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
-    var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
-    var mention = typeof(mentionByTag) == 'string' ? [mentionByTag] : mentionByTag
-        mention != undefined ? mention.push(mentionByreply) : []
-    var mentionUser = mention != undefined ? mention.filter(n => n) : []
+      if (!mek.hasNewMessage) return
+           mek = mek.messages.all()[0]
+	   	if (!mek.message) return
+		  if (mek.key && mek.key.remoteJid == 'status@broadcast') return
+        	 global.blocked
+    	     mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+      var content = JSON.stringify(mek.message)
+		  var from = mek.key.remoteJid
+	  	var { text, extendedText, contact, contactsArray, groupInviteMessage, listMessage, buttonsMessage, location, liveLocation, image, video, sticker, document, audio, product, quotedMsg } = MessageType
+		  var tanggal = moment.tz('Asia/Jakarta').format('dddd') + ', ' + moment.tz('Asia/Jakarta').format('LL')
+	  	var time = moment().tz('Asia/Jakarta').format("HH:mm:ss")
+		  var timeMak = moment().tz('Asia/Makassar').format("HH:mm:ss");
+      var timeJay = moment().tz('Asia/Jayapura').format("HH:mm:ss");
+      var type = Object.keys(mek.message)[0]        
+      var cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
+      var prefix = /^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*@,;]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*,;]/gi) : '#'          	
+          body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'videoMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'extendedTextMessage') && mek.message[type].text.startsWith(prefix) ? mek.message[type].text : (type == 'listResponseMessage') && mek.message[type].singleSelectReply.selectedRowId ? mek.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && mek.message[type].selectedButtonId ? mek.message[type].selectedButtonId : ''
+		      budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+		  let chats = cmd.match(prefix)
+		  
+          ? cmd
+              .split(prefix)
+            .find((v) => v === cmd.replace(prefix, ""))
+          : cmd;
+      
+      var command = body.slice(1).trim().split(/ +/).shift().toLowerCase()		
+	  	var is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
+		  var args = body.trim().split(/ +/).slice(1)
+	  	var arg = budy.slice(command.length + 2, budy.length)
+	  	var ar = args.map((v) => v.toLowerCase())
+	  	var c = args.join(' ')
+	  	var isCmd = body.startsWith(prefix)
+	  	var q = args.join(' ')
+  		var Verived = "0@s.whatsapp.net"
+  		var txt = mek.message.conversation
+	  	var botNumber = Ktdprjct.user.jid
+		  var ownerNumber = [`${owner}`]
+	  	var isGroup = from.endsWith('@g.us')
+	  	let sender = isGroup ? mek.participant : mek.key.remoteJid
+	  	let senderr = mek.key.fromMe ? Ktdprjct.user.jid : mek.key.remoteJid.endsWith('@g.us') ? mek.participant : mek.key.remoteJid
+	  	var groupMetadata = isGroup ? await Ktdprjct.groupMetadata(from) : ''
+	  	var groupName = isGroup ? groupMetadata.subject : ''
+	  	var groupId = isGroup ? groupMetadata.jid : ''
+	  	var groupMembers = isGroup ? groupMetadata.participants : ''
+	  	var groupDesc = isGroup ? groupMetadata.desc : ''
+	  	var groupOwner = isGroup ? groupMetadata.owner : ''
+	  	var groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
+	  	var isBotGroupAdmins = groupAdmins.includes(botNumber) || false
+	  	var isGroupAdmins = groupAdmins.includes(sender) || false
+	  	var isBan = ban.includes(sender)
+	  	var isPrem = isOwner || mek.key.fromMe ? true : premiuma.checkPremiumUser(sender, premium)
+	  	var isUser = cekUser(sender)
+	  	var isAfkOn = off.checkAfkUser(sender, _off)
+      var senderNumber = sender.split("@")[0]
+      var hour_now = moment().format('HH:mm:ss')
+	  	var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+      var pushname = mek.key.fromMe ? Ktdprjct.user.name : conts.notify || conts.vname || conts.name || '-'    
+      var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
+      var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
+      var mention = typeof(mentionByTag) == 'string' ? [mentionByTag] : mentionByTag
+          mention != undefined ? mention.push(mentionByreply) : []
+      var mentionUser = mention != undefined ? mention.filter(n => n) : []
 		
-    var isAntiLink = isGroup ? _antilink.includes(from) : false
-    var isOwner = ownerNumber.includes(sender)
-		var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
-		var isMybot = isOwner || mek.key.fromMe
-		var totalChat = await Ktdprjct.chats.all()
-    var groups = Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
-    var privat = Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+      var isAntiLink = isGroup ? _antilink.includes(from) : false
+      var isOwner = ownerNumber.includes(sender)
+	  	var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
+	  	var isMybot = isOwner || mek.key.fromMe
+	  	var totalChat = await Ktdprjct.chats.all()
+      var groups = Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
+      var privat = Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
 //end
 //════[ mess ]════//
 
