@@ -201,6 +201,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
           mention != undefined ? mention.push(mentionByreply) : []
       var mentionUser = mention != undefined ? mention.filter(n => n) : []
 		
+	var isAbsen = isGroup ? absen.includes(from) : false
       var isAntiLink = isGroup ? _antilink.includes(from) : false
       var isOwner = ownerNumber.includes(sender)
 	  	var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
@@ -218,6 +219,8 @@ eror: '⚠️ Fitur ini sedang eror',
 success: '[❗] _Done_ ',
 nsfw: 'Fitur nsfw belum di aktifkan, hubungi owner bot u/ mengaktifkan',
 ban: 'kamu telah di ban oleh bot',
+absen: 'Tidak ada absen berlangsung di group ini',
+sabsen: 'Masih ada sesi absen di group ini !',
 noregis: `╭───❒ 「 DAFTAR DULU YA 」 ❒
 ├ 🚀 Hai ${pushname} ${ucapanWaktu} 
 ├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
@@ -1674,7 +1677,7 @@ case 'ban':
 //════[ case group ]════//
 
 case 'listadmin':
-if (!isGroup) return sticGroup(from)
+if (!isGroup) return sticGrup(from)
 teks = `List admin of group *${groupMetadata.subject}*\nTotal : ${groupAdmins.length}\n\n`
 no = 0
 for (let adgrup of groupAdmins) {
@@ -1932,31 +1935,26 @@ case 'afk':
 //════[ case absen ]════//
 
         	case 'absen':
-global.db.data.absen = global.db.data.absen || {} 
-if (!(from in global.db.data.absen)) return Ktdprjct.sendMessage(m.chat, `Tidak ada absen berlangsung di group ini !`,m)
+       if (!isGroup) return sticGrup(from)
+if (isAbsen) return sendButMessage(from, mess.absen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}mulaiabsen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
 
-let absen = global.db.data.absen[from][1] 
-const wasVote = absen.includes(m.sender) 
+const wasVote = absen.includes(sender) 
 if (wasVote)return reply('Kamu sudah absen!')
-absen.push(m.sender) 
-let d = new Date 
-let date = d.toLocaleDateString('id', { 
-  day: 'numeric', 
-  month: 'long', 
-  year: 'numeric' 
-}) 
-let list = absen.map((v, i) => `• ${i + 1}. @${v.split`@`[0]}`).join('\n') 
-let caption = `Tanggal: ${date}
-${global.db.data.absen[from][2] ? global.db.data.absen[from][2] + '\n' : ''}
-*--------「 DAFTAR ABSEN 」--------*
-${list}
+tes = absen.push(sender) 
+absen.splice(tes, 1)
+fs.writeFileSync('./database/group/absen.json', JSON.stringify(absen))
+let d = moment.tz('Asia/Jakarta').format('dddd') + ', ' + moment.tz('Asia/Jakarta').format('LL')
 
-Total: ${absen.length}
-`.trim()
-await Ktdprjct.sendMessage(m.chat,`test`,m, absen)
 
-//Ktdprjct.sendTextWithMentions(m.chat, caption, m)
+let textabsen = `Tanggal: ${tanggal}
+*--------「 DAFTAR ABSEN 」--------*`
+for (let sensi of absen) {
+textabsen +=`\n\n@${sensi.split('@')[0]} ✓\n`
+}
+textabsen +=`\n\nTotal: ${absen.length}`
+await Ktdprjct.sendMessage(from, textabsen.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": absen}})
 break
+
 case 'cekabsen':{
 global.db.data.absen = global.db.data.absen || {}
 if (!(from in global.db.data.absen))return Ktdprjct.send1ButMes(m.chat, `Tidak ada absen berlangsung di group ini !`, `© ${ownername}`, `absenstart`, `Mulai Absen`, m)
@@ -1994,16 +1992,10 @@ reply(`Absen berhasil dihapus`)
 }
 break
 case 'absenstart': case 'mulaiabsen':{
-if (m.isGroup) { 
-  if (!(isGroupAdmins || isCreator))return reply(lang.adminOnly())
-} 
-global.db.data.absen = global.db.data.absen || {}
-if (from in global.db.data.absen)return Ktdprjct.send2ButMes(m.chat, `Masih ada sesi absen di group ini !`, `© ${ownername}`, `cekabsen`, `Cek Absen`, `deleteabsen`, `Hapus Absen`, m)
-
-global.db.data.absen[from] = [
-  await Ktdprjct.send1ButMes(m.chat, `Absen dimulai...`, `© ${ownername}`, `absen`, `Absen`, m),
-
-  [], q ? q : '']
+if (!isGroup) return sticGrup(from)
+  if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
+if (isAbsen) return sendButMessage(from, mess.sabsen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}delabsen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
+//Ktdprjct.sendButMessage(from, mess.absen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}absen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
   }
 break
 //end
