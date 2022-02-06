@@ -110,6 +110,7 @@ var ktdaudio = fs.readFileSync('./media/audio.mp3')
 //end
 //════[ Data Base ]════//
 
+var absen = JSON.parse(fs.readFileSync('./database/group/absen.json'))
 var ban = JSON.parse(fs.readFileSync('./database/user/banned.json'))
 var premium = JSON.parse(fs.readFileSync('./database/user/premium.json'))
 var _user = JSON.parse(fs.readFileSync('./database/user/user.json'))
@@ -138,6 +139,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 	try {
       if (!mek.hasNewMessage) return
            mek = mek.messages.all()[0]
+           //m = chatUpdate.messages.all()[0]
 	   	if (!mek.message) return
 		  if (mek.key && mek.key.remoteJid == 'status@broadcast') return
         	 global.blocked
@@ -348,6 +350,21 @@ headerType: 5
 Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
 //end
+//════[ run time ]════//
+
+var runtime = function (seconds) {
+seconds = Number(seconds);
+var d = Math.floor(seconds / (3600 * 24));
+var h = Math.floor((seconds % (3600 * 24)) / 3600);
+var m = Math.floor((seconds % 3600) / 60);
+var s = Math.floor(seconds % 60);
+var dDisplay = d > 0 ? d + (d == 1 ? " hari, " : " Hari, ") : "";
+var hDisplay = h > 0 ? h + (h == 1 ? " jam, " : " Jam, ") : "";
+var mDisplay = m > 0 ? m + (m == 1 ? " menit, " : " Menit, ") : "";
+var sDisplay = s > 0 ? s + (s == 1 ? " detik" : " Detik") : "";
+return dDisplay + hDisplay + mDisplay + sDisplay;
+};
+//end
 //════[ fake ]════//
 
 var fakestatus = (teks) => {
@@ -370,7 +387,7 @@ var fakestatus = (teks) => {
                             "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
                             "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
                             "mediaKeyTimestamp": "1610993486",
-                            "jpegThumbnail": fs.readFileSync('./media/logonya2.jpg'),
+                            "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
                             "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
                         }
                     }
@@ -397,7 +414,7 @@ var fakestatus = (teks) => {
                             "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
                             "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
                             "mediaKeyTimestamp": "1610993486",
-                            "jpegThumbnail": fs.readFileSync('./media/logonya2.jpg'),
+                            "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
                             "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
                         }
                     }
@@ -413,7 +430,7 @@ var fakestatus = (teks) => {
                             itemCount : 123,
                             status: 1,
                             surface : 1,
-                            message: `${tanggal}`, 
+                            message: `RUNTIME : ${runtime(process.uptime())}`, 
                             orderTitle: `${botname}`,
                             thumbnail: fakeKtdprjct, //Gambarnye
                             sellerJid: '0@s.whatsapp.net' 
@@ -613,7 +630,7 @@ var hideTag = async function(from, text){
            for (let i of members){
            ane.push(i.jid)
 }
-        Ktdprjct.sendMessage(from, {text:text, jpegThumbnail:fs.readFileSync('media/logonya2.jpg')}, 'extendedTextMessage', {contextInfo: {"mentionedJid": ane}})
+        Ktdprjct.sendMessage(from, {text:text, jpegThumbnail:fs.readFileSync('media/logonya2.png')}, 'extendedTextMessage', {contextInfo: {"mentionedJid": ane}})
  }
 //end
 //════[ anti link ]════//
@@ -1518,6 +1535,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
 //end
 //════[ case owner ]════//
 
+
 case 'clearall':
 					if (!isOwner) return reply('Kamu siapa?')
 					anu = await Ktdprjct.chats.all()
@@ -1910,6 +1928,84 @@ case 'afk':
   reply('Pesan tidak ditemukan!')
   }           
   break
+//end
+//════[ case absen ]════//
+
+        	case 'absen':
+global.db.data.absen = global.db.data.absen || {} 
+if (!(from in global.db.data.absen)) return Ktdprjct.sendMessage(m.chat, `Tidak ada absen berlangsung di group ini !`,m)
+
+let absen = global.db.data.absen[from][1] 
+const wasVote = absen.includes(m.sender) 
+if (wasVote)return reply('Kamu sudah absen!')
+absen.push(m.sender) 
+let d = new Date 
+let date = d.toLocaleDateString('id', { 
+  day: 'numeric', 
+  month: 'long', 
+  year: 'numeric' 
+}) 
+let list = absen.map((v, i) => `• ${i + 1}. @${v.split`@`[0]}`).join('\n') 
+let caption = `Tanggal: ${date}
+${global.db.data.absen[from][2] ? global.db.data.absen[from][2] + '\n' : ''}
+*--------「 DAFTAR ABSEN 」--------*
+${list}
+
+Total: ${absen.length}
+`.trim()
+await Ktdprjct.sendMessage(m.chat,`test`,m, absen)
+
+//Ktdprjct.sendTextWithMentions(m.chat, caption, m)
+break
+case 'cekabsen':{
+global.db.data.absen = global.db.data.absen || {}
+if (!(from in global.db.data.absen))return Ktdprjct.send1ButMes(m.chat, `Tidak ada absen berlangsung di group ini !`, `© ${ownername}`, `absenstart`, `Mulai Absen`, m)
+
+let dd = new Date 
+let datee = dd.toLocaleDateString('id', { 
+  day: 'numeric', 
+  month: 'long', 
+  year: 'numeric' 
+}) 
+let absenn = global.db.data.absen[from][1] 
+let listt = absenn.map((v, i) => `• ${i + 1}. @${v.split`@`[0]}`).join('\n') 
+let captionn = `Tanggal: ${datee}
+${global.db.data.absen[from][2] ? global.db.data.absen[from][2] + '\n' : ''}
+*--------「 DAFTAR ABSEN 」--------*
+${listt}
+
+Total: ${absenn.length}
+`.trim()
+Ktdprjct.send2ButMes(m.chat, captionn, `© ${ownername}`, `absen`, `Absen`, `deleteabsen`, `Hapus Absen`, m, absenn)
+
+//Ktdprjct.sendTextWithMentions(m.chat, captionn, m)
+}
+break
+
+case 'delabsen': case 'deleteabsen':{
+if (m.isGroup) { 
+  if (!(isGroupAdmins || isCreator))return reply(lang.adminOnly())
+  } 
+  global.db.data.absen = global.db.data.absen || {}
+  if (!(from in global.db.data.absen))return Ktdprjct.send1ButMes(m.chat, `Tidak ada absen berlangsung di group ini !`, `© ${ownername}`, `absenstart`, `Mulai Absen`, m)
+
+  delete global.db.data.absen[from]
+reply(`Absen berhasil dihapus`)
+}
+break
+case 'absenstart': case 'mulaiabsen':{
+if (m.isGroup) { 
+  if (!(isGroupAdmins || isCreator))return reply(lang.adminOnly())
+} 
+global.db.data.absen = global.db.data.absen || {}
+if (from in global.db.data.absen)return Ktdprjct.send2ButMes(m.chat, `Masih ada sesi absen di group ini !`, `© ${ownername}`, `cekabsen`, `Cek Absen`, `deleteabsen`, `Hapus Absen`, m)
+
+global.db.data.absen[from] = [
+  await Ktdprjct.send1ButMes(m.chat, `Absen dimulai...`, `© ${ownername}`, `absen`, `Absen`, m),
+
+  [], q ? q : '']
+  }
+break
 //end
 //════[ case nulis ]════//
 
