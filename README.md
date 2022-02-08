@@ -12,7 +12,7 @@
 
 </p>
 <p align="center">
-<a href="https://ktdprjct.github.io"><img title="Creator" src="https://img.shields.io/badge/Creator-ktdprjct-red.svg?style=for-the-badge&logo=github"></a>
+<img title="Creator" src="https://img.shields.io/badge/Creator-ktdprjct-red.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
 <a href="https://github.com/ktdprjct/ktdprjct/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/ktdprjct/ktdprjct?label=Watchers&color=blue&style=flat-square"></a>
