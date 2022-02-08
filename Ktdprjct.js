@@ -826,6 +826,7 @@ var menu = `Hai kak ${pushname}
 ├⊱❥ *${prefix}owner*
 ├⊱❥ *${prefix}creator*
 ├⊱❥ *${prefix}sc*
+├⊱❥ *${prefix}infochat* chat bot
 ├⊱❥ *${prefix}request*
 ├⊱❥ *${prefix}rules*
 ╰────────────────────╯
@@ -854,7 +855,7 @@ var menu = `Hai kak ${pushname}
 ├❖ *${prefix}image*
 ╰────────────────────╯
 ╭◪ Download
-├❖ *${prefix}play [ judul no link ]* error
+├❖ *${prefix}play [ judul no link ]*
 ├❖ *${prefix}ytmp4 [ link ]* error
 ├❖ *${prefix}ytmp3 [ link ]* error
 ├❖ *${prefix}savetiktok [ link ]*
@@ -898,6 +899,10 @@ var menu = `Hai kak ${pushname}
 │➸ *${prefix}sadgirl*
 ╰────────────────────╯
 ╭◪ Group 
+│➸ *${prefix}absen*
+│➸ *${prefix}mulaiabsen*
+│➸ *${prefix}cekabsen*
+│➸ *${prefix}hapusabsen*
 │➸ *${prefix}welcome* ⟪ Auto On ⟫
 │➸ *${prefix}antilink* ⟪ on / off ⟫
 │➸ *${prefix}grup* ⟪ buka/tutup ⟫
@@ -931,8 +936,8 @@ var menu = `Hai kak ${pushname}
 _*BIG THANKS TO*_
 *ALLAH SWT*
 *MY ORTU*
-*KTDPRJCT (BASE BOT)*
-*Ridho (My pren)*
+*KTDPRJCT ( Me )*
+*Ridho ( My pren )*
 *PENYEDIA APIKEY*
 
    
@@ -1034,6 +1039,15 @@ but1 = [
 ]
  sendButton(from, rulsgc, fake, but1, mek)
  break
+ 
+ case 'infochat':
+reply(`╭❑➤─| Ingfo Chat Bot |─➤
+│
+│ ➤ Private : [ ${privat.length} ]
+│ ➤ Group : [ ${groups.length} ]
+│ ➤ Total  : [ ${totalChat.length} ]
+╰❑➤─| KTDPRJCT ⊱✿⊰ Bo† |─➤`)
+break
  //end
 //════[ Req & repport ]════//
 
@@ -1284,53 +1298,6 @@ break
 //end
 //════[ case download ]════//
 
-case 'ytmp3':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-            if (args.length < 1) return reply('Link Nya Mana ?')
-            if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
-            teks = args.join(' ')
-            sticWait(from)
-            res = await y2mateA(teks).catch(e => {
-            reply('_[ ! ] Error Gagal Dalam Memasuki Web Y2mate_')
-})
-            result = `*YOUTUBE MP3 🎵*
-
-*Data Berhasil Didapatkan !!*
-\`\`\`▢ Title : ${res[0].judul}\`\`\`
-\`\`\`▢ Size : ${res[0].size}\`\`\`
-\`\`\`▢ Ext : MP3\`\`\`
-
-\`\`\`Sabar Kak, file media sedang dikirim mungkin butuh beberapa menit\`\`\``
-
-            sendFileFromUrl(res[0].thumb, image, {caption: result, quoted: mek}).then((lalu) => {
-            sendFileFromUrl(res[0].link, document, {quoted: mek, mimetype: 'audio/mp3', filename: res[0].output})
-})
-            break
-case 'ytmp4':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-            if (args.length < 1) return reply('Link Nya Mana?')
-            if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
-            teks = args.join(' ')
-              sticWait(from)
-            res = await y2mateV(teks).catch(e => {
-            reply('_[ ! ] Error Gagal Memasuki Web Y2mate_')
-})
-            result = `*YOUTUBE MP4 🎥*
-
-*Data Berhasil Didapatkan !!*
-\`\`\`▢ Title : ${res[0].judul}\`\`\`
-\`\`\`▢ Size : ${res[0].size}\`\`\`
-\`\`\`▢ Ext : MP4\`\`\`
-
-\`\`\`Sabar Kak, file media sedang dikirim mungkin butuh beberapa menit\`\`\``
-
-            sendFileFromUrl(res[0].thumb, image, {caption: result, quoted: mek}).then((lalu) => {
-            sendFileFromUrl(res[0].link, video, {quoted: mek, mimetype: 'video/mp4', filename: res[0].output})
-})
-            break
-        
    case 'ttdl':
    case 'savetiktok':         
    case 'tiktok':   
@@ -1361,7 +1328,7 @@ console.log(res)
 sendMediaURL(from, `${res.result.watermark}`)
 break
 
-case 'mp4':
+/*case 'mp4':
 reply(mess.wait)
 bo = args.join(" ")
 ini = await fetchJson(`https://api-alphabot.herokuapp.com/api/downloader/youtube/playmp4?query=${q}&apikey= ${ktdkey}`)
@@ -1398,14 +1365,8 @@ created by : Ktdproject`,
   imageMessage: gambra
   }
   Ktdprjct.sendMessage(from, ButtonsMessagees, MessageType.buttonsMessage, {quoted: mek})
-  break  
-  
-/*but = [
-{ buttonId: `${prefix}mp3 ${ini.results.title}`, buttonText: { displayText: '️ᴍᴜsɪᴋ 🎶' }, type: 1 },
-{ buttonId: `${prefix}mp4 ${ini.results.title}`, buttonText: { displayText: 'ᴠɪᴅᴇᴏ 📽️' }, type: 1 }
-]
-SendButLoc(from, ply1, ply2, thmb, but)
-break*/
+  break  */
+
 //end
 //════[ case sticker ]════//
 
@@ -1716,9 +1677,9 @@ case 'ban':
 //end
 //════[ case group ]════//
 
-case 'listadmin':
+case 'listadmin': case 'tagadmin':
 if (!isGroup) return sticGrup(from)
-teks = `List admin of group *${groupMetadata.subject}*\nTotal : ${groupAdmins.length}\n\n`
+teks = `「 _TAG ADMIN_ 」\nGroup : ${groupMetadata.subject}\nTeks : ${q}\n\nTotal Admin : ${groupAdmins.length}\n`
 no = 0
 for (let adgrup of groupAdmins) {
 no += 1
@@ -1994,12 +1955,12 @@ case 'afk':
 
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
 ╭─「 Daftar Absen 」
-│ Total: ${_absen.length}
-│
+│ 
+│Total: ${_absen.length}
 ${list}
 ╰────`.trim()
 
-    await Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rthelolchex', 'Absen', `${prefix}absen`, 'Cek', `${prefix}cekabsen`, mek)
+    await Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Cek', `${prefix}cekabsen`, mek)
 
                 break
 
@@ -2009,11 +1970,11 @@ ${list}
 
                 if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
 
-                if (!isBotGroupAdmins) return sticNotAdmin(from)
+               
 
                 Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
 
-                if (from in Ktdprjct.absen) return Ktdprjct.send2Button(from, `Masih ada absen di chat ini!`, 'xyzBot - reborn from rexproject', 'Hapus', `${prefix}hapusabsen`, 'Cek', `${prefix}cekabsen`, Ktdprjct.absen[from][0])
+                if (from in Ktdprjct.absen) return Ktdprjct.send2Button(from, `Masih ada absen di chat ini!`, 'KTDPRJCT メ Bo† ༆ from rexproject', 'Hapus', `${prefix}hapusabsen`, 'Cek', `${prefix}cekabsen`, Ktdprjct.absen[from][0])
 
                 Ktdprjct.absen[from] = [
 
@@ -2033,7 +1994,7 @@ ${list}
 
                   Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
 
-                  if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© xyzBot - reborn from rexproject', 'Mulai', `${prefix}absen`, mek)
+                  if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
 
                   let absen = Ktdprjct.absen[from][1]
 
@@ -2047,8 +2008,7 @@ ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
 
 ╭─「 Daftar Absen 」
 │ 
-│ Total: ${absen.length}
-│ 
+│Total: ${_absen.length}
 ${list}
 ╰────`.trim()
 
@@ -2056,7 +2016,7 @@ ${list}
 
                   break
 
-            case 'deleteabsen': case 'hapusabsen':
+            case 'deleteabsen': case 'hapusabsen': case 'delabsen':
 
                 if (!isGroup) return sticGrup(from)
 
@@ -2328,7 +2288,7 @@ await Ktdprjct.sendMessage(from,li,image,{quoted: mek, caption: `Random Characte
 break            
 //end
 //════[ anime h ]════//
-
+/*
 case 'neko':
      if (isBan) return sticBan(from)
      if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
@@ -2387,7 +2347,7 @@ case 'yuri':
         await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=>{
         Ktdprjct.sendMessage(from, gambar, image, {quoted: ftrol, caption: `©Random ${command}` })
   })
-  break
+  break    */
 //end
 //════[ Module ]════//
 
