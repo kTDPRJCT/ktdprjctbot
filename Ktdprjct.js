@@ -4,28 +4,34 @@
 // TQ TO
 // ALLAH SWT
 // KTDPRJCT
-// RIDHO YANG SERING BANTU KLO ADA ERROR
+// RIDHO YANG BANTU
 // ORANG TUA
-// YANG KASIH REST API
+// Alphabot yg kasih apikey
 // DAN LAIN LAIN
 
 var
 	{
-		WAKtdprjctection,
+		WAConnection: _WAConnection,
 		MessageType,
 		Presence,
 		MessageOptions,
 		Mimetype,
 		WALocationMessage,
+		WAMessageProto,
+		ReconnectMode,
+		ProxyAgent,
+		ChatModification,
+		GroupSettingChange,
 		WA_MESSAGE_STUB_TYPES,
 		WA_DEFAULT_EPHEMERAL,
-		ReKtdprjctectMode,
-		ProxyAgent,
-		GroupSettingChange,
 		waChatKey,
 		mentionedJid,
 		processTime,
+		prepareMessageFromContent, 
+		relayWAMessage
 	} = require("@adiwajshing/baileys")
+var simple = require('./lib/simple.js')
+var WAConnection = simple.WAConnection(_WAConnection)
 var fs = require("fs")
 var hx = require('hxz-api')
 var ggs = require('google-it')
@@ -193,7 +199,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 	  	var isAfkOn = off.checkAfkUser(sender, _off)
       var senderNumber = sender.split("@")[0]
       var hour_now = moment().format('HH:mm:ss')
-	  	var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+	  var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
       var pushname = mek.key.fromMe ? Ktdprjct.user.name : conts.notify || conts.vname || conts.name || '-'    
       var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
       var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
@@ -201,12 +207,12 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
           mention != undefined ? mention.push(mentionByreply) : []
       var mentionUser = mention != undefined ? mention.filter(n => n) : []
 		
-	var isAbsen = isGroup ? absen.includes(from) : false
+	 // var isAbsen = isGroup ? absen.chats.includes(from) : false
       var isAntiLink = isGroup ? _antilink.includes(from) : false
       var isOwner = ownerNumber.includes(sender)
-	  	var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
-	  	var isMybot = isOwner || mek.key.fromMe
-	  	var totalChat = await Ktdprjct.chats.all()
+	  var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
+  	var isMybot = isOwner || mek.key.fromMe
+	  var totalChat = await Ktdprjct.chats.all()
       var groups = Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
       var privat = Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
 //end
@@ -282,6 +288,57 @@ Ktdprjct.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/logo
 //end
 //════[ button ]════//
 
+function parseMention(text = '') {
+      return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
+    }
+
+Ktdprjct.sendButton = async (jid, content, footer, button1, row1, quoted, options = {}) => {
+      return await Ktdprjct.sendMessage(jid, {
+        contentText: content,
+        footerText: footer,
+        buttons: [
+          { buttonId: row1, buttonText: { displayText: button1 }, type: 1 }
+        ],
+        headerType: 1
+      }, MessageType.buttonsMessage, { contextInfo: { mentionedJid: parseMention(content + footer) }, quoted, ...options })
+    }
+    
+    Ktdprjct.send2Button = async (jid, content, footer, button1, row1, button2, row2, quoted, options = {}) => {
+
+      return await Ktdprjct.sendMessage(jid, {
+
+        contentText: content,
+
+        footerText: footer,
+
+        buttons: [
+
+          { buttonId: row1, buttonText: { displayText: button1 }, type: 1 },
+
+          { buttonId: row2, buttonText: { displayText: button2 }, type: 1 }
+
+        ],
+
+        headerType: 1
+
+      }, MessageType.buttonsMessage, { contextInfo: { mentionedJid: parseMention(content + footer) }, quoted, ...options })
+
+    }
+    
+var SendButLoc = async(id, text1, desc1, gam1, but = [], options = {}) => {
+               let kma = gam1
+               Ktdprjct.sendMessage(id, {"contentText": text1,
+               "footerText": desc1, 
+               "buttons": but,
+               "headerType": "LOCATION",
+                       "locationMessage": {
+                   "text": "BOT",
+                   "name": "South Brisbane",
+                   "address": "Cloudflare, Inc",
+                   "jpegThumbnail": kma
+                }}, MessageType.buttonsMessage, {quoted: mek, contextInfo:{mentionedJid: parseMention(text1, desc1)}}, options)  
+              }          
+              
 var sendButton = async (from, context, fortext, but, mek) => {
             buttonMessages = {
                 contentText: context,
@@ -721,8 +778,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ╭❒ *info bot* 
 │❒ Bot : ${botname}
 │❒ Author : KTDPRJCT
-│❒ Pengembang : KTDPRJCT &
-│rthelolchex
+│❒ Pengembang : KTDPRJCT
 │❒ Base : KTDPRJCT
 ╰─────────────────╯
 ╭❒ *INFO OWNER* 
@@ -876,7 +932,7 @@ _*BIG THANKS TO*_
 *ALLAH SWT*
 *MY ORTU*
 *KTDPRJCT (BASE BOT)*
-*rthelolchex (MY GURU)*
+*Ridho (My pren)*
 *PENYEDIA APIKEY*
 
    
@@ -908,7 +964,15 @@ var imgs = await Ktdprjct.prepareMessage('0@c.us', fakeimage, image, { thumbnail
             break
 //end
 //════[ case Info ]════//
-
+        case 'del':
+		case 'd':
+		case 'delete':
+		if (isBan) return sticBan(from)
+		if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+					Ktdprjct.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
+					reply(`Sukses Menghapus Pesan Bot`)
+					break
+					
 case 'owner':
 members_ids = []
 for (let mem of groupMembers) {
@@ -1266,11 +1330,7 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
             sendFileFromUrl(res[0].link, video, {quoted: mek, mimetype: 'video/mp4', filename: res[0].output})
 })
             break
-        case 'play':
-        if (isBan) return sticBan(from)
-      if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        reply(`Fitur ( ${prefix}play ) Di Alihkan Ke Fitur ( ${prefix}ytplay )\nTerimaKasih...`)
-break
+        
    case 'ttdl':
    case 'savetiktok':         
    case 'tiktok':   
@@ -1301,66 +1361,36 @@ console.log(res)
 sendMediaURL(from, `${res.result.watermark}`)
 break
 
-case 'pleybuttonvideo':{
-	if (isBan) return sticBan(from)
-	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-  reply(`[ ! ] SABAR BOT GA CUMA DI 1 KONTAK/GRUP DOANG!!!`)
-  let yut = await yts(q)
-  ytv2(yut.videos[0].url)
-  .then((res) => {
-  const { dl_link, thumb, title, filesizeF, filesize } = res
-  axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-  .then((a) => {
-  if (Number(filesize) >= 30000) return reply('FILE TERLALU BESAR!!!')
-  sendFileFromUrl(dl_link, video, {mimetype: 'video/mp4',quoted:mek})
-  })
-  })
-  }
+case 'mp4':
+reply(mess.wait)
+bo = args.join(" ")
+ini = await fetchJson(`https://api-alphabot.herokuapp.com/api/downloader/youtube/playmp4?query=${q}&apikey= ${ktdkey}`)
+mp4 = await getBuffer(ini.results.result)
+Ktdprjct.sendMessage(from, mp4, video, {quoted: ftrol})
 break
-case 'pleybuttonaudio':{
-	if (isBan) return sticBan(from)
-	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-  reply(`[ ! ] SABAR BOT GA CUMA DI 1 KONTAK/GRUP DOANG!!!`)
-  let yut = await yts(q)
-  yta2(yut.videos[0].url)
-  .then((res) => {
-  const { dl_link, thumb, title, filesizeF, filesize } = res
-  axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-  .then((a) => {
-  if (Number(filesize) >= 20000) return reply('FILE TERLALU BESAR!!!')
-  sendFileFromUrl(dl_link, audio, {mimetype: 'audio/mp4', quoted:mek})
-  })
-  })
-  }
+case 'mp3':
+reply(mess.wait)
+bo = args.join(" ")
+ini = await fetchJson(`https://api-alphabot.herokuapp.com/api/downloader/youtube/playmp3?query=${q}&apikey= ${ktdkey}`)
+mp3 = await getBuffer(ini.results.result)
+Ktdprjct.sendMessage(from, mp3, audio, {quoted: ftrol})
 break
-  case 'ytdl':
-  case 'ytplay':
-  case 'play2':{
-  	if (isBan) return sticBan(from)
-  	if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-  if (!q) return reply(`Example : ${prefix+command} Judul`)
-  sticWait(from)
-  res = await yts(q)
-   if (Number(res.all[0].seconds) >= 3000) return reply(`Error! Ukuran File Terlalu Besar!!`)
-  let thumbInfo = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆                *YOUTUBE PLAY*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-
-\`\`\`▢ Title : ${res.all[0].title}\`\`\`
-\`\`\`▢ Upload : ${res.all[0].ago}\`\`\`
-\`\`\`▢ Ditonton : ${res.all[0].views}\`\`\`
-\`\`\`▢ Duration : ${res.all[0].timestamp}\`\`\`
-\`\`\`▢ Channel : ${res.all[0].author.name}\`\`\`
-\`\`\`▢ Link : ${res.all[0].url}\`\`\`
-\`\`\`▢ Deskripsi : \`\`\`
-\`\`\`${res.all[0].description}\`\`\``
- const gambra = (await Ktdprjct.prepareMessageMedia({url:res.all[0].image},'imageMessage',{thumbnail:Buffer.alloc(0)})).imageMessage
+case 'play':
+if (args.length ==0)return reply('Judul Lagunya Apa?')
+bo = args.join(" ")
+reply(mess.wait)
+ini = await fetchJson(`https://api-alphabot.herokuapp.com/api/downloader/youtube/playmp3?query=${q}&apikey= ${ktdkey}`)
+thmb = await getBuffer(ini.results.thumb)
+ply1 =`\`\`\`▢  Judul: ${ini.results.title}\`\`\`
+\`\`\`▢  Size: ${ini.results.size}\`\`\`
+\`\`\`▢  Channel: ${ini.results.channel}\`\`\``
+const gambra = (await Ktdprjct.prepareMessageMedia({url:ini.results.thumb},'imageMessage',{thumbnail:Buffer.alloc(0)})).imageMessage
 const buttonsssok = [
-  {buttonId:`${prefix}pleybuttonvideo ${res.all[0].url}`,buttonText:{displayText:' Video 🎥 '},type:1},
-  {buttonId:`${prefix}pleybuttonaudio ${res.all[0].url}`,buttonText:{displayText:' Audio 🎶'},type:1}
+  {buttonId:`${prefix}mp4 ${ini.results.title}`,buttonText:{displayText:' Video 📽️ '},type:1},
+  {buttonId:`${prefix}mp3 ${ini.results.title}`,buttonText:{displayText:' Audio 🎶'},type:1}
   ]
-  const ButtonsMessagees = {
-  contentText: thumbInfo,
+  const ButtonsMessagees = { 
+  contentText: ply1,
   buttons: buttonsssok,
   footerText: `Silahkan Pilih Jenis File Dibawah Ini
 created by : Ktdproject`,
@@ -1368,8 +1398,14 @@ created by : Ktdproject`,
   imageMessage: gambra
   }
   Ktdprjct.sendMessage(from, ButtonsMessagees, MessageType.buttonsMessage, {quoted: mek})
-  }
   break  
+  
+/*but = [
+{ buttonId: `${prefix}mp3 ${ini.results.title}`, buttonText: { displayText: '️ᴍᴜsɪᴋ 🎶' }, type: 1 },
+{ buttonId: `${prefix}mp4 ${ini.results.title}`, buttonText: { displayText: 'ᴠɪᴅᴇᴏ 📽️' }, type: 1 }
+]
+SendButLoc(from, ply1, ply2, thmb, but)
+break*/
 //end
 //════[ case sticker ]════//
 
@@ -1602,6 +1638,10 @@ case 'bc':
              reply('Suksess broadcast')
 }
              break
+//end
+//════[ case mute ]════//
+
+ 
 //end
 //════[ case block ]════//
 
@@ -1934,70 +1974,103 @@ case 'afk':
 //end
 //════[ case absen ]════//
 
-        	case 'absen':
-       if (!isGroup) return sticGrup(from)
-if (isAbsen) return sendButMessage(from, mess.absen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}mulaiabsen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
+      case 'absen': case 'hadir': case 'present':
 
-const wasVote = absen.includes(sender) 
-if (wasVote)return reply('Kamu sudah absen!')
-tes = absen.push(sender) 
-absen.splice(tes, 1)
-fs.writeFileSync('./database/group/absen.json', JSON.stringify(absen))
-let d = moment.tz('Asia/Jakarta').format('dddd') + ', ' + moment.tz('Asia/Jakarta').format('LL')
+                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
 
+                if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}mulaiabsen`, mek)
 
-let textabsen = `Tanggal: ${tanggal}
-*--------「 DAFTAR ABSEN 」--------*`
-for (let sensi of absen) {
-textabsen +=`\n\n@${sensi.split('@')[0]} ✓\n`
-}
-textabsen +=`\n\nTotal: ${absen.length}`
-await Ktdprjct.sendMessage(from, textabsen.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": absen}})
-break
+                let _absen = Ktdprjct.absen[from][1]
 
-case 'cekabsen':{
-global.db.data.absen = global.db.data.absen || {}
-if (!(from in global.db.data.absen))return Ktdprjct.send1ButMes(m.chat, `Tidak ada absen berlangsung di group ini !`, `© ${ownername}`, `absenstart`, `Mulai Absen`, m)
+                const wasVote = _absen.includes(sender)
 
-let dd = new Date 
-let datee = dd.toLocaleDateString('id', { 
-  day: 'numeric', 
-  month: 'long', 
-  year: 'numeric' 
-}) 
-let absenn = global.db.data.absen[from][1] 
-let listt = absenn.map((v, i) => `• ${i + 1}. @${v.split`@`[0]}`).join('\n') 
-let captionn = `Tanggal: ${datee}
-${global.db.data.absen[from][2] ? global.db.data.absen[from][2] + '\n' : ''}
-*--------「 DAFTAR ABSEN 」--------*
-${listt}
+                if (wasVote) return reply(`Kamu sudah absen!`)
 
-Total: ${absenn.length}
-`.trim()
-Ktdprjct.send2ButMes(m.chat, captionn, `© ${ownername}`, `absen`, `Absen`, `deleteabsen`, `Hapus Absen`, m, absenn)
+                _absen.push(sender)
 
-//Ktdprjct.sendTextWithMentions(m.chat, captionn, m)
-}
-break
+                list = _absen.map((v, i) => `│ ${i + 1}.  @${v.split`@`[0]}`).join('\n')
 
-case 'delabsen': case 'deleteabsen':{
-if (m.isGroup) { 
-  if (!(isGroupAdmins || isCreator))return reply(lang.adminOnly())
-  } 
-  global.db.data.absen = global.db.data.absen || {}
-  if (!(from in global.db.data.absen))return Ktdprjct.send1ButMes(m.chat, `Tidak ada absen berlangsung di group ini !`, `© ${ownername}`, `absenstart`, `Mulai Absen`, m)
+                caption = `Tanggal: ${tanggal}
 
-  delete global.db.data.absen[from]
-reply(`Absen berhasil dihapus`)
-}
-break
-case 'absenstart': case 'mulaiabsen':{
-if (!isGroup) return sticGrup(from)
-  if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
-if (isAbsen) return sendButMessage(from, mess.sabsen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}delabsen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
-//Ktdprjct.sendButMessage(from, mess.absen, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}absen` ,buttonText: {displayText: `Mulai Absen`,},type: 1,}], {quoted: ftrol});
-  }
-break
+${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
+╭─「 Daftar Absen 」
+│ Total: ${_absen.length}
+│
+${list}
+╰────`.trim()
+
+    await Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rthelolchex', 'Absen', `${prefix}absen`, 'Cek', `${prefix}cekabsen`, mek)
+
+                break
+
+            case 'mulaiabsen':
+
+                if (!isGroup) return sticGrup(from)
+
+                if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
+
+                if (!isBotGroupAdmins) return sticNotAdmin(from)
+
+                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+
+                if (from in Ktdprjct.absen) return Ktdprjct.send2Button(from, `Masih ada absen di chat ini!`, 'xyzBot - reborn from rexproject', 'Hapus', `${prefix}hapusabsen`, 'Cek', `${prefix}cekabsen`, Ktdprjct.absen[from][0])
+
+                Ktdprjct.absen[from] = [
+
+                    await Ktdprjct.sendButton(from, `Absen dimulai`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, mek),
+
+                    [],
+
+                    text
+
+                ]
+
+                break
+
+            case 'cekabsen':
+
+                  if (!isGroup) return sticGrup(from)
+
+                  Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+
+                  if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© xyzBot - reborn from rexproject', 'Mulai', `${prefix}absen`, mek)
+
+                  let absen = Ktdprjct.absen[from][1]
+
+                  list = absen.map((v, i) => `│ ${i + 1}. @${v.split`@`[0]}`).join('\n')
+
+                  caption = `
+
+Tanggal: ${tanggal}
+
+${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
+
+╭─「 Daftar Absen 」
+│ 
+│ Total: ${absen.length}
+│ 
+${list}
+╰────`.trim()
+
+                  Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Hapus', `${prefix}hapusabsen`, mek)
+
+                  break
+
+            case 'deleteabsen': case 'hapusabsen':
+
+                if (!isGroup) return sticGrup(from)
+
+                if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
+
+                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+
+                if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
+
+                delete Ktdprjct.absen[from]
+
+                reply("Absen successfully deleted.")
+
+                break
 //end
 //════[ case nulis ]════//
 
@@ -2320,7 +2393,7 @@ case 'yuri':
 
 default:
 if (body.startsWith(`${prefix}${command}`)) {
-		    reply(`[ *403 NOT FOUND* ]\n\n_Maaf fitur ${command} sepertinya tidak terdaftar di dalam menu bot, silahkan cek menu kembali_ 🙂`, {quoted: mek})
+		    reply(`[ *404 NOT FOUND* ]\n\n_Maaf fitur ${command} sepertinya tidak terdaftar di dalam menu bot, silahkan cek menu kembali_ 🙂`, {quoted: mek})
 		    }
 /*if (body.startsWith(`${prefix}${command}`)) {
 comd = `╭────────❒\n├ ʜᴇɪ *${pushname}* !!!\n├ Perintah / Comand *${prefix}${command}*\n├Tidak Ada Dalam *${prefix}menu*\n└───────────────❏`
@@ -2529,7 +2602,6 @@ reply(`${err}`)
 	//Ktdprjct.sendMessage(`─────「 \`\`\`ALERT-ERROR\`\`\` 」─────\n\n\`\`\`${e}\`\`\`\n\n────────────────────`, MessageType.text, {contextInfo: { forwardingScore: 508, isForwarded: true, externalAdreply:{title: "Developer KTDPRJCT",body:"",previewType:"PHOTO",thumbnail:fs.readFileSync('./media/logonya.jpg'),sourceUrl:"https://wa.me/p/62895342581896"}}})
       }
 }
-
 
 
 
