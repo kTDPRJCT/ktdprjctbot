@@ -13,9 +13,9 @@
 <img title="Creator" src="https://img.shields.io/badge/Creator-ktdprjct-red.svg?style=for-the-badge&logo=github"></a>
 </p>
 <p align="center">
-<a href="https://github.com/ktdprjct/ktdprjctbot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/ktdprjct/ktdprjct?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/ktdprjct/ktdprjctbot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/ktdprjct/ktdprjctbot?label=Watchers&color=blue&style=flat-square"></a>
 <a href="https://github.com/ktdprjct/ktdprjctbot"><img title="Open Source" src="https://badges.frapsoft.com/os/v2/open-source.svg?v=103"></a>
-<a href="https://github.com/ktdprjct/ktdprjctbot/"><img title="Size" src="https://img.shields.io/github/repo-size/ktdprjct/Ktdprjct?style=flat-square&color=green"></a>
+<a href="https://github.com/ktdprjct/ktdprjctbot/"><img title="Size" src="https://img.shields.io/github/repo-size/ktdprjct/Ktdprjctbot?style=flat-square&color=green"></a>
 <a href="https://github.com/ktdprjct/ktdprjctbot/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
 </p>
 
