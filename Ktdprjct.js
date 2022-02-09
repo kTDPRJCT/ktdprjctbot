@@ -796,7 +796,6 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ╰─────────────────╯`
 teks1 =
 `_*JIKA BUTTON TIDAK TERLIHAT KETIK ${prefix}allmenu*_
-Kalo Mau Masukin Bot Ke Grup Izin Dlu Ketik ${prefix}rulesgc
  _${tanggal}_`
  
 Ktdprjct.sendMessage(from, { contentText: `${menu1}`, footerText: `${teks1}`,
