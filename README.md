@@ -46,16 +46,16 @@ You can edit owner and other in `'./setting.json'`
 
 ```ts
 {
-	"ownername":"ktdprjct",
-	"ownernumber":"62895342581896",
-	"Apikey":"_"
+ "ownername":"ktdprjct",
+ "ownernumber":"62895342581896",
+ "Apikey":"_"
 }
 ```
 ## Donate
-belum ada
+-
 
 # Official Group
-belum ada
+-
 
 # Thanks To
 - ALLAH SWT
