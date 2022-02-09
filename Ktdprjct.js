@@ -199,7 +199,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 	  	var isAfkOn = off.checkAfkUser(sender, _off)
       var senderNumber = sender.split("@")[0]
       var hour_now = moment().format('HH:mm:ss')
-	  var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+	    var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
       var pushname = mek.key.fromMe ? Ktdprjct.user.name : conts.notify || conts.vname || conts.name || '-'    
       var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
       var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
@@ -780,6 +780,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 │❒ Author : KTDPRJCT
 │❒ Pengembang : KTDPRJCT
 │❒ Base : KTDPRJCT
+│❒ Pengguna : [ ${_user.length} ] 
 ╰─────────────────╯
 ╭❒ *INFO OWNER* 
 │❒ Name : ${ownername}
