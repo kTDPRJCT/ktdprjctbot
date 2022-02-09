@@ -2,12 +2,10 @@
 <img src="https://github.com/ktdprjct/ktdprjctbot/media/logonya.jpg" width="200"/>
 
 <p align="center">
-    <a href="https://ktdprjct.github.io">
         <img
             src="https://readme-typing-svg.herokuapp.com?size=15&width=280&lines=Thank+for+using+Ktdprjct+bot"
             alt="KTDprjct"
         />
-    </a>
 </p>
 
 </p>
@@ -56,6 +54,7 @@ You can edit owner and other in `'./settings/config.json'`
 belum ada
 
 # Official Group
+belum ada
 
 # Thanks To
 - ALLAH SWT
