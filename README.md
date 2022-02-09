@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/ktdprjct/ktdprjctbot/tree/master/media/ktdread.jpg" width="200"/>
+<img src="https://raw.githubusercontent.com/kTDPRJCT/ktdprjctbot/master/media/logonya.jpg" width="200"/>
 
 <p align="center">
         <img
