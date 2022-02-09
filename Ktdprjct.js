@@ -639,12 +639,12 @@ cekafk(afk)
           addafk(mek.key.remoteJid)
           heheh = ms(Date.now() - waktu)
           Ktdprjct.sendMessage(mek.key.remoteJid,`@${owner} Sedang Offline!\n\n *Alasan :* ${alasan}\n *Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu\n\nSilahkan Hubungi Lagi Nanti`, MessageType.text,{contextInfo:{ mentionedJid: [`${owner}@s.whatsapp.net`],'stanzaId': "B826873620DD5947E683E3ABE663F263", 'participant': "0@s.whatsapp.net", 'remoteJid': 'status@broadcast', 'quotedMessage': {"imageMessage": {"caption": "*OFFLINE*", 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}})
-           }
-        }
-           }
-        }
-     }
-  }
+            }
+         }
+            }
+         }
+      }
+   }
 }
 
 Ktdprjct.on('chat-update', asd => {
@@ -688,14 +688,14 @@ Ktdprjct.chatRead(from, "read")
 //════[ hidetag ]════//
 
 var hideTag = async function(from, text){
-           let anu = await Ktdprjct.groupMetadata(from)
-           let members = anu.participants
-           let ane = []
-           for (let i of members){
-           ane.push(i.jid)
+     let anu = await Ktdprjct.groupMetadata(from)
+     let members = anu.participants
+     let ane = []
+     for (let i of members){
+          ane.push(i.jid)
+       }
+   Ktdprjct.sendMessage(from, {text:text, jpegThumbnail:fs.readFileSync('media/logonya2.png')}, 'extendedTextMessage', {contextInfo: {"mentionedJid": ane}})
 }
-        Ktdprjct.sendMessage(from, {text:text, jpegThumbnail:fs.readFileSync('media/logonya2.png')}, 'extendedTextMessage', {contextInfo: {"mentionedJid": ane}})
- }
 //end
 //════[ anti link ]════//
 
@@ -704,30 +704,31 @@ if (!isGroup) return
 if (!isAntiLink) return
 if (isGroupAdmins) return
 var kic = `${sender.split("@")[0]}@s.whatsapp.net`
-reply(` *「 GROUP LINK DETECTOR 」*\nKamu mengirimkan link grup chat, maaf kamu di kick dari grup`)
-setTimeout(() => {
-Ktdprjct.groupRemove(from, [kic]).catch((e) => { reply(`BOT HARUS JADI ADMIN`) })
-}, 0)
+       reply(` *「 GROUP LINK DETECTOR 」*\nKamu mengirimkan link grup chat, maaf kamu di kick dari grup`)
+       setTimeout(() => {
+       Ktdprjct.groupRemove(from, [kic]).catch((e) => { reply(`BOT HARUS JADI ADMIN`) })
+   }, 0)
 }
 //end
 //════[ anti spam & termos ]════//
 
 if (isCmd && msgFilter.isFiltered(from) && !isGroup) {
-						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
-						return reply2('Don`t Spam, 3 seconds per command')
-						} 
-					if (isCmd && msgFilter.isFiltered(from) && isGroup) {
-						console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
-						return reply2('Don`t Spam, 3 seconds per command')
-					}
-	colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
-		var isMedia = (type === 'imageMessage' || type === 'videoMessage')
-		var isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
-		var isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
-		var isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
-		var isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
-      	if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
-      	if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
+			 console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
+			 return reply2('Don`t Spam, 3 seconds per command')
+  } 
+if (isCmd && msgFilter.isFiltered(from) && isGroup) {
+			 console.log('\x1b[1;31m~\x1b[1;37m>', '[\x1b[1;32m CMD \x1b[1;37m]', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
+			 return reply2('Don`t Spam, 3 seconds per command')
+	}
+	
+colors = ['red', 'white', 'black', 'blue', 'yellow', 'green']
+		  var isMedia = (type === 'imageMessage' || type === 'videoMessage')
+		  var isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
+		  var isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
+		  var isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+		  var isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
+if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
+if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 //end
 //════[ command ]════//
 
@@ -735,20 +736,17 @@ switch (command) {
 //end
 //════[ Case awal ]════//
 
-case 'daftar':
-case 'ktdprjctreg':
-    case 'verify':
-    case 'register':
-    case 'registrasi':{
+case 'daftar': case 'ktdprjctreg': case 'verify': case 'register':
+case 'registrasi':{
     if (isUser) return reply('Kamu Sudah Pernah Melakukan Registrasi Sebelumnya..')
-    try {
-    ppimk = await Ktdprjct.getProfilePicture(`${sender.split('@')[0]}@c.us`)
-    } catch {
-    ppimk = `${imagebb}`
-    }
+       try {
+           ppimk = await Ktdprjct.getProfilePicture(`${sender.split('@')[0]}@c.us`)
+} catch {
+           ppimk = `${imagebb}`
+}
     const serialUser = createSerial(10)
-   addRegisterUser(sender, pushname, time, serialUser)
-   daftar=`╭─❒ 「 *REGISTRATION* 」 ❒
+    addRegisterUser(sender, pushname, time, serialUser)
+    daftar=`╭─❒ 「 *REGISTRATION* 」 ❒
 ├✘ *NAMA :* ${pushname}
 ├✘ *NOMOR :* ${sender.split("@")[0]}
 ├✘ *SN :* ${serialUser}
@@ -756,19 +754,16 @@ case 'ktdprjctreg':
 ├✘ *Date  :* ${tanggal}
 ├✘ *Total :*  [ ${_user.length} ] Pengguna
 └────────────────❏`
-  ppimg = await getBuffer(ppimk)
-  await Ktdprjct.sendMessage(from, ppimg, MessageType.image, {quoted: mek, caption: daftar, contextInfo: {"mentionedJid": [ownernumber] }})
-  //addLevelingId(sender)
- }
- break
+ ppimg = await getBuffer(ppimk)
+    await Ktdprjct.sendMessage(from, ppimg, MessageType.image, {quoted: mek, caption: daftar, contextInfo: {"mentionedJid": [ownernumber] }})
+}
+   break
 //end
 //════[ Case Menu ]════//
 
-case 'menu':
-	case 'help':
-	case 'm':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+case 'menu': case 'help': case 'm':
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
 //Ktdprjct.updatePresence(from, Presence.recording)
 //reply('_*Loading*_. . .')	
 //img =  fs.readFileSync('./poto/ngapasiKawan.mp4')
@@ -807,15 +802,15 @@ Ktdprjct.sendMessage(from, { contentText: `${menu1}`, footerText: `${teks1}`,
           { buttonId: `${prefix}rulesgc`, buttonText: { displayText: 'Mau Masukin Bot KeGrup?' }, type: 1 },
         ]
 , headerType: 'LOCATION', locationMessage: { degreesLatitude: '', degreesLongitude: '', jpegThumbnail: fakeimage, contextInfo: {mentionedJid: [sender]}}}, 'buttonsMessage')
-  break
+    break
   
-  case 'allmenu':
-let bio_nya = await Ktdprjct.getStatus(sender)
-		try {
-			bio_user = `${bio_nya.status}`
-		} catch {
-			bio_user = '-'
-			} 
+case 'allmenu':
+   let bio_nya = await Ktdprjct.getStatus(sender)
+		  try {
+			    bio_user = `${bio_nya.status}`
+} catch {
+			    bio_user = '-'
+      } 
 var menu = `Hai kak ${pushname}
 
 ╭◪ INFO USER
@@ -948,71 +943,67 @@ _*BIG THANKS TO*_
                     [ *POWERED BY ${ownername}* ]
 `
 var imgs = await Ktdprjct.prepareMessage('0@c.us', fakeimage, image, { thumbnail: fakeimage })
-            var imgCatalog = imgs.message.imageMessage
-            var ctlg = await Ktdprjct.prepareMessageFromContent(from, {
-                "productMessage": {
-                    "product": {
-                        "productImage": imgCatalog,
-                        "productId": "4457725420906655",
-                        "title": `_*MENU ${botname}*_`,
-                        "description": menu,
-                        "footerText": `© KTDPRJCT メ Bo† ༆`,
-                        "currencyCode": "IDR",
-                        "priceAmount1000": "1000",
-                        "productImageCount": 1,
-                        "firstImageId": 1,
-                        "salePriceAmount1000": "1000",
-                        "retailerId": `${tanggal}`,
-                        "url": "Thank You All"
-                    },
-                    "businessOwnerJid": "62895342581896@s.whatsapp.net",
-                }
-            }, { quoted: mek, mimetype: 'image/jpeg' })
-            Ktdprjct.relayWAMessage(ctlg)
-            Ktdprjct.sendMessage(from, ktdaudio, MessageType.audio, {quoted: ftrol, mimetype: 'audio/mp4', ptt: true})
-            break
+var imgCatalog = imgs.message.imageMessage
+var ctlg = await Ktdprjct.prepareMessageFromContent(from, {
+    "productMessage": {
+        "product": {
+                  "productImage": imgCatalog,
+                  "productId": "4457725420906655",
+                  "title": `_*MENU ${botname}*_`,
+                  "description": menu,
+                  "footerText": `© KTDPRJCT メ Bo† ༆`,
+                  "currencyCode": "IDR",
+                  "priceAmount1000": "1000",
+                  "productImageCount": 1,
+                  "firstImageId": 1,
+                  "salePriceAmount1000": "1000",
+                  "retailerId": `${tanggal}`,
+                  "url": "Thank You All"
+              },
+                  "businessOwnerJid": "62895342581896@s.whatsapp.net",
+            }
+         }, { quoted: mek, mimetype: 'image/jpeg' })
+      Ktdprjct.relayWAMessage(ctlg)
+      Ktdprjct.sendMessage(from, ktdaudio, MessageType.audio, {quoted: ftrol, mimetype: 'audio/mp4', ptt: true})
+   break
 //end
 //════[ case Info ]════//
-        case 'del':
-		case 'd':
-		case 'delete':
+case 'del': case 'd': case 'delete':
 		if (isBan) return sticBan(from)
 		if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
 					Ktdprjct.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
 					reply(`Sukses Menghapus Pesan Bot`)
-					break
+	 break
 					
 case 'owner':
-members_ids = []
-for (let mem of groupMembers) {
-members_ids.push(mem.jid)
-}
+    members_ids = []
+       for (let mem of groupMembers) {
+    members_ids.push(mem.jid)
+ }
 vcard2 = 'BEGIN:VCARD\n'
 + 'VERSION:3.0\n'
 + `FN:${ownername}\n`
 + `ORG: Creator ${ownername} ;\n`
 + `TEL;type=CELL;type=VOICE;waid=62895342581896:62895342581896\n`
 + 'END:VCARD'.trim()
-Ktdprjct.sendMessage(from, {displayName: `Ownernya ${botname}`, vcard: vcard2}, contact, 
-{ quoted: ftrol, 
+    Ktdprjct.sendMessage(from, {displayName: `Ownernya ${botname}`, vcard: vcard2}, contact, 
+  { quoted: ftrol, 
 })
-break
+   break
 
 case 'runtime':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-reply(`RunTime : ${runtime(process.uptime())}`)
-break
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        reply(`RunTime : ${runtime(process.uptime())}`)
+   break
 
-  case 'ping':
-  case 'speed':
-  if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-              reply(`「 _Speed Test_ 」\nMerespon dalam ${latensie.toFixed(4)} Sec`)
-              break
+case 'ping': case 'speed':
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+        reply(`「 _Speed Test_ 」\nMerespon dalam ${latensie.toFixed(4)} Sec`)
+   break
               
- case 'ruls':
-case 'rulesbot':
+case 'ruls': case 'rulesbot':
 //Ktdprjct.updatePresence(from, Presence.recording)
 tod = `
 _*⚠️ RULES ${botname} ⚠️*_
@@ -1026,8 +1017,8 @@ but = [
 { buttonId: `${prefix}rulesgc`, buttonText: { displayText: 'Rules Grupメ' }, type: 1 }, 
 { buttonId: `${prefix}allmenu`, buttonText: { displayText: 'ALLMENUメ' }, type: 1 }, 
 ]
-sendButton(from, tod, fake, but, mek)
-           break         
+  sendButton(from, tod, fake, but, mek)
+   break         
            
 case 'rulesgc':
 rulsgc = `
@@ -1041,40 +1032,25 @@ _*⚠️ RULES MASUKIN BOT KE GC ⚠️*_
 but1 = [
 { buttonId: `${prefix}allmenu`, buttonText: { displayText: 'MENUメ' }, type: 1 }, 
 ]
- sendButton(from, rulsgc, fake, but1, mek)
- break
+  sendButton(from, rulsgc, fake, but1, mek)
+   break
  
- case 'allchats':
-
-                let _groupChats = []
-
-                let _privateChats = []
-
-                Ktdprjct.chats.all().forEach(chats => {
-
-                  if (chats.jid.endsWith("@g.us")) {
-
-                    let str = `=> Group Name : ${chats.name}\n=> Group jid : ${chats.jid}\n`
-
-                    _groupChats.push(str)
-
-                  }
-
-                  if (chats.jid.endsWith("@s.whatsapp.net")) {
-
-                    let str = `=> Contact Name : ${chats.name}\n=> Contact jid : ${chats.jid}\n`
-
-                    _privateChats.push(str)
-
-                  }
-
-                })
-
-                let allchatHeader = monospace("==> [ A L L  C H A T S ] <==")
-
-                reply(`${allchatHeader}\nGroup chats total : ${_groupChats.length}\nPrivate chats total : ${_privateChats.length}\nTotal chats : ${_groupChats.length + _privateChats.length}\n\n=> Group Chats <=\n${_groupChats.join("\n")}\n\n=> Private Chats <=\n${_privateChats.join("\n")}`)
-
-                break
+case 'allchats':
+      let _groupChats = []
+      let _privateChats = []
+           Ktdprjct.chats.all().forEach(chats => {
+  if (chats.jid.endsWith("@g.us")) {
+      let str = `=> Group Name : ${chats.name}\n=> Group jid : ${chats.jid}\n`
+          _groupChats.push(str)
+}
+  if (chats.jid.endsWith("@s.whatsapp.net")) {
+      let str = `=> Contact Name : ${chats.name}\n=> Contact jid : ${chats.jid}\n`
+          _privateChats.push(str)
+      }
+})
+      let allchatHeader = monospace("==> [ A L L  C H A T S ] <==")
+           reply(`${allchatHeader}\nGroup chats total : ${_groupChats.length}\nPrivate chats total : ${_privateChats.length}\nTotal chats : ${_groupChats.length + _privateChats.length}\n\n=> Group Chats <=\n${_groupChats.join("\n")}\n\n=> Private Chats <=\n${_privateChats.join("\n")}`)
+   break
  //end
 //════[ Req & repport ]════//
 
