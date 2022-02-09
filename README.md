@@ -59,4 +59,4 @@ belum ada
 # Thanks To
 - ALLAH SWT
 - orang tua
-- ridho (my pren)
+[name](https://github.com/rthelolchex)
