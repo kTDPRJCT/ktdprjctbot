@@ -424,7 +424,7 @@ return dDisplay + hDisplay + mDisplay + sDisplay;
 var fakestatus = (teks) => {
       Ktdprjct.sendMessage(from, teks, text, {
          quoted: {
-            key: {
+             key: {
                   fromMe: false,
                   participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {})
              },
@@ -498,180 +498,188 @@ var ftrol = {
 
 var sticGrup = (hehe) => {
     	ano = fs.readFileSync('./sticker/mess/grup.webp')
-    	Ktdprjct.sendMessage(hehe, ano, sticker, {quoted: mek})
-     }
-		var sticOwner = (hehe) => {
+      Ktdprjct.sendMessage(hehe, ano, sticker, {quoted: mek})
+  }
+
+var sticOwner = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/owner.webp')
-			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		}
-		var sticNotAdmin = (hehe) => {
+		  Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
+  }
+
+var sticNotAdmin = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/notadmin.webp')
 			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		}
-		var sticAdmin = (hehe) => {
+	}
+	
+var sticAdmin = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/admin.webp')
 			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		}
-		var sticWait = (hehe) => {
+	}
+	
+var sticWait = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/wait.webp')
 			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		}
-		var sticBan = (hehe) => {
+	}
+	
+var sticBan = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/banned.webp')
 			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		} 
-		var sticToxic = (hehe) => {
+	} 
+	
+var sticToxic = (hehe) => {
 			ano = fs.readFileSync('./sticker/mess/toxic.webp')
 			Ktdprjct.sendMessage(hehe, ano, sticker, { quoted: mek})
-		}
+	}
 //end
 //════[ fung game ]════//
 
 idttt = []
-	    players1 = []
+   players1 = []
 	    players2 = []
-	    gilir = []
+	       gilir = []
 	    for (let t of ky_ttt){
-	    idttt.push(t.id)
-	    players1.push(t.player1)
-	    players2.push(t.player2)
+	 idttt.push(t.id)
+players1.push(t.player1)
+	 players2.push(t.player2)
 	    gilir.push(t.gilir)
-	    }
-	    var isTTT = isGroup ? idttt.includes(from) : false
-	    isPlayer1 = isGroup ? players1.includes(sender) : false
-        isPlayer2 = isGroup ? players2.includes(sender) : false
-		try {
-		pporang = await Ktdprjct.getProfilePicture(`${sender.split('@')[0]}@s.whatsapp.net`)
-		      } catch {
-		pporang = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
-		      }
+	 }
+var isTTT = isGroup ? idttt.includes(from) : false
+	  isPlayer1 = isGroup ? players1.includes(sender) : false
+    isPlayer2 = isGroup ? players2.includes(sender) : false
+ try {
+		 pporang = await Ktdprjct.getProfilePicture(`${sender.split('@')[0]}@s.whatsapp.net`)
+  } catch {
+	 	 pporang = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
+}
 //end
 //════[ storage ]════//
 
 var sendStickerFromUrl = async(to, url) => {
-                var names = Date.now() / 10000;
-                var download = function (uri, filename, callback) {
-                    request.head(uri, function (err, res, body) {
-                        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-                    });
-                };
-                download(url, './stik' + names + '.png', async function () {
-                    console.log('selesai');
-                    let filess = './stik' + names + '.png'
-                    let asw = './stik' + names + '.webp'
-                    exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
-                        let media = fs.readFileSync(asw)
-                        Ktdprjct.sendMessage(to, media, MessageType.sticker,{quoted:mek})
-                        fs.unlinkSync(filess)
-                        fs.unlinkSync(asw)
-                    });
-                });
-            }
-            var sendFileFromUrl = async(link, type, options) => {
-           hasil = await getBuffer(link)
-	       Ktdprjct.sendMessage(from, hasil, type, options).catch(e => {
-	       fetch(link).then((hasil) => {
-	       Ktdprjct.sendMessage(from, hasil, type, options).catch(e => {
-	       Ktdprjct.sendMessage(from, { url : link }, type, options).catch(e => {
-	       reply('_[ ! ] Error Gagal Dalam Mendownload Dan Mengirim Media_')
-	       console.log(e)
-            })
-           })
+var names = Date.now() / 10000;
+var download = function (uri, filename, callback) {
+        request.head(uri, function (err, res, body) {
+              request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
           })
+     }
+ download(url, './stik' + names + '.png', async function () {
+      console.log('selesai');
+          let filess = './stik' + names + '.png'
+          let asw = './stik' + names + '.webp'
+          exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
+                  let media = fs.readFileSync(asw)
+                  Ktdprjct.sendMessage(to, media, MessageType.sticker,{quoted:mek})
+                  fs.unlinkSync(filess)
+                  fs.unlinkSync(asw)
+              })
+        })
+  }
+  
+var sendFileFromUrl = async(link, type, options) => {
+       hasil = await getBuffer(link)
+	         Ktdprjct.sendMessage(from, hasil, type, options).catch(e => {
+	         fetch(link).then((hasil) => {
+	         Ktdprjct.sendMessage(from, hasil, type, options).catch(e => {
+	         Ktdprjct.sendMessage(from, { url : link }, type, options).catch(e => {
+	         reply('_[ ! ] Error Gagal Dalam Mendownload Dan Mengirim Media_')
+	    console.log(e)
+             })
          })
-        }
-        var sendMediaURL = async(to, url, text="", mids=[]) =>{
-                if(mids.length > 0){
-                    text = normalizeMention(to, text, mids)
-                }
-                var fn = Date.now() / 10000;
-           var filename = fn.toString()
-           let mime = ""
-           var download = function (uri, filename, callback) {
-           request.head(uri, function (err, res, body) {
-           mime = res.headers['content-type']
-           request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-});
-};
-                download(url, filename, async function () {
-                    console.log('done');
-                    let media = fs.readFileSync(filename)
-                    let type = mime.split("/")[0]+"Message"
-                    if(mime === "image/gif"){
-                        type = MessageType.video
-                        mime = Mimetype.gif
-                    }
-                    if(mime.split("/")[0] === "audio"){
-                        mime = Mimetype.mp4Audio
-                    }
-                    Ktdprjct.sendMessage(to, media, type, { quoted: ftrol, mimetype: mime, caption: text,contextInfo: {"mentionedJid": mids}})
-                    
-                    fs.unlinkSync(filename)
-                });
-            }  
+      })
+   })
+}
+
+var sendMediaURL = async(to, url, text="", mids=[]) =>{
+      if(mids.length > 0){
+            text = normalizeMention(to, text, mids)
+     }
+var fn = Date.now() / 10000;
+var filename = fn.toString()
+    let mime = ""
+var download = function (uri, filename, callback) {
+      request.head(uri, function (err, res, body) {
+      mime = res.headers['content-type']
+      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+   })
+}
+  download(url, filename, async function () {
+       console.log('done');
+           let media = fs.readFileSync(filename)
+           let type = mime.split("/")[0]+"Message"
+           if(mime === "image/gif"){
+                  type = MessageType.video
+                  mime = Mimetype.gif
+            }
+           if(mime.split("/")[0] === "audio"){
+                  mime = Mimetype.mp4Audio
+            }
+    Ktdprjct.sendMessage(to, media, type, { quoted: ftrol, mimetype: mime, caption: text,contextInfo: {"mentionedJid": mids}})
+              fs.unlinkSync(filename)
+         })
+    }  
 //end
 //════[ Module ]════//
 
 cekafk(afk)
-            if (!mek.key.remoteJid.endsWith('@g.us') && offline){
-            if (!mek.key.fromMe){
-            if (isAfk(mek.key.remoteJid)) return
-            addafk(mek.key.remoteJid)
-            heheh = ms(Date.now() - waktu) 
-            Ktdprjct.sendMessage(mek.key.remoteJid,`@${owner} Sedang Offline!\n\n*Alasan :* ${alasan}\n*Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu\n\nSilahkan Hubungi Lagi Nanti`, MessageType.text,{contextInfo:{ mentionedJid: [`${owner}@s.whatsapp.net`],'stanzaId': "B826873620DD5947E683E3ABE663F263", 'participant': "0@s.whatsapp.net", 'remoteJid': 'status@broadcast', 'quotedMessage': {"imageMessage": {"caption": "*OFFLINE*", 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}})
-            }
-            }   
-        if (mek.key.remoteJid.endsWith('@g.us') && offline) {
-        if (!mek.key.fromMe){
-        if (mek.message.extendedTextMessage != undefined){
-        if (mek.message.extendedTextMessage.contextInfo != undefined){
-        if (mek.message.extendedTextMessage.contextInfo.mentionedJid != undefined){
-        for (let ment of mek.message.extendedTextMessage.contextInfo.mentionedJid) {
-        if (ment === `${owner}@s.whatsapp.net`){
-        if (isAfk(mek.key.remoteJid)) return
-        addafk(mek.key.remoteJid)
-        heheh = ms(Date.now() - waktu)
-        Ktdprjct.sendMessage(mek.key.remoteJid,`@${owner} Sedang Offline!\n\n *Alasan :* ${alasan}\n *Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu\n\nSilahkan Hubungi Lagi Nanti`, MessageType.text,{contextInfo:{ mentionedJid: [`${owner}@s.whatsapp.net`],'stanzaId': "B826873620DD5947E683E3ABE663F263", 'participant': "0@s.whatsapp.net", 'remoteJid': 'status@broadcast', 'quotedMessage': {"imageMessage": {"caption": "*OFFLINE*", 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}})
-          }
+      if (!mek.key.remoteJid.endsWith('@g.us') && offline){
+      if (!mek.key.fromMe){
+      if (isAfk(mek.key.remoteJid)) return
+           addafk(mek.key.remoteJid)
+           heheh = ms(Date.now() - waktu) 
+           Ktdprjct.sendMessage(mek.key.remoteJid,`@${owner} Sedang Offline!\n\n*Alasan :* ${alasan}\n*Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu\n\nSilahkan Hubungi Lagi Nanti`, MessageType.text,{contextInfo:{ mentionedJid: [`${owner}@s.whatsapp.net`],'stanzaId': "B826873620DD5947E683E3ABE663F263", 'participant': "0@s.whatsapp.net", 'remoteJid': 'status@broadcast', 'quotedMessage': {"imageMessage": {"caption": "*OFFLINE*", 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}})
+       }
+  }   
+      if (mek.key.remoteJid.endsWith('@g.us') && offline) {
+      if (!mek.key.fromMe){
+      if (mek.message.extendedTextMessage != undefined){
+      if (mek.message.extendedTextMessage.contextInfo != undefined){
+      if (mek.message.extendedTextMessage.contextInfo.mentionedJid != undefined){
+      for (let ment of mek.message.extendedTextMessage.contextInfo.mentionedJid) {
+      if (ment === `${owner}@s.whatsapp.net`){
+      if (isAfk(mek.key.remoteJid)) return
+          addafk(mek.key.remoteJid)
+          heheh = ms(Date.now() - waktu)
+          Ktdprjct.sendMessage(mek.key.remoteJid,`@${owner} Sedang Offline!\n\n *Alasan :* ${alasan}\n *Sejak :* ${heheh.hours} Jam, ${heheh.minutes} Menit, ${heheh.seconds} Detik lalu\n\nSilahkan Hubungi Lagi Nanti`, MessageType.text,{contextInfo:{ mentionedJid: [`${owner}@s.whatsapp.net`],'stanzaId': "B826873620DD5947E683E3ABE663F263", 'participant': "0@s.whatsapp.net", 'remoteJid': 'status@broadcast', 'quotedMessage': {"imageMessage": {"caption": "*OFFLINE*", 'jpegThumbnail': fs.readFileSync(`image/${thumbnail}`)}}}})
+           }
         }
-            }
-          }
+           }
         }
-      }
-    }
- Ktdprjct.on('chat-update', asd => {
-if (asd.presences) {
-	for (key in asd.presences) {
-		if (asd.presences[key].lastKnownPresence == 'composing' || asd.presences[key].lastKnownPresence == 'recording') {
-			if (!isGroup) return
-			if (off.checkAfkUser(key, _off)) {
-               _off.splice(off.getAfkPosition(key, _off), 1)
-            fs.writeFileSync('./database/group/afk.json', JSON.stringify(_off))
-         ckck = `\n*@${key.split('@')[0]}* terdeteksi ${asd.presences[key].lastKnownPresence == 'composing' ? 'sedang mengetik...' : 'sedang merekam...'}\nSekarang dia sudah tidak AFK\n`
-     Ktdprjct.sendMessage(asd.jid, ckck.trim(), text, {thumbnail: fs.readFileSync('./media/logonya.jpg'), sendEphemeral: true, contextInfo:{mentionedJid:Ktdprjct.parseMention(ckck)}})
-                }}}}})
+     }
+  }
+}
 
-        if (isGroup && !mek.key.fromMe) {
-                for (let ment of mentionUser) {
-                    if (off.checkAfkUser(ment, _off)) {
-                        getId = off.getAfkId(ment, _off)
-                        getReason = off.getAfkReason(getId, _off)
-                        getTime = Date.now() - off.getAfkTime(getId, _off)
-                        heheh = ms(getTime)
-                        Ktdprjct.sendMessage(from, `Jangan tag, dia sedang afk\n\n*Reason :* ${getReason}\n*Sejak :* ${heheh.hours} jam, ${heheh.minutes} menit, ${heheh.seconds} detik yg lalu\n`,text, {quoted:mek})
-                       // Ktdprjct.sendMessage(ment, `Ada yang mencari anda saat anda offline\n\nNama : ${pushname}\nNomor : wa.me/${sender.split("@")[0]}\nDi Grup : ${groupName}\nPesan : ${budy}`, text, {contextInfo:{mentionedJid: Ktdprjct.parseMention(budy)}})
-                    }
-                }
-                if (off.checkAfkUser(sender, _off)) {
-                	getId = off.getAfkId(sender, _off)
-                	getReason = off.getAfkReason(getId, _off)
-                    getTime = Date.now() - off.getAfkTime(getId, _off)
+Ktdprjct.on('chat-update', asd => {
+     if (asd.presences) {
+	   for (key in asd.presences) {
+	   if (asd.presences[key].lastKnownPresence == 'composing' || asd.presences[key].lastKnownPresence == 'recording') {
+		 if (!isGroup) return
+		 if (off.checkAfkUser(key, _off)) {
+             _off.splice(off.getAfkPosition(key, _off), 1)
+          fs.writeFileSync('./database/group/afk.json', JSON.stringify(_off))
+      ckck = `\n*@${key.split('@')[0]}* terdeteksi ${asd.presences[key].lastKnownPresence == 'composing' ? 'sedang mengetik...' : 'sedang merekam...'}\nSekarang dia sudah tidak AFK\n`
+  Ktdprjct.sendMessage(asd.jid, ckck.trim(), text, {thumbnail: fs.readFileSync('./media/logonya.jpg'), sendEphemeral: true, contextInfo:{mentionedJid:Ktdprjct.parseMention(ckck)}})
+}}}}})
+
+     if (isGroup && !mek.key.fromMe) {
+     for (let ment of mentionUser) {
+     if (off.checkAfkUser(ment, _off)) {
+             getId = off.getAfkId(ment, _off)
+             getReason = off.getAfkReason(getId, _off)
+             getTime = Date.now() - off.getAfkTime(getId, _off)
+             heheh = ms(getTime)
+             Ktdprjct.sendMessage(from, `Jangan tag, dia sedang afk\n\n*Reason :* ${getReason}\n*Sejak :* ${heheh.hours} jam, ${heheh.minutes} menit, ${heheh.seconds} detik yg lalu\n`,text, {quoted:mek})
+          // Ktdprjct.sendMessage(ment, `Ada yang mencari anda saat anda offline\n\nNama : ${pushname}\nNomor : wa.me/${sender.split("@")[0]}\nDi Grup : ${groupName}\nPesan : ${budy}`, text, {contextInfo:{mentionedJid: Ktdprjct.parseMention(budy)}})
+          }
+      }
+      if (off.checkAfkUser(sender, _off)) {
+           getId = off.getAfkId(sender, _off)
+              getReason = off.getAfkReason(getId, _off)
+                 getTime = Date.now() - off.getAfkTime(getId, _off)
                     heheh = ms(getTime)
-                    _off.splice(off.getAfkPosition(sender, _off), 1)
-                    fs.writeFileSync('./database/group/afk.json', JSON.stringify(_off))
-                    Ktdprjct.sendMessage(from, `@${sender.split('@')[0]} telah kembali dari afk\n\n*Reason :* ${getReason}\n*Selama :* ${heheh.hours} jam ${heheh.minutes} menit ${heheh.seconds} detik\n`, text, {contextInfo:{mentionedJid:[sender]}})
-                }
-            }
+                _off.splice(off.getAfkPosition(sender, _off), 1)
+              fs.writeFileSync('./database/group/afk.json', JSON.stringify(_off))
+            Ktdprjct.sendMessage(from, `@${sender.split('@')[0]} telah kembali dari afk\n\n*Reason :* ${getReason}\n*Selama :* ${heheh.hours} jam ${heheh.minutes} menit ${heheh.seconds} detik\n`, text, {contextInfo:{mentionedJid:[sender]}})
+        }
+   }
 //end
 //════[ read ]════//
 
