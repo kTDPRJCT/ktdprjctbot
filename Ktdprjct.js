@@ -1054,135 +1054,130 @@ case 'allchats':
  //end
 //════[ Req & repport ]════//
 
- case 'request':
-        case 'req':
-					const cfrr = body.slice(8)
+ case 'request': case 'req':
+		 const cfrr = body.slice(8)
 					if (isBan) return sticBan(from)
-                  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-                    if (args.length < 1) return reply(`Ketik ${prefix}request [request fitur apa]`) 
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+          if (args.length < 1) return reply(`Ketik ${prefix}request [request fitur apa]`) 
 					if (cfrr.length > 300) return Ktdprjct.sendMessage(from, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', msgType.text, {quoted: mek})
-					var nomor = mek.participant
-					const ress = `*[ REQUEST VITUR ]*\n\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${cfrr}`
-							var options = {
-							text: ress,
-                         				contextInfo: {mentionedJid: [nomor]},
-                     			}
-					Ktdprjct.sendMessage('62895342581896@s.whatsapp.net', options, text, {quoted: mek})
-					reply('Request Anda Telah Sampai Ke Pembuat SC,\nRequests palsu atau main² tidak akan ditanggapi.')
-					break      
+			var nomor = mek.participant
+			const ress = `*[ REQUEST VITUR ]*\n\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${cfrr}`
+			var options = {
+					text: ress,
+              contextInfo: {mentionedJid: [nomor]},
+        }
+	Ktdprjct.sendMessage('62895342581896@s.whatsapp.net', options, text, {quoted: mek})
+			reply('Request Anda Telah Sampai Ke Pembuat SC,\nRequests palsu atau main² tidak akan ditanggapi.')
+		break      
 					
-case 'report':
-         case 'bug':
-					const cfrr1 = body.slice(8)
-					if (isBan) return sticBan(from)
-                  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-					if (args.length < 1) return reply(`Ketik ${prefix}report [fiturnya] (Error Nya Gimana)`) 
-					if (cfrr1.length > 300) return Ktdprjct.sendMessage(from, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', msgType.text, {quoted: mek})
-					var nomor = mek.participant
-					const ress1 = `*[ REPORT VITUR ]*\n\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${cfrr1}`
-							var options = {
-							text: ress1,
-                         				contextInfo: {mentionedJid: [nomor]},
-                     			}
-					Ktdprjct.sendMessage('62895342581896@s.whatsapp.net', options, text, {quoted: mek})
-					reply('Terima Kasih Telah Melaporkan Bug Pada Owner, Jika Itu Sekedar Iseng Maka Akan Di Ban Oleh Bot!')
-					break                   
+case 'report': case 'bug':
+		const cfrr1 = body.slice(8)
+				 if (isBan) return sticBan(from)
+         if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+				 if (args.length < 1) return reply(`Ketik ${prefix}report [fiturnya] (Error Nya Gimana)`) 
+				 if (cfrr1.length > 300) return Ktdprjct.sendMessage(from, 'Maaf Teks Terlalu Panjang, Maksimal 300 Teks', msgType.text, {quoted: mek})
+		var nomor = mek.participant
+		const ress1 = `*[ REPORT VITUR ]*\n\nNomor : @${nomor.split("@s.whatsapp.net")[0]}\nPesan : ${cfrr1}`
+		var options = {
+				text: ress1,
+           contextInfo: {mentionedJid: [nomor]},
+      }
+	Ktdprjct.sendMessage('62895342581896@s.whatsapp.net', options, text, {quoted: mek})
+			reply('Terima Kasih Telah Melaporkan Bug Pada Owner, Jika Itu Sekedar Iseng Maka Akan Di Ban Oleh Bot!')
+		break                   
 //end
 //════[ prem ]════//
 
 case 'premium':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-              reply(`Silahkan Click Link DiBawah Untuk Menjadi User Premium\n\nhttps://bit.ly/3IvgGt2`)
-              break
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+         reply(`Silahkan Click Link DiBawah Untuk Menjadi User Premium\n\nhttps://bit.ly/3IvgGt2`)
+    break
               
 case 'prem': 
-							if (args.length === 0) return reply(`Kirim perintah *${prefix}premium* add/del 62xxx waktu (misal 1 hari -> 1d)\nExample:\n${prefix}premium add 62895342581896 1d`)
-							if (!mek.key.fromMe && !isOwner && !isCreator) return sticOwner(from)
-							if (args[0] === 'add') {
-								if (mek.message.extendedTextMessage != undefined) {
-									mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
-									premiuma.addPremiumUser(mentioned[0], args[2], premium)
-									reply(`*「 PREMIUM ADDED 」*\n\n📛 *ID*: ${mentioned[0]}\n⏰ *Expired*: ${ms(toMs(args[2])).days} day(s) ${ms(toMs(args[2])).hours} hour(s) ${ms(toMs(args[2])).minutes} minute(s)`)
-									} else {
-										premiuma.addPremiumUser(args[1] + '@s.whatsapp.net', args[2], premium)
-										reply(`*「 PREMIUM ADDED 」*\n\n📛 *ID*: ${args[1]}@s.whatsapp.net\n⏰ *Expired*: ${ms(toMs(args[2])).days} day(s) ${ms(toMs(args[2])).hours} hour(s) ${ms(toMs(args[2])).minutes} minute(s)`)
-										}
-										} else if (args[0] === 'del') {
-											if (mek.message.extendedTextMessage != undefined) {
-									mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
-									premium.splice(premiuma.getPremiumPosition(mentioned[0], premium), 1)
-									fs.writeFileSync('./database/user/premium.json', JSON.stringify(premium))
-									reply(`Sukses`)
-									} else {
-										premium.splice(premiuma.getPremiumPosition(args[1] + '@s.whatsapp.net', premium), 1)
-										fs.writeFileSync('./database/user/premium.json', JSON.stringify(premium))
-										reply(`Sukses`)
-										}
-										} else {
-											reply('emror')
-											}
-							break
+	  if (args.length === 0) return reply(`Kirim perintah *${prefix}premium* add/del 62xxx waktu (misal 1 hari -> 1d)\nExample:\n${prefix}premium add 62895342581896 1d`)
+		if (!mek.key.fromMe && !isOwner && !isCreator) return sticOwner(from)
+		if (args[0] === 'add') {
+		if (mek.message.extendedTextMessage != undefined) {
+				 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
+						premiuma.addPremiumUser(mentioned[0], args[2], premium)
+							 reply(`*「 PREMIUM ADDED 」*\n\n📛 *ID*: ${mentioned[0]}\n⏰ *Expired*: ${ms(toMs(args[2])).days} day(s) ${ms(toMs(args[2])).hours} hour(s) ${ms(toMs(args[2])).minutes} minute(s)`)
+			} else {
+						premiuma.addPremiumUser(args[1] + '@s.whatsapp.net', args[2], premium)
+							 reply(`*「 PREMIUM ADDED 」*\n\n📛 *ID*: ${args[1]}@s.whatsapp.net\n⏰ *Expired*: ${ms(toMs(args[2])).days} day(s) ${ms(toMs(args[2])).hours} hour(s) ${ms(toMs(args[2])).minutes} minute(s)`)
+					}
+			} else if (args[0] === 'del') {
+	  if (mek.message.extendedTextMessage != undefined) {
+				 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
+				    premium.splice(premiuma.getPremiumPosition(mentioned[0], premium), 1)
+						fs.writeFileSync('./database/user/premium.json', JSON.stringify(premium))
+						   reply(`Sukses`)
+				} else {
+							premium.splice(premiuma.getPremiumPosition(args[1] + '@s.whatsapp.net', premium), 1)
+								 fs.writeFileSync('./database/user/premium.json', JSON.stringify(premium))
+								 reply(`Sukses`)
+					 }
+				} else {
+		reply('emror')
+}
+		break
 
 case 'premiumcheck': case 'cekprem': 
-							if (!isPrem) return reply(`Akun kamu belum premium silahkan ${prefix}premium`)
-							const cekExp = ms(await premiuma.getPremiumExpired(sender, premium) - Date.now())
-							reply(`*「 PREMIUM EXPIRED 」*\n\n🆔 *ID*: ${sender}\n🏦 *Premium left*: ${cekExp.days} days ${cekExp.hours} hours ${cekExp.minutes} minutes`)
-							break
+		if (!isPrem) return reply(`Akun kamu belum premium silahkan ${prefix}premium`)
+		const cekExp = ms(await premiuma.getPremiumExpired(sender, premium) - Date.now())
+				reply(`*「 PREMIUM EXPIRED 」*\n\n🆔 *ID*: ${sender}\n🏦 *Premium left*: ${cekExp.days} days ${cekExp.hours} hours ${cekExp.minutes} minutes`)
+		break
 							
-				case 'listprem': case 'listpremium':
-							let txt = `「 *PREMIUM USER LIST* 」\n\n`
-							let men = [];
-							for (let i of premium){
-								men.push(i.id)
-								const checkExp = ms(i.expired - Date.now())
-								txt += `🆔 *ID :* @${i.id.split("@")[0]}\n⏰ *Expired*: ${checkExp.days} days ${checkExp.hours} hours ${checkExp.minutes} minutes\n\n`
-								}
-								mentions(txt, men, true)
-							break
+case 'listprem': case 'listpremium':
+		let txt = `「 *PREMIUM USER LIST* 」\n\n`
+		let men = [];
+				for (let i of premium){
+						men.push(i.id)
+		const checkExp = ms(i.expired - Date.now())
+						txt += `🆔 *ID :* @${i.id.split("@")[0]}\n⏰ *Expired*: ${checkExp.days} days ${checkExp.hours} hours ${checkExp.minutes} minutes\n\n`
+				}
+mentions(txt, men, true)
+		break
 //end
 //════[ case search ]════//
 
-case 'image':
-       case 'gimg':
-       case 'gimage':
-       case 'googleimage':
-       if (isBan) return sticBan(from)
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-              if (args.length < 1) return reply('Apa Yang Mau Dicari?')
-              sticWait(from)
-              teks = args.join(' ')
-              res = await googleImage(teks, google)
-              function google(error, result){
-              if (error){ return reply('_[ ! ] Error Terjari Kesalahan Atau Hasil Tidak Ditemukan_')}
-              else {
-              gugIm = result
-              random =  gugIm[Math.floor(Math.random() * gugIm.length)].url
-              sendFileFromUrl(random, image, {quoted: freply, caption: `*Hasil Pencarian Dari :* ${teks}`})
-}
-}
-             break
+case 'image': case 'gimg': case 'gimage': case 'googleimage':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (args.length < 1) return reply('Apa Yang Mau Dicari?')
+        sticWait(from)
+          teks = args.join(' ')
+          res = await googleImage(teks, google)
+        function google(error, result){
+    if (error){ return reply('_[ ! ] Error Terjari Kesalahan Atau Hasil Tidak Ditemukan_')}
+       else {
+           gugIm = result
+           random =  gugIm[Math.floor(Math.random() * gugIm.length)].url
+           sendFileFromUrl(random, image, {quoted: freply, caption: `*Hasil Pencarian Dari :* ${teks}`})
+         }
+     }
+    break
              
-             case 'pinterest':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-            if(!q) return reply('gambar apa?')
-            sticWait(from)
-            let pin = await hx.pinterest(q)
-            let ac = pin[Math.floor(Math.random() * pin.length)]
-            let di = await getBuffer(ac)
-            await Ktdprjct.sendMessage(from,di,image,{quoted: mek})
-            break
+case 'pinterest':
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+   if(!q) return reply('gambar apa?')
+       sticWait(from)
+   let pin = await hx.pinterest(q)
+   let ac = pin[Math.floor(Math.random() * pin.length)]
+   let di = await getBuffer(ac)
+await Ktdprjct.sendMessage(from,di,image,{quoted: mek})
+    break
             
-               case 'mediafire':
-               if (isBan) return sticBan(from)
-             if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-               if (args.length < 1) return reply('Link Nya Mana? ')
-               if(!isUrl(args[0]) && !args[0].includes('mediafire')) return reply(mess.error.Iv)
-            sticWait(from)
-               teks = args.join(' ')
-               res = await mediafireDl(teks)
-               result = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+case 'mediafire':
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+   if (args.length < 1) return reply('Link Nya Mana? ')
+   if (!isUrl(args[0]) && !args[0].includes('mediafire')) return reply(mess.error.Iv)
+       sticWait(from)
+         teks = args.join(' ')
+         res = await mediafireDl(teks)
+         result = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *MEDIAFIRE DOWNLOAD*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
@@ -1192,75 +1187,75 @@ if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ 
 \`\`\`🐬 Link : ${res[0].link}\`\`\`
 
 _*Tunggu Proses Upload Media......*_`
-             reply(result)
-             sendFileFromUrl(res[0].link, document, {mimetype: res[0].mime, filename: res[0].nama, quoted: freply})
-             break      
-case 'googlesearch':
-case 'googlesrc':
-case 'google':
-case 'ggs':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (args.length < 1) return reply('Yang mau di cari apaan?')
-teks = args.join(' ')
-sticWait(from)
-res = await ggs({'query' : `${teks}`})
-kant = ``
-for (let i of res) {
-kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
-}
-var akhir = kant.trim()
-reply(akhir)
-break 
-case 'wiki':
-case 'wikipedia':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (args.length < 1) return reply(' Yang Mau Di Cari Apa? ')
-teks = args.join(' ')
-sticWait(from)
-res = await wikiSearch(teks).catch(e => {
-return reply('_[ ! ] Error Hasil Tidak Ditemukan_') 
-}) 
-result = `\n*「 _WIKIPEDIA_ 」*\n\n*Judul :* ${res[0].judul}\n\n*Wiki :* ${res[0].wiki}`
-sendFileFromUrl(res[0].thumb, image, {quoted: ftrol, caption: result}).catch(e => {
-  reply(result)
-})
-break
+    reply(result)
+        sendFileFromUrl(res[0].link, document, {mimetype: res[0].mime, filename: res[0].nama, quoted: freply})
+    break   
+             
+case 'googlesearch': case 'googlesrc': case 'google': case 'ggs':
+   if (isBan) return sticBan(from)
+   if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+   if (args.length < 1) return reply('Yang mau di cari apaan?')
+       teks = args.join(' ')
+          sticWait(from)
+       res = await ggs({'query' : `${teks}`})
+       kant = ``
+    for (let i of res) {
+       kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
+   }
+    var akhir = kant.trim()
+          reply(akhir)
+    break 
+    
+case 'wiki': case 'wikipedia':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (args.length < 1) return reply(' Yang Mau Di Cari Apa? ')
+        teks = args.join(' ')
+           sticWait(from)
+        res = await wikiSearch(teks).catch(e => {
+        return reply('_[ ! ] Error Hasil Tidak Ditemukan_') 
+    }) 
+        result = `\n*「 _WIKIPEDIA_ 」*\n\n*Judul :* ${res[0].judul}\n\n*Wiki :* ${res[0].wiki}`
+            sendFileFromUrl(res[0].thumb, image, {quoted: ftrol, caption: result}).catch(e => {
+               reply(result)
+          })
+    break
+    
 case 'tourl':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
     if ((isMedia && !mek.message.videoMessage || isQuotedImage || isQuotedVideo ) && args.length == 0) {
-            boij = isQuotedImage || isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-            owgi = await Ktdprjct.downloadMediaMessage(boij)
-            res = await upload(owgi)
-            reply(res)
-            } else {
-            reply('reply gambar/video')
-            }
-            break
-case 'searchgrup':
-case 'srcgrup':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (!isPrem)return reply(mess.prem)
-if (args.length < 1) return reply(`Nama Group? Contohnya\n${prefix + command} jb`)
-sticWait(from)
-hx.linkwa(q).then(result => {
-let res = '*「 _LINK WA_ 」*\n\n'
-for (let i of result) {
-res += `*Nama*: *${i.nama}\n*Link*: ${i.link}\n\n`
+         boij = isQuotedImage || isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+         owgi = await Ktdprjct.downloadMediaMessage(boij)
+         res = await upload(owgi)
+             reply(res)
+} else {
+      reply('reply gambar/video')
 }
-reply(res)
-});
-break
+    break
+    
+case 'searchgrup': case 'srcgrup':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!isPrem)return reply(mess.prem)
+    if (args.length < 1) return reply(`Nama Group? Contohnya\n${prefix + command} jb`)
+        sticWait(from)
+            hx.linkwa(q).then(result => {
+        let res = '*「 _LINK WA_ 」*\n\n'
+        for (let i of result) {
+            res += `*Nama*: *${i.nama}\n*Link*: ${i.link}\n\n`
+         }
+      reply(res)
+  })
+   break
+   
 case 'playstore':
-if (isBan)return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if(!c) return reply('*Mau Cari Aplikasi Apa?*')
-let play = await hx.playstore(c)
-let store = '\n❉─────────────────────❉\n'
-for (let i of play){
+    if (isBan)return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!c) return reply('*Mau Cari Aplikasi Apa?*')
+       let play = await hx.playstore(c)
+       let store = '\n❉─────────────────────❉\n'
+    for (let i of play){
 store += `\n*「 _PLAY STORE_ 」*\n
 - *Nama* : ${i.name}
 - *Link* : ${i.link}\n
@@ -1268,22 +1263,22 @@ store += `\n*「 _PLAY STORE_ 」*\n
 - *Link Dev* : ${i.link_dev}\n❉─────────────────────❉\n\n`
 }
 reply(store)
-break
-
+   break
+  
 case 'ytsearch': case 'yts':
-if (isBan)return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (args.length < 1) return reply('Tolong masukan query!')
-var srch = args.join('');
-sticWait(from)
-try {
-var aramas = await yts(srch);
+    if (isBan)return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (args.length < 1) return reply('Tolong masukan query!')
+        var srch = args.join('');
+          sticWait(from)
+    try {
+        var aramas = await yts(srch);
 } catch {
-return await Ktdprjct.sendMessage(from, 'Error!', MessageType.text, dload)
+        return await Ktdprjct.sendMessage(from, 'Error!', MessageType.text, dload)
 }
-aramat = aramas.all 
-var tbuff = await getBuffer(aramat[0].image)
-var ytresult = '';
+        aramat = aramas.all 
+        var tbuff = await getBuffer(aramat[0].image)
+        var ytresult = '';
 ytresult += `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆           *YOUTUBE SEARCH*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\n\n`
@@ -1297,26 +1292,23 @@ ytresult += '🚀 Upload : ' + video.ago + '\n________________________\n\n'
 });
 ytresult += '*KTDPRJCT メ Bo† ༆*'
 await fakethumb(tbuff,ytresult)
-break
+   break
 //end
 //════[ case download ]════//
 
-   case 'ttdl':
-   case 'savetiktok':         
-   case 'tiktok':   
-   case 'tiktokdl':
-   case 'tiktoknowm':
-   if (isBan) return sticBan(from)
- if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (!q) return reply('Linknya?')
-var { TiktokDownloader } = require('./lib/tiktokdl')
-sticWait(from)
-res = await TiktokDownloader(`${q}`).catch(e => {
-reply(mess.error.api)
-})
-console.log(res)
+case 'ttdl': case 'savetiktok': case 'tiktok': case 'tiktokdl': case 'tiktoknowm':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!q) return reply('Linknya?')
+        var { TiktokDownloader } = require('./lib/tiktokdl')
+            sticWait(from)
+        res = await TiktokDownloader(`${q}`).catch(e => {
+      reply(mess.error.api)
+   })
+      console.log(res)
 sendMediaURL(from, `${res.result.nowatermark}`)
-break
+   break
+   
  case 'ttwm':
  case 'tiktokwm':
  if (isBan) return sticBan(from)
