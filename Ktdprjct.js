@@ -199,7 +199,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 	  	var isAfkOn = off.checkAfkUser(sender, _off)
       var senderNumber = sender.split("@")[0]
       var hour_now = moment().format('HH:mm:ss')
-	    var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
+	  var conts = mek.key.fromMe ? Ktdprjct.user.jid : Ktdprjct.contacts[sender] || { notify: jid.replace(/@.+/, '') }
       var pushname = mek.key.fromMe ? Ktdprjct.user.name : conts.notify || conts.vname || conts.name || '-'    
       var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
       var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
@@ -276,7 +276,9 @@ Ktdprjct.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/logo
         var costum = (pesan, tipe, target, target2) => {
 			Ktdprjct.sendMessage(from, pesan, tipe, { quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: { conversation: `${target2}` } } })
 		}
-		
+		function monospace (str) {
+        return "```" + str + "```"
+        }
 		 function randomNomor(angka){
            return Math.floor(Math.random() * angka) + 1
         }
@@ -780,7 +782,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 │❒ Author : KTDPRJCT
 │❒ Pengembang : KTDPRJCT
 │❒ Base : KTDPRJCT
-│❒ Pengguna : [ ${_user.length} ] 
+│❒ Total :  [ ${_user.length} ] Pengguna
 ╰─────────────────╯
 ╭❒ *INFO OWNER* 
 │❒ Name : ${ownername}
@@ -1041,14 +1043,37 @@ but1 = [
  sendButton(from, rulsgc, fake, but1, mek)
  break
  
- case 'infochat':
-reply(`╭❑➤─| Ingfo Chat Bot |─➤
-│
-│ ➤ Private : [ ${privat.length} ]
-│ ➤ Group : [ ${groups.length} ]
-│ ➤ Total  : [ ${totalChat.length} ]
-╰❑➤─| KTDPRJCT ⊱✿⊰ Bo† |─➤`)
-break
+ case 'allchats':
+
+                let _groupChats = []
+
+                let _privateChats = []
+
+                Ktdprjct.chats.all().forEach(chats => {
+
+                  if (chats.jid.endsWith("@g.us")) {
+
+                    let str = `=> Group Name : ${chats.name}\n=> Group jid : ${chats.jid}\n`
+
+                    _groupChats.push(str)
+
+                  }
+
+                  if (chats.jid.endsWith("@s.whatsapp.net")) {
+
+                    let str = `=> Contact Name : ${chats.name}\n=> Contact jid : ${chats.jid}\n`
+
+                    _privateChats.push(str)
+
+                  }
+
+                })
+
+                let allchatHeader = monospace("==> [ A L L  C H A T S ] <==")
+
+                reply(`${allchatHeader}\nGroup chats total : ${_groupChats.length}\nPrivate chats total : ${_privateChats.length}\nTotal chats : ${_groupChats.length + _privateChats.length}\n\n=> Group Chats <=\n${_groupChats.join("\n")}\n\n=> Private Chats <=\n${_privateChats.join("\n")}`)
+
+                break
  //end
 //════[ Req & repport ]════//
 
@@ -1936,102 +1961,62 @@ case 'afk':
 //end
 //════[ case absen ]════//
 
-      case 'absen': case 'hadir': case 'present':
-
-                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
-
-                if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}mulaiabsen`, mek)
-
-                let _absen = Ktdprjct.absen[from][1]
-
-                const wasVote = _absen.includes(sender)
-
-                if (wasVote) return reply(`Kamu sudah absen!`)
-
-                _absen.push(sender)
-
-                list = _absen.map((v, i) => `│ ${i + 1}.  @${v.split`@`[0]}`).join('\n')
-
-                caption = `Tanggal: ${tanggal}
-
+case 'absen': case 'hadir': case 'present':
+      Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+      if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}mulaiabsen`, mek)
+          let _absen = Ktdprjct.absen[from][1]
+          const wasVote = _absen.includes(sender)
+          if (wasVote) return reply(`Kamu sudah absen!`)
+             _absen.push(sender)
+             list = _absen.map((v, i) => `│ ${i + 1}.  @${v.split`@`[0]}`).join('\n')
+             caption = `Tanggal: ${tanggal}
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
 ╭─「 Daftar Absen 」
 │ 
 │Total: ${_absen.length}
 ${list}
 ╰────`.trim()
+await Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Cek', `${prefix}cekabsen`, mek)
+ break
 
-    await Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Cek', `${prefix}cekabsen`, mek)
+case 'mulaiabsen':
+      if (!isGroup) return sticGrup(from)
+      if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
+      Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+      if (from in Ktdprjct.absen) return Ktdprjct.send2Button(from, `Masih ada absen di chat ini!`, 'KTDPRJCT メ Bo† ༆ from rexproject', 'Hapus', `${prefix}hapusabsen`, 'Cek', `${prefix}cekabsen`, Ktdprjct.absen[from][0])
+          Ktdprjct.absen[from] = [
+            await Ktdprjct.sendButton(from, `Absen dimulai`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, mek),
+[],
+  text
+      ]
+ break
 
-                break
-
-            case 'mulaiabsen':
-
-                if (!isGroup) return sticGrup(from)
-
-                if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
-
-               
-
-                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
-
-                if (from in Ktdprjct.absen) return Ktdprjct.send2Button(from, `Masih ada absen di chat ini!`, 'KTDPRJCT メ Bo† ༆ from rexproject', 'Hapus', `${prefix}hapusabsen`, 'Cek', `${prefix}cekabsen`, Ktdprjct.absen[from][0])
-
-                Ktdprjct.absen[from] = [
-
-                    await Ktdprjct.sendButton(from, `Absen dimulai`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, mek),
-
-                    [],
-
-                    text
-
-                ]
-
-                break
-
-            case 'cekabsen':
-
-                  if (!isGroup) return sticGrup(from)
-
-                  Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
-
-                  if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
-
-                  let absen = Ktdprjct.absen[from][1]
-
-                  list = absen.map((v, i) => `│ ${i + 1}. @${v.split`@`[0]}`).join('\n')
-
-                  caption = `
+case 'cekabsen':
+      if (!isGroup) return sticGrup(from)
+      Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+      if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
+      let absen = Ktdprjct.absen[from][1]
+          list = absen.map((v, i) => `│ ${i + 1}. @${v.split`@`[0]}`).join('\n')
+caption = `
 
 Tanggal: ${tanggal}
-
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
-
 ╭─「 Daftar Absen 」
 │ 
 │Total: ${_absen.length}
 ${list}
 ╰────`.trim()
+Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Hapus', `${prefix}hapusabsen`, mek)
+ break
 
-                  Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Hapus', `${prefix}hapusabsen`, mek)
-
-                  break
-
-            case 'deleteabsen': case 'hapusabsen': case 'delabsen':
-
-                if (!isGroup) return sticGrup(from)
-
-                if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
-
-                Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
-
-                if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
-
-                delete Ktdprjct.absen[from]
-
-                reply("Absen successfully deleted.")
-
-                break
+case 'deleteabsen': case 'hapusabsen': case 'delabsen':
+      if (!isGroup) return sticGrup(from)
+      if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return sticAdmin(from)
+      Ktdprjct.absen = Ktdprjct.absen ? Ktdprjct.absen : {}
+      if (!(from in Ktdprjct.absen)) return Ktdprjct.sendButton(from, `Tidak ada absen berlangsung!`, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Mulai', `${prefix}absen`, mek)
+          delete Ktdprjct.absen[from]
+            reply("Absen successfully deleted.")
+ break
 //end
 //════[ case nulis ]════//
 
@@ -2233,7 +2218,7 @@ break
 //end
 //════[ case fun ]════//
 
-case 'bisakah':
+/*case 'bisakah':
 		if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {quoted: mek})
 				bisakah = q
 					const bisa =['Tentu Saja Bisa! Kamu Adalah Orang Paling beruntung','Gak Bisa','Hmm Gua Gak Tau Yaa, tanya ama bapakau','Ulangi Tod Gua Ga Paham']
@@ -2268,7 +2253,7 @@ case 'ganteng': case 'cantik': case 'jelek': case 'goblok':  case 'bego': case '
 				   D1 = `Yang *ter${command}* disini adalah @${C1.jid.split('@')[0]}`                  
 				   jds.push(C1.jid)
 				   mentions(D1, jds, true)
-				   break
+				   break*/
 //end
 //════[ Module ]════//
 
