@@ -129,14 +129,14 @@ cmhit = []
 //end
 //════[ cek user ]════//
 
-      const cekUser = (sender) => {
-      let status = false
-      Object.keys(_user).forEach((i) => {
-      if (_user[i].id === sender) {
-  status = true
-   }
-    })
-  return status
+const cekUser = (sender) => {
+  let status = false
+     Object.keys(_user).forEach((i) => {
+        if (_user[i].id === sender) {
+     status = true
+      }
+   })
+ return status
 }
 //end
 //════[ Module ]════//
@@ -317,7 +317,7 @@ Ktdprjct.send2Button = async (jid, content, footer, button1, row1, button2, row2
     }
     
 var SendButLoc = async(id, text1, desc1, gam1, but = [], options = {}) => {
-    let kma = gam1
+let kma = gam1
       Ktdprjct.sendMessage(id, {"contentText": text1,
          "footerText": desc1, 
          "buttons": but,
@@ -358,47 +358,50 @@ var buttonMessage = {
 }
        
 var sendButImage = async (from, context, fortext, img, but, mek) => {
-            jadinya = await Ktdprjct.prepareMessage(from, img, image)
-            buttonMessagesI = {
-                imageMessage: jadinya.message.imageMessage,
-                contentText: context,
-                footerText: fortext,
-                buttons: but,
-                headerType: 4
-            }
-            Ktdprjct.sendMessage(from, buttonMessagesI, buttonsMessage, {
-                quoted: ftrol,
-            })
+       jadinya = await Ktdprjct.prepareMessage(from, img, image)
+       buttonMessagesI = {
+          imageMessage: jadinya.message.imageMessage,
+          contentText: context,
+          footerText: fortext,
+          buttons: but,
+          headerType: 4
         }
-        async function sendButLocation(id, text1, desc1, gam1, but = [], options = {}) {
-            var buttonMessages = { locationMessage: { jpegThumbnail: gam1 }, contentText: text1, footerText: desc1, buttons: but, headerType: 6 }
-            return Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
-        }
+     Ktdprjct.sendMessage(from, buttonMessagesI, buttonsMessage, {
+     quoted: ftrol,
+   })
+}
+
+async function sendButLocation(id, text1, desc1, gam1, but = [], options = {}) {
+    var buttonMessages = { locationMessage: { jpegThumbnail: gam1 }, contentText: text1, footerText: desc1, buttons: but, headerType: 6 }
+       return Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
+}
 
 var sendButDocument = async(id, text1, desc1, media, doc1, but = [], options = {}) => {
-kma = doc1
-mhan = await Ktdprjct.prepareMessage(from, media, document, kma)
+       kma = doc1
+       mhan = await Ktdprjct.prepareMessage(from, media, document, kma)
+       
 var buttonMessages = {
-documentMessage: mhan.message.documentMessage,
-contentText: text1,
-footerText: desc1,
-buttons: but,
-headerType: "DOCUMENT"
-}
-Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
+       documentMessage: mhan.message.documentMessage,
+       contentText: text1,
+       footerText: desc1,
+       buttons: but,
+       headerType: "DOCUMENT"
+    }
+  Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
 
 var sendButVideo = async(id, text1, desc1, vid1, but = [], options = {}) => {
-kma = vid1
-mhan = await Ktdprjct.prepareMessage(from, kma, video)
+       kma = vid1
+       mhan = await Ktdprjct.prepareMessage(from, kma, video)
+       
 var buttonMessages = {
-videoMessage: mhan.message.videoMessage,
-contentText: text1,
-footerText: desc1,
-buttons: but,
-headerType: 5
-}
-Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
+       videoMessage: mhan.message.videoMessage,
+       contentText: text1,
+       footerText: desc1,
+       buttons: but,
+       headerType: 5
+    }
+  Ktdprjct.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
 //end
 //════[ run time ]════//
@@ -419,32 +422,32 @@ return dDisplay + hDisplay + mDisplay + sDisplay;
 //════[ fake ]════//
 
 var fakestatus = (teks) => {
-            Ktdprjct.sendMessage(from, teks, text, {
-                quoted: {
-                    key: {
-                        fromMe: false,
-                        participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {})
-                    },
-                    message: {
-                        "imageMessage": {
-                            "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc",
-                            "mimetype": "image/jpeg",
-                            "caption": fake,
-                            "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=",
-                            "fileLength": "28777",
-                            "height": 1080,
-                            "width": 1079,
-                            "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
-                            "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
-                            "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
-                            "mediaKeyTimestamp": "1610993486",
-                            "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
-                            "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
-                        }
-                    }
+      Ktdprjct.sendMessage(from, teks, text, {
+         quoted: {
+            key: {
+                  fromMe: false,
+                  participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {})
+             },
+      message: {
+              "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc",
+              "mimetype": "image/jpeg",
+              "caption": fake,
+              "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=",
+              "fileLength": "28777",
+              "height": 1080,
+              "width": 1079,
+              "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
+              "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
+              "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
+              "mediaKeyTimestamp": "1610993486",
+              "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
+              "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
                 }
-            })
+            }
         }
+    })
+}
         var fakegroup = (teks) => {
             Ktdprjct.sendMessage(from, teks, text, {
                 quoted: {
