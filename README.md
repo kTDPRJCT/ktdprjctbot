@@ -41,7 +41,7 @@
 ```
 
 ## settings
-You can edit owner and other in `'./settings/config.json'`
+You can edit owner and other in `'./setting.json'`
 
 ```ts
 {
