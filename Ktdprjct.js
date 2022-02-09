@@ -246,46 +246,46 @@ Badmin: '[❗] _Jadikan Bot Admin Grup_'
 //end
 //════[ reply dll ]════//
 
-var isUrl = (url) => {
-        return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&/=]*)/, 'gi'))
-        }
-       var reply = (teks) => {
-	      Ktdprjct.sendMessage(from, teks, text, {quoted:mek, thumbnail: fakeimage})
-        }
-        var reply1 = (teks) => {
-           Ktdprjct.sendMessage(from, teks, text, {quoted:ftrol})
-         }
-         const fakethumb = (teks, yes) => {
-Ktdprjct.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/logonya.jpg'),quoted:mek,caption:yes})
+   var isUrl = (url) => {
+      return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%.+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%+.~#?&/=]*)/, 'gi'))
+}
+   var reply = (teks) => {
+	    Ktdprjct.sendMessage(from, teks, text, {quoted:mek, thumbnail: fakeimage})
+}
+   var reply1 = (teks) => {
+      Ktdprjct.sendMessage(from, teks, text, {quoted:ftrol})
+}
+   var fakethumb = (teks, yes) => {
+      Ktdprjct.sendMessage(from, teks, image, {thumbnail:fs.readFileSync('./media/logonya.jpg'),quoted:mek,caption:yes})
 } 
-        var sendMess = (hehe, teks) => {
-            Ktdprjct.sendMessage(hehe, teks, text)
-        }
-        var mentions = (teks, memberr, id) => {
-           (id == null || id == undefined || id == false) ? Ktdprjct.sendMessage(from, {text: teks.trim(), jpegThumbnail: fs.readFileSync('./media/logonya2.png')}, extendedText, { sendEphemeral: true, contextInfo: { "mentionedJid": memberr } }) : Ktdprjct.sendMessage(from, {text: teks.trim(), jpegThumbnail: fs.readFileSync('./media/logonya2.png')}, extendedText, { sendEphemeral: true, quoted: mek, contextInfo: { "mentionedJid": memberr } })
-        }
-        var addRegisterUser = (userid, sender, time, serials) => {
-        var obj = { id: userid, name: sender, time: time, serial: serials }
-        _user.push(obj)
-        fs.writeFileSync('./database/user/user.json', JSON.stringify(_user))
-        }
-        var createSerial = (size) => {
-            return crypto.randomBytes(size).toString('hex').slice(0, size)
-        }
-        var costum = (pesan, tipe, target, target2) => {
+   var sendMess = (hehe, teks) => {
+      Ktdprjct.sendMessage(hehe, teks, text)
+}
+   var mentions = (teks, memberr, id) => {
+      (id == null || id == undefined || id == false) ? Ktdprjct.sendMessage(from, {text: teks.trim(), jpegThumbnail: fs.readFileSync('./media/logonya2.png')}, extendedText, { sendEphemeral: true, contextInfo: { "mentionedJid": memberr } }) : Ktdprjct.sendMessage(from, {text: teks.trim(), jpegThumbnail: fs.readFileSync('./media/logonya2.png')}, extendedText, { sendEphemeral: true, quoted: mek, contextInfo: { "mentionedJid": memberr } })
+}
+   var addRegisterUser = (userid, sender, time, serials) => {
+   var obj = { id: userid, name: sender, time: time, serial: serials }
+      _user.push(obj)
+         fs.writeFileSync('./database/user/user.json', JSON.stringify(_user))
+}
+   var createSerial = (size) => {
+      return crypto.randomBytes(size).toString('hex').slice(0, size)
+}
+   var costum = (pesan, tipe, target, target2) => {
 			Ktdprjct.sendMessage(from, pesan, tipe, { quoted: { key: { fromMe: false, participant: `${target}`, ...(from ? { remoteJid: from } : {}) }, message: { conversation: `${target2}` } } })
-		}
-		function monospace (str) {
-        return "```" + str + "```"
-        }
-		 function randomNomor(angka){
-           return Math.floor(Math.random() * angka) + 1
-        }
-		var textImg = (teks) => {
-           return Ktdprjct.sendMessage(from, teks, text, {quoted: mek, thumbnail: fs.readFileSync('./media/logonya2.png')})
-        }
-        var freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { "contactMessage": { "displayName": `${pushname}`, "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${senderr.split('@')[0]}:${senderr.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, "jpegThumbnail":fs.readFileSync('./media/logonya.jpg')
-        }}}
+}
+	 function monospace (str) {
+      return "```" + str + "```"
+}
+	 function randomNomor(angka){
+      return Math.floor(Math.random() * angka) + 1
+}
+	 var textImg = (teks) => {
+      return Ktdprjct.sendMessage(from, teks, text, {quoted: mek, thumbnail: fs.readFileSync('./media/logonya2.png')})
+}
+   var freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { "contactMessage": { "displayName": `${pushname}`, "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${senderr.split('@')[0]}:${senderr.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, "jpegThumbnail":fs.readFileSync('./media/logonya.jpg')
+}}}
 //end
 //════[ button ]════//
 
@@ -304,70 +304,60 @@ Ktdprjct.sendButton = async (jid, content, footer, button1, row1, quoted, option
       }, MessageType.buttonsMessage, { contextInfo: { mentionedJid: parseMention(content + footer) }, quoted, ...options })
     }
     
-    Ktdprjct.send2Button = async (jid, content, footer, button1, row1, button2, row2, quoted, options = {}) => {
-
+Ktdprjct.send2Button = async (jid, content, footer, button1, row1, button2, row2, quoted, options = {}) => {
       return await Ktdprjct.sendMessage(jid, {
-
         contentText: content,
-
         footerText: footer,
-
         buttons: [
-
           { buttonId: row1, buttonText: { displayText: button1 }, type: 1 },
-
           { buttonId: row2, buttonText: { displayText: button2 }, type: 1 }
-
         ],
-
         headerType: 1
-
       }, MessageType.buttonsMessage, { contextInfo: { mentionedJid: parseMention(content + footer) }, quoted, ...options })
-
     }
     
 var SendButLoc = async(id, text1, desc1, gam1, but = [], options = {}) => {
-               let kma = gam1
-               Ktdprjct.sendMessage(id, {"contentText": text1,
-               "footerText": desc1, 
-               "buttons": but,
-               "headerType": "LOCATION",
-                       "locationMessage": {
-                   "text": "BOT",
-                   "name": "South Brisbane",
-                   "address": "Cloudflare, Inc",
-                   "jpegThumbnail": kma
-                }}, MessageType.buttonsMessage, {quoted: mek, contextInfo:{mentionedJid: parseMention(text1, desc1)}}, options)  
-              }          
+    let kma = gam1
+      Ktdprjct.sendMessage(id, {"contentText": text1,
+         "footerText": desc1, 
+         "buttons": but,
+         "headerType": "LOCATION",
+         "locationMessage": {
+         "text": "BOT",
+         "name": "South Brisbane",
+         "address": "Cloudflare, Inc",
+         "jpegThumbnail": kma
+    }}, MessageType.buttonsMessage, {quoted: mek, contextInfo:{mentionedJid: parseMention(text1, desc1)}}, options)  
+}          
               
 var sendButton = async (from, context, fortext, but, mek) => {
-            buttonMessages = {
-                contentText: context,
-                footerText: fortext,
-                buttons: but,
-                headerType: 1
-            }
-            Ktdprjct.sendMessage(from, buttonMessages, buttonsMessage, {
-                quoted: ftrol
-            })
-        }
+       buttonMessages = {
+          contentText: context,
+             footerText: fortext,
+             buttons: but,
+             headerType: 1
+         }
+       Ktdprjct.sendMessage(from, buttonMessages, buttonsMessage, {
+       quoted: ftrol
+     })
+  }
         
-        var sendButMessage = (id, text1, desc1, but = [], options = {}) => {
-      var buttonMessage = {
-        contentText: text1,
-        footerText: desc1,
-        buttons: but,
-        headerType: 1,
-      };
-      Ktdprjct.sendMessage(
-        id,
-        buttonMessage,
-        MessageType.buttonsMessage,
-        options
-       );
-       };
+var sendButMessage = (id, text1, desc1, but = [], options = {}) => {
+var buttonMessage = {
+      contentText: text1,
+      footerText: desc1,
+      buttons: but,
+      headerType: 1,
+ }
+   Ktdprjct.sendMessage(
+     id,
+     buttonMessage,
+     MessageType.buttonsMessage,
+     options
+   )
+}
        
-        var sendButImage = async (from, context, fortext, img, but, mek) => {
+var sendButImage = async (from, context, fortext, img, but, mek) => {
             jadinya = await Ktdprjct.prepareMessage(from, img, image)
             buttonMessagesI = {
                 imageMessage: jadinya.message.imageMessage,
