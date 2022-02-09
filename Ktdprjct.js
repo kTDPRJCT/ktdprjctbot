@@ -448,49 +448,51 @@ var fakestatus = (teks) => {
         }
     })
 }
-        var fakegroup = (teks) => {
-            Ktdprjct.sendMessage(from, teks, text, {
-                quoted: {
-                    key: {
-                        fromMe: false,
-                        participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289523258649-1604595598@g.us" } : {})
-                    },
-                    message: {
-                        "imageMessage": {
-                            "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc",
-                            "mimetype": "image/jpeg",
-                            "caption": fake,
-                            "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=",
-                            "fileLength": "28777",
-                            "height": 1080,
-                            "width": 1079,
-                            "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
-                            "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
-                            "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
-                            "mediaKeyTimestamp": "1610993486",
-                            "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
-                            "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
-                        }
-                    }
+
+var fakegroup = (teks) => {
+      Ktdprjct.sendMessage(from, teks, text, {
+         quoted: {
+             key: {
+                  fromMe: false,
+                  participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "6289523258649-1604595598@g.us" } : {})
+             },
+      message: {
+              "imageMessage": {
+              "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc",
+              "mimetype": "image/jpeg",
+              "caption": fake,
+              "fileSha256": "+Ia+Dwib70Y1CWRMAP9QLJKjIJt54fKycOfB2OEZbTU=",
+              "fileLength": "28777",
+              "height": 1080,
+              "width": 1079,
+              "mediaKey": "vXmRR7ZUeDWjXy5iQk17TrowBzuwRya0errAFnXxbGc=",
+              "fileEncSha256": "sR9D2RS5JSifw49HeBADguI23fWDz1aZu4faWG/CyRY=",
+              "directPath": "/v/t62.7118-24/21427642_840952686474581_572788076332761430_n.enc?oh=3f57c1ba2fcab95f2c0bb475d72720ba&oe=602F3D69",
+              "mediaKeyTimestamp": "1610993486",
+              "jpegThumbnail": fs.readFileSync('./media/logonya.jpg'),
+              "scansSidecar": "1W0XhfaAcDwc7xh1R8lca6Qg/1bB4naFCSngM2LKO2NoP5RI7K+zLw=="
                 }
-            })
+            }
         }
-        var ftrol = {
-	key : {
-                          participant : '0@s.whatsapp.net'
-                        },
-       message: {
-                    orderMessage: {
-                            itemCount : 123,
-                            status: 1,
-                            surface : 1,
-                            message: `RUNTIME : ${runtime(process.uptime())}`, 
-                            orderTitle: `${botname}`,
-                            thumbnail: fakeKtdprjct, //Gambarnye
-                            sellerJid: '0@s.whatsapp.net' 
-                          }
-                        }
-                      }
+    })
+}
+
+var ftrol = {
+      	key : {
+             participant : '0@s.whatsapp.net'
+          },
+   message: {
+     orderMessage: {
+                 itemCount : 123,
+                 status: 1,
+                 surface : 1,
+                 message: `RUNTIME : ${runtime(process.uptime())}`, 
+                 orderTitle: `${botname}`,
+                 thumbnail: fakeKtdprjct, //Gambarnye
+                 sellerJid: '0@s.whatsapp.net' 
+             }
+         }
+     }
 //end
 //════[ mess sticker ]════//
 
