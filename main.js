@@ -83,14 +83,12 @@ const starts = async (Ktdprjct = new WAConnection()) => {
 		vertivalLayout: 'default',
 		width: 80,
 		whitespaceBreak: false
-	}), 'orchid'))
+	}), 'cyan'))
 //console.log(chalk.green("isi teks apa")) // green bisa ganti ke warna lain, asal inggris
-console.log(color('\n> WIB  : ','silver'), color(`${time}`,'orchid'))
-console.log(color('> WITA : ','silver'), color(`${wita}`,'orchid'))
-console.log(color('> WIT  : ','silver'), color(`${wit}`,'orchid'))
-console.log(color('> HARI : ','silver'), color(`${tampilHari}`,'orchid'))
-console.log(color('> Base Ini  Dibuat Oleh :','grey'), color('KTDPrjct','orchid'))
-console.log(color('> SC INI GRATIS JANGAN DI PERJUAL BELIKAN\n','red'))
+console.log(color('|  WITA  |','white'), color(`${wita}`,'yellow'))
+console.log(color('|  HARI  |','white'), color(`${tampilHari}`,'yellow'))
+console.log(color('> SC INI DIBUAT OLEH KTDPRJCT','yellow'))
+console.log(color('> SC INI GRATIS JANGAN DI PERJUAL BELIKAN\n','yellow'))
 
 Ktdprjct.browserDescription = ["KTD PRJCT", "Browser", "3.0.0"];
 	Ktdprjct.on('qr', () => {
@@ -155,6 +153,25 @@ Ktdprjct.browserDescription = ["KTD PRJCT", "Browser", "3.0.0"];
 	})
 
 	// Send Message
+/*Ktdprjct.sendButton = async (jid, content, footer, button1, row1, quoted, options = {}) => {
+
+      return await Ktdprjct.sendMessage(jid, {
+
+        contentText: content,
+
+        footerText: footer,
+
+        buttons: [
+
+          { buttonId: row1, buttonText: { displayText: button1 }, type: 1 }
+
+        ],
+
+        headerType: 1
+
+      }, MessageType.buttonsMessage, { contextInfo: { mentionedJid: Ktdprjct.parseMention(content + footer) }, quoted, ...options })
+
+    }*/
 const sendButImage = async (id, text1, desc1, gam1, but = [], options = {}) => {
       kma = gam1;
       mhan = await Ktdprjct.prepareMessage(id, kma, MessageType.image);
