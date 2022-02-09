@@ -14,6 +14,7 @@
 </p>
 <p align="center">
 <a href="https://github.com/ktdprjct/ktdprjctbot/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/ktdprjct/ktdprjctbot?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/ktdprjct/ktdprjctbot/network/members"><img title="Forks" src="https://img.shields.io/github/forks/ktdprjct/ktdprjctbot?color=red&style=flat-square"></a>
 <a href="https://github.com/ktdprjct/ktdprjctbot"><img title="Open Source" src="https://badges.frapsoft.com/os/v2/open-source.svg?v=103"></a>
 <a href="https://github.com/ktdprjct/ktdprjctbot/"><img title="Size" src="https://img.shields.io/github/repo-size/ktdprjct/Ktdprjctbot?style=flat-square&color=green"></a>
 <a href="https://github.com/ktdprjct/ktdprjctbot/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
