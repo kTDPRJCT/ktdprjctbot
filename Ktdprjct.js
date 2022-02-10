@@ -1941,7 +1941,6 @@ case 'absen': case 'hadir': case 'present':
              caption = `Tanggal: ${tanggal}
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
 ╭─「 Daftar Absen 」
-│ 
 │Total: ${_absen.length}
 ${list}
 ╰────`.trim()
@@ -1971,8 +1970,7 @@ caption = `
 Tanggal: ${tanggal}
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n' : ''}
 ╭─「 Daftar Absen 」
-│ 
-│Total: ${_absen.length}
+│Total: ${absen.length}
 ${list}
 ╰────`.trim()
 Ktdprjct.send2Button(from, caption, '© KTDPRJCT メ Bo† ༆ from rexproject', 'Absen', `${prefix}absen`, 'Hapus', `${prefix}hapusabsen`, mek)
