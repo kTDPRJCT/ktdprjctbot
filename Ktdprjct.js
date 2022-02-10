@@ -224,8 +224,6 @@ eror: '⚠️ Fitur ini sedang eror',
 success: '[❗] _Done_ ',
 nsfw: 'Fitur nsfw belum di aktifkan, hubungi owner bot u/ mengaktifkan',
 ban: 'kamu telah di ban oleh bot',
-absen: 'Tidak ada absen berlangsung di group ini',
-sabsen: 'Masih ada sesi absen di group ini !',
 noregis: `╭───❒ 「 DAFTAR DULU YA 」 ❒
 ├ 🚀 Hai ${pushname} ${ucapanWaktu} 
 ├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
@@ -1166,7 +1164,7 @@ case 'pinterest':
    let pin = await hx.pinterest(q)
    let ac = pin[Math.floor(Math.random() * pin.length)]
    let di = await getBuffer(ac)
-await Ktdprjct.sendMessage(from,di,image,{quoted: mek})
+await Ktdprjct.sendMessage(from,di,image,{quoted: mek, caption: `hasil pencarian dari: ${q}`})
     break
             
 case 'mediafire':
@@ -1200,7 +1198,7 @@ case 'googlesearch': case 'googlesrc': case 'google': case 'ggs':
        res = await ggs({'query' : `${teks}`})
        kant = ``
     for (let i of res) {
-       kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
+       kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*query* : ${teks}\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
    }
     var akhir = kant.trim()
           reply(akhir)
