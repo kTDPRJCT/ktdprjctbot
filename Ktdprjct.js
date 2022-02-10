@@ -1307,19 +1307,18 @@ case 'ttdl': case 'savetiktok': case 'tiktok': case 'tiktokdl': case 'tiktoknowm
 sendMediaURL(from, `${res.result.nowatermark}`)
    break
    
- case 'ttwm':
- case 'tiktokwm':
- if (isBan) return sticBan(from)
- if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
- if (!q) return reply('Linknya?')
-var { TiktokDownloader } = require('./lib/tiktokdl')
-sticWait(from)
-res = await TiktokDownloader(`${q}`).catch(e => {
-reply(`Gagal Mendapatkan Data...`)
+case 'ttwm': case 'tiktokwm':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!q) return reply('Linknya?')
+    var { TiktokDownloader } = require('./lib/tiktokdl')
+          sticWait(from)
+    res = await TiktokDownloader(`${q}`).catch(e => {
+        reply(`Gagal Mendapatkan Data...`)
 })
-console.log(res)
+    console.log(res)
 sendMediaURL(from, `${res.result.watermark}`)
-break
+   break
 
 /*case 'mp4':
 reply(mess.wait)
@@ -1363,183 +1362,168 @@ created by : Ktdproject`,
 //end
 //════[ case sticker ]════//
 
-case 'memegenerator': 
-case 'memegen':{
-	if (isBan) return sticBan(from)
+case 'memegenerator': case 'memegen':{
+    if (isBan) return sticBan(from)
     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-	if (args.length < 1) return reply(`Kirim perintah *${prefix + command}* teks atas|teks bawah`)
-	if (!q.includes('|')) return reply(`Kirim perintah *${prefix + command}* teks atas|teks bawah`)
-	  try {
-	if (!isQuotedImage) return reply(`Reply Gambar!`)
-	sticWait(from)
+  	if (args.length < 1) return reply(`Kirim perintah *${prefix + command}* teks atas|teks bawah`)
+  	if (!q.includes('|')) return reply(`Kirim perintah *${prefix + command}* teks atas|teks bawah`)
+	      try {
+  	if (!isQuotedImage) return reply(`Reply Gambar!`)
+      	sticWait(from)
 		var teks1 = q.split('|')[0] ? q.split('|')[0] : ''
 		var teks2 = q.split('|')[1] ? q.split('|')[1] : ''
 		var enmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-	    var mediiia = await Ktdprjct.downloadMediaMessage(enmedia)
+	  var mediiia = await Ktdprjct.downloadMediaMessage(enmedia)
 		var njay = await uploadImages(mediiia)
 		var resu = await getBuffer(`https://api.memegen.link/images/custom/${teks1}/${teks2}.png?background=${njay}`)
 			Ktdprjct.sendMessage(from, resu, image, {caption:'Jadiin Sticker bang', thumbnail: Buffer.alloc(0), quoted: mek})
-			fs.unlinkSync(mediiia)
+			  fs.unlinkSync(mediiia)
  } catch (e) {
-	//reply(mess.eror)
-	console.log(e)
-}
-    }
-break
-case 'stickermeme': 
-case 'memesticker': 
-case 'memestick': 
-case 'stickmeme': 
-case 'stcmeme': 
+	       console.log(e)
+     }
+ }
+   break
+    
+case 'stickermeme': case 'memesticker': case 'memestick': case 'stickmeme': case 'stcmeme': 
 case 'smeme':{
-  if (isBan) return sticBan(from)
-  if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-  if (args.length < 1) return reply(`Kirim perintah *${prefix + command}* KTDPRJCT`)
-  if (q.includes('|')) return reply(`Kirim perintah *${prefix + command}* KTDPRJCT`)
-    try {
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (args.length < 1) return reply(`Kirim perintah *${prefix + command}* KTDPRJCT`)
+    if (q.includes('|')) return reply(`Kirim perintah *${prefix + command}* KTDPRJCT`)
+        try {
 	  if (!isQuotedImage) return reply(`Reply Gambar!`)
-	  sticWait(from)
+	       sticWait(from)
 	  var teks2 = args.join(' ')
 	  var enmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
 	  var mediia = await Ktdprjct.downloadMediaMessage(enmedia)
 	  var njay = await uploadImages(mediia)
 	  var resu = `https://api.memegen.link/images/custom/-/${teks2}.png?background=${njay}`
 	  sendStickerFromUrl(from,`${resu}`)	
- } catch (e) {
-	//reply(lang.err())
-	console.log(e)
+} catch (e) {
+	      console.log(e)
+    }
 }
-	}
-break	
+   break	
 
-case 'stickerwm': 
-case 'gifstiker':
-case 's':
-case 'stickergif':  
-case 'sticker':
-case 'stiker':
-case 'swm': 
+case 'stickerwm': case 'gifstiker': case 's': case 'stickergif': case 'sticker': case 'stiker': case 'swm': 
 case 'takestick':{
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-//if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-//sticWait(from) 
-let packname1 = q.split('|')[0] ? q.split('|')[0] : `KTDPRJCT Bot`
-let author1 = q.split('|')[1] ? q.split('|')[1] : '62895342581896'
-if (isMedia && !mek.message.videoMessage || isQuotedImage ) {
-let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
-  exif.create(packname1, author1, `stickwm_${sender}`)
-   await ffmpeg(`${media}`)
-	 .input(media)
-	 .on('start', function (cmd) {
-	console.log(color(`STARTED : ${cmd}`,'yellow'))
- })
-  .on('error', function (err) {
-	 console.log(color(`ERROR : ${err}`,'red'))
-	  fs.unlinkSync(media)
-	  reply(`error kak silahkan coba lagi nanti`)
- })
-  .on('end', function () {
-	console.log(color(`FINISH`,'magenta'))
-	exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-	if (error) return reply(`error kak silahkan coba lagi nanti`)
-	Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
-	fs.unlinkSync(media)
-	fs.unlinkSync(`./sticker/${sender}.webp`)
-	fs.unlinkSync(`./sticker/stickwm_${sender}.exif`)
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    let packname1 = q.split('|')[0] ? q.split('|')[0] : `KTDPRJCT Bot`
+    let author1 = q.split('|')[1] ? q.split('|')[1] : '62895342581896'
+    if (isMedia && !mek.message.videoMessage || isQuotedImage ) {
+    let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+    let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
+        exif.create(packname1, author1, `stickwm_${sender}`)
+          await ffmpeg(`${media}`)
+	           .input(media)
+	        .on('start', function (cmd) {
+	      console.log(color(`STARTED : ${cmd}`,'yellow'))
+      })
+        .on('error', function (err) {
+	         console.log(color(`ERROR : ${err}`,'red'))
+           fs.unlinkSync(media)
+	      reply(`error kak silahkan coba lagi nanti`)
+      })
+        .on('end', function () {
+	         console.log(color(`FINISH`,'magenta'))
+	         exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+    if (error) return reply(`error kak silahkan coba lagi nanti`)
+        Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
+	      fs.unlinkSync(media)
+	      fs.unlinkSync(`./sticker/${sender}.webp`)
+	      fs.unlinkSync(`./sticker/stickwm_${sender}.exif`)
+    })
 })
+        .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+        .toFormat('webp')
+        .save(`./sticker/${sender}.webp`)
+} else if (( isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 7000000)) {
+    let encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+    let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
+        exif.create(packname1, author1, `stickwm_${sender}`)
+            sticWait(from)
+await ffmpeg(`${media}`)
+      .inputFormat(media.split('.')[4])
+      .on('start', function (cmd) {
+          console.log(color(`STARTED : ${cmd}`,'yellow'))
+})
+      .on('error', function (err) {
+	        console.log(color(`ERROR : ${err}`,'red'))
+	        fs.unlinkSync(media)
+    let tipe = media.endsWith('.mp4') ? 'video' : 'gif'
+	      reply(`error kak silahkan coba lagi nanti`)
+})
+      .on('end', function () {
+	        console.log((`FINISH`,'magenta'))
+	        exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+    if (error) return reply(`error kak silahkan coba lagi nanti`)
+		    Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
+		      fs.unlinkSync(media)
+		      fs.unlinkSync(`./sticker/${sender}.webp`)
+		      fs.unlinkSync(`./sticker/stickwm_${sender}.exif`)
+      })
 	})
- .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-  .toFormat('webp')
-  .save(`./sticker/${sender}.webp`)
-	} else if (( isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 7000000)) {
- let encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
- let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
- exif.create(packname1, author1, `stickwm_${sender}`)
- sticWait(from)
- await ffmpeg(`${media}`)
-  .inputFormat(media.split('.')[4])
-  .on('start', function (cmd) {
-  console.log(color(`STARTED : ${cmd}`,'yellow'))
-})
-  .on('error', function (err) {
-	console.log(color(`ERROR : ${err}`,'red'))
-	fs.unlinkSync(media)
-	let tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-	reply(`error kak silahkan coba lagi nanti`)
-})
-  .on('end', function () {
-	 console.log((`FINISH`,'magenta'))
-	 exec(`webpmux -set exif ./sticker/stickwm_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-		if (error) return reply(`error kak silahkan coba lagi nanti`)
-		Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
-		fs.unlinkSync(media)
-		fs.unlinkSync(`./sticker/${sender}.webp`)
-		fs.unlinkSync(`./sticker/stickwm_${sender}.exif`)
-})
-	})
-	.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-		.toFormat('webp')
-		.save(`./sticker/${sender}.webp`)
+	    .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+		  .toFormat('webp')
+		  .save(`./sticker/${sender}.webp`)
 } else if (isQuotedSticker) {
-	let encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-	let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
-		exif.create(packname1, author1, `takestick_${sender}`)
-		exec(`webpmux -set exif ./sticker/takestick_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+    let encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+	  let media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
+		    exif.create(packname1, author1, `takestick_${sender}`)
+		    exec(`webpmux -set exif ./sticker/takestick_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
 		if (error) return reply(`error kak silahkan coba lagi nanti`)
-		Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
-		fs.unlinkSync(media)
-		fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
-	 })
+		    Ktdprjct.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
+		      fs.unlinkSync(media)
+		      fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
+	    })
  } else {
-   reply(`Tag Gambar / Video Dengan Caption ${prefix}sticker \nNote : Durasi video maximal 6 detik`)
-			 }
+       reply(`Tag Gambar / Video Dengan Caption ${prefix}sticker \nNote : Durasi video maximal 6 detik`)
 		}
-  break
+}
+   break
+   
 case 'toimg':
-if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-if (!isQuotedSticker) return reply('reply stickernya')
-encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia)
-ran = getRandom('.png')
-exec(`ffmpeg -i ${media} ${ran}`, (err) => {
-fs.unlinkSync(media)
-if (err) return reply('Gagal, pada saat mengkonversi sticker ke gambar')
-buffer = fs.readFileSync(ran)
-Ktdprjct.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih'})
-fs.unlinkSync(ran)
-})
-break
-case 'take':
-  case 'colong':
-  if (isBan) return sticBan(from)
-if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-              if (!isQuotedSticker) return reply('Stikernya mana kak')
-              encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-              media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia)
-              anu = args.join(' ').split('|')
-              satu = anu[0] !== '' ? anu[0] : `${pushname}`
-              dua = typeof anu[1] !== 'undefined' ? anu[1] : `KTDprjct`
-              require('./lib/fetcher').createExif(satu, dua)
-              require('./lib/fetcher').modStick(media, Ktdprjct, mek, from)
-              break
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!isQuotedSticker) return reply('reply stickernya')
+        encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+        media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia)
+        ran = getRandom('.png')
+        exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+             fs.unlinkSync(media)
+    if (err) return reply('Gagal, pada saat mengkonversi sticker ke gambar')
+        buffer = fs.readFileSync(ran)
+        Ktdprjct.sendMessage(from, buffer, image, {quoted: mek, caption: 'Nih'})
+        fs.unlinkSync(ran)
+    })
+   break
+case 'take': case 'colong':
+    if (isBan) return sticBan(from)
+    if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
+    if (!isQuotedSticker) return reply('Stikernya mana kak')
+        encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+        media = await Ktdprjct.downloadAndSaveMediaMessage(encmedia)
+        anu = args.join(' ').split('|')
+        satu = anu[0] !== '' ? anu[0] : `${pushname}`
+        dua = typeof anu[1] !== 'undefined' ? anu[1] : `KTDprjct`
+            require('./lib/fetcher').createExif(satu, dua)
+            require('./lib/fetcher').modStick(media, Ktdprjct, mek, from)
+   break
 //end
 //════[ case owner ]════//
 
 
 case 'clearall':
-					if (!isOwner) return reply('Kamu siapa?')
-					anu = await Ktdprjct.chats.all()
-					//Ktdprjct.setMaxListeners(25)
-					for (let _ of anu) {
-			        Ktdprjct.modifyChat(_.jid, 'clear', {
-                    includeStarred: false
-                    }).catch(console.log)
-					}
-					reply('Sukses delete all chat :)')
-					break
+		if (!isOwner) return reply('Kamu siapa?')
+		anu = await Ktdprjct.chats.all()
+			 for (let _ of anu) {
+			   Ktdprjct.modifyChat(_.jid, 'clear', {
+           includeStarred: false
+           }).catch(console.log)
+		}
+			reply('Sukses delete all chat :)')
+   break
 					
 case 'setthumb':
 if (!isOwner) return sticOwner(from)
