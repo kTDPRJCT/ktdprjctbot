@@ -918,10 +918,10 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
       'yellow',
       'green']
     var isMedia = (type === 'imageMessage' || type === 'videoMessage')
-    var isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
-    var isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
-    var isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
-    var isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
+    var isQuotedImage = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("imageMessage")
+    var isQuotedVideo = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("videoMessage")
+    var isQuotedAudio = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("audioMessage")
+    var isQuotedSticker = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("stickerMessage")
     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
     if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
     //end
