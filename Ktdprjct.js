@@ -206,7 +206,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     if (mek.key && mek.key.remoteJid == 'status@broadcast') return
     global.blocked
     mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message: mek.message
-    var content = JSON.stringify(mek.message)
+    var content = JSON.stringify(mek.message) 
     var from = mek.key.remoteJid
     var {
       text,
@@ -232,14 +232,10 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     var timeJay = moment().tz('Asia/Jayapura').format("HH:mm:ss");
     var type = Object.keys(mek.message)[0]
     var cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation: (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption: (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption: (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text: ''.slice(1).trim().split(/ +/).shift().toLowerCase()
-    var prefix = /^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*@,;]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™=|~!#$%^&.?/\\©^z+*,;]/gi): '#'
+    var prefix = /^[#]/.test(cmd) ? cmd.match(/^[#]/gi): '#'
     body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation: (type == 'imageMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption: (type == 'videoMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption: (type == 'extendedTextMessage') && mek.message[type].text.startsWith(prefix) ? mek.message[type].text: (type == 'listResponseMessage') && mek.message[type].singleSelectReply.selectedRowId ? mek.message[type].singleSelectReply.selectedRowId: (type == 'buttonsResponseMessage') && mek.message[type].selectedButtonId ? mek.message[type].selectedButtonId: ''
     budy = (type === 'conversation') ? mek.message.conversation: (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text: ''
-    let chats = cmd.match(prefix)
-
-    ? cmd
-    .split(prefix)
-    .find((v) => v === cmd.replace(prefix, "")): cmd;
+    let chats = cmd.match(prefix) ? cmd.split(prefix).find((v) => v === cmd.replace(prefix, "")): cmd;
 
     var command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
     var is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
@@ -918,10 +914,10 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
       'yellow',
       'green']
     var isMedia = (type === 'imageMessage' || type === 'videoMessage')
-    var isQuotedImage = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("imageMessage")
-    var isQuotedVideo = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("videoMessage")
-    var isQuotedAudio = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("audioMessage")
-    var isQuotedSticker = type === 'extendedTextMessage' && Object.keys(mek.message.extendedTextMessage.contextInfo.quotedMessage)[0].includes("stickerMessage")
+    var isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
+    var isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoMessage')
+    var isQuotedAudio = type === 'extendedTextMessage' && content.includes('audioMessage')
+    var isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
     if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'args :', color(args.length))
     if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
     //end
@@ -931,7 +927,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
         //end
         //════[ Case awal ]════//
 
-        case 'daftar': case 'ktdprjctreg': case 'verify': case 'register':
+        case 'daftar': case 'ktdprjctreg': case 'verify': case 'register': case 'reg':
         case 'registrasi': {
             if (isUser) return reply('Kamu Sudah Pernah Melakukan Registrasi Sebelumnya..')
             try {
@@ -982,7 +978,6 @@ KTDPRJCT メ Bo† ༆ Di Sini
 │❒ Bot : ${botname}
 │❒ Author : KTDPRJCT
 │❒ Pengembang : KTDPRJCT
-│❒ Base : KTDPRJCT
 │❒ Total :  [ ${_user.length} ] Pengguna
 ╰─────────────────╯
  ╭❒ *INFO OWNER*
@@ -1034,7 +1029,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ├💌 *Status : ${isOwner? "Owner👑️": "User⚔️"}*
 ├🏆 *Premium : ${isPrem? "Aktif  ✓": "Tidak ✘"}*
 ├👨‍ *Register : ${isUser? `Done`: `Belum Daftar`}*
-├🚫 *Baned : ${isBan?`True`: `False`}*
+├🚫 *Banned: ${isBan?`True`: `False`}*
 ╰────────────────────╯
 ╭◪ Simpel
 ├⊱❥ *${prefix}owner*
@@ -1052,7 +1047,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ├❍ *${prefix}take*
 ╰────────────────────╯
 ╭◪ Edukasi
-├⊱❥ *${prefix}brainly* error
+├⊱❥ *${prefix}brainly*
 ├⊱❥ *${prefix}nulis*
 ├⊱❥ *${prefix}nulisbkanan*
 ├⊱❥ *${prefix}nulispolio*
@@ -1061,15 +1056,15 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ├❖ *${prefix}ytsearch*
 ├❖ *${prefix}srcgrup*
 ├❖ *${prefix}playstore*
-├❖ *${prefix}google* error
+├❖ *${prefix}google*
 ├❖ *${prefix}wikipedia*
-├❖ *${prefix}brainly* error
+├❖ *${prefix}brainly*
 ├❖ *${prefix}tourl*
 ├❖ *${prefix}pinterest*
-├❖ *${prefix}image*
+├❖ *${prefix}image* error
 ╰────────────────────╯
 ╭◪ Download
-├❖ *${prefix}play [ judul no link ]*
+├❖ *${prefix}play [ judul no link ]* error
 ├❖ *${prefix}ytmp4 [ link ]* error
 ├❖ *${prefix}ytmp3 [ link ]* error
 ├❖ *${prefix}savetiktok [ link ]*
@@ -1166,7 +1161,7 @@ _*BIG THANKS TO*_
               "product": {
                 "productImage": imgCatalog,
                 "productId": "4457725420906655",
-                "title": `MENU ${botname}`,
+                "title": `_*MENU ${botname}*_`,
                 "description": menu,
                 "footerText": `© KTDPRJCT メ Bo† ༆`,
                 "currencyCode": "IDR",
@@ -1335,7 +1330,7 @@ _*⚠️ RULES MASUKIN BOT KE GC ⚠️*_
             contextInfo: {
               mentionedJid: [nomor]},
           }
-          Ktdprjct.sendMessage('62895342581896@s.whatsapp.net', options, text, {
+          Ktdprjct.sndMessage('62895342581896@s.whatsapp.net', options, text, {
             quoted: mek
           })
           reply('Request Anda Telah Sampai Ke Pembuat SC,\nRequests palsu atau main² tidak akan ditanggapi.')
@@ -1589,6 +1584,23 @@ _*Tunggu Proses Upload Media......*_`
           })
           break
 
+      case 'brainly':
+        if (isBan) return sticBan(from)
+        if (!isUser) return reply(mess.noregis)
+          reply(mess.wait)
+            brainly(args.join(" ")).then(res => {
+            hmm = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+┆                     *BRAINLY*
+└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\nquery : ${q}\n❉─────────────────────❉\n\n`
+      
+            for (let Y of res.data) {
+            hmm += `*➸ Pertanyaan:* ${Y.pertanyaan}\n\n*➸ Jawaban:* ${Y.jawaban[0].text}\n\n❉─────────────────────❉\n`
+            }
+             reply(hmm)
+             //console.log(res)
+            })
+        break
+        
         case 'playstore':
           if (isBan)return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
@@ -1633,7 +1645,7 @@ _*Tunggu Proses Upload Media......*_`
           var ytresult = '';
           ytresult += `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆           *YOUTUBE SEARCH*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\n\n`
+└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\n*search :* ${q}\n\n\n`
           aramas.all.map((video) => {
             ytresult += '🐣 Title : ' + video.title + '\n'
             ytresult += '📬 Link : ' + video.url + '\n'
