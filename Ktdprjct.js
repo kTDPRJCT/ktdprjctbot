@@ -729,7 +729,7 @@ if (!isGroup && isCmd) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m CHAT \
 if (isCmd && isGroup) console.log('\x1b[1;31m~\x1b[1;37m>', '|\x1b[1;32m GRUP \x1b[1;37m|', time, color(command), 'from', color(sender.split('@')[0]), 'in', color(groupName), 'args :', color(args.length))
 //end
 //════[ command ]════//
-
+try {
 switch (command) {
 //end
 //════[ Case awal ]════//
