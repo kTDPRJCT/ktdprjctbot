@@ -300,11 +300,11 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
       nsfw: 'Fitur nsfw belum di aktifkan, hubungi owner bot u/ mengaktifkan',
       ban: 'kamu telah di ban oleh bot',
       noregis: `╭───❒ 「 DAFTAR DULU YA 」 ❒
-      ├ 🚀 Hai ${pushname} ${ucapanWaktu}
-      ├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
-      ├ 🚀 Dengan Clik Button Dibawah Atau
-      ├ 🚀 Ketik ${prefix}reg
-      └────────────────❏`,
+├ 🚀 Hai ${pushname} ${ucapanWaktu}
+├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
+├ 🚀 Dengan Clik Button Dibawah Atau
+├ 🚀 Ketik ${prefix}reg
+└────────────────❏`,
       error: {
         stick: '[❗] _Maaf Itu Bukan Sticker_',
         Iv: '[❗] _Link invalid_'
