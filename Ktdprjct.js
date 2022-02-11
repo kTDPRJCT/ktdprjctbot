@@ -1001,7 +1001,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
             contentText: `${menu1}`, footerText: `${teks1}`,
             buttons: [{
               buttonId: `${prefix}allmenu`, buttonText: {
-                displayText: '🗒️ MENU'
+                displayText: 'ALL MENU'
               }, type: 1
             },
               {
@@ -1166,7 +1166,7 @@ _*BIG THANKS TO*_
               "product": {
                 "productImage": imgCatalog,
                 "productId": "4457725420906655",
-                "title": `_*MENU ${botname}*_`,
+                "title": `MENU ${botname}`,
                 "description": menu,
                 "footerText": `© KTDPRJCT メ Bo† ༆`,
                 "currencyCode": "IDR",
@@ -2881,7 +2881,7 @@ case 'yuri':
 
         default:
           if (body.startsWith(`${prefix}${command}`)) {
-            reply(`[ *404 NOT FOUND* ]\n\n_Maaf fitur ${command} sepertinya tidak terdaftar di dalam menu bot, silahkan cek menu kembali_ 🙂`, {
+            reply(`[ *404 NOT FOUND* ]\n\n_Maaf fitur ${command} sepertinya dihapus/tidak terdaftar di dalam menu bot, silahkan cek menu kembali_ 🙂`, {
               quoted: mek
             })
           }
