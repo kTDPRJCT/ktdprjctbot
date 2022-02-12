@@ -2543,7 +2543,7 @@ ${list}
             fixHeight,
             './media/nulis/images/buku/setelahkiri.jpg'
           ])
-          .on('error', () => reply(lang.tryAgain()))
+          .on('error', () => reply(`error`))
           .on('exit', () => {
             Ktdprjct.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkiri.jpg'), image, {
               thumbnail: Buffer.alloc(0), quoted: mek, caption: `Jangan Malas`
@@ -2580,7 +2580,7 @@ ${list}
             fixHeight,
             './media/nulis/images/buku/setelahkanan.jpg'
           ])
-          .on('error', () => reply(lang.tryAgain()))
+          .on('error', () => reply(`error`))
           .on('exit', () => {
             Ktdprjct.sendMessage(from, fs.readFileSync('./media/nulis/images/buku/setelahkanan.jpg'), image, {
               thumbnail: Buffer.alloc(0), quoted: mek, caption: `Jangan Malas`
@@ -2618,7 +2618,7 @@ ${list}
             fixHeight,
             './media/nulis/images/folio/setelahkiri.jpg'
           ])
-          .on('error', () => reply(lang.tryAgain()))
+          .on('error', () => reply(`error`))
           .on('exit', () => {
             Ktdprjct.sendMessage(from, fs.readFileSync('./media/nulis/images/folio/setelahkiri.jpg'), image, {
               thumbnail: Buffer.alloc(0), quoted: mek, caption: `Jangan Malas`
