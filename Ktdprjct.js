@@ -157,7 +157,7 @@ var game = require("./lib/game")
 
 offline = false
 banChats = true
-readGc = true 
+readGc = true
 readPc = true
 blocked = []
 ownernumber = setting.OwnerNumber
@@ -209,7 +209,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     if (mek.key && mek.key.remoteJid == 'status@broadcast') return
     global.blocked
     mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message: mek.message
-    var content = JSON.stringify(mek.message) 
+    var content = JSON.stringify(mek.message)
     var from = mek.key.remoteJid
     var {
       text,
@@ -271,8 +271,8 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     var senderNumber = sender.split("@")[0]
     var hour_now = moment().format('HH:mm:ss')
     var conts = mek.key.fromMe ? Ktdprjct.user.jid: Ktdprjct.contacts[mek.sender]
-    var pushname = mek.key.fromMe ? Ktdprjct.user.name: !conts?'-':conts.notify || conts.vname || conts.name || '-'
-    var isMuted = isGroup ? mute.includes(from) : false
+    var pushname = mek.key.fromMe ? Ktdprjct.user.name: !conts?'-': conts.notify || conts.vname || conts.name || '-'
+    var isMuted = isGroup ? mute.includes(from): false
     var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid: []
     var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "": ""
     var mention = typeof(mentionByTag) == 'string' ? [mentionByTag]: mentionByTag
@@ -298,11 +298,11 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
       nsfw: 'Fitur nsfw belum di aktifkan, hubungi owner bot u/ mengaktifkan',
       ban: 'kamu telah di ban oleh bot',
       noregis: `╭───❒ 「 DAFTAR DULU YA 」 ❒
-├ 🚀 Hai ${pushname} ${ucapanWaktu}
-├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
-├ 🚀 Dengan klik Button Dibawah Atau
-├ 🚀 Ketik ${prefix}regist
-└────────────────❏`,
+      ├ 🚀 Hai ${pushname} ${ucapanWaktu}
+      ├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
+      ├ 🚀 Dengan klik Button Dibawah Atau
+      ├ 🚀 Ketik ${prefix}regist
+      └────────────────❏`,
       error: {
         stick: '[❗] _Maaf Itu Bukan Sticker_',
         Iv: '[❗] _Link invalid_'
@@ -867,21 +867,26 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
 
     //Ktdprjct.chatRead(from, "read")
     var chatss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
-    chatss.map(async({jid})=>{
+    chatss.map(async({
+      jid
+    })=> {
       if (readGc === true) return
       await Ktdprjct.chatRead(jid)
     }
-      )
+    )
     var chatsss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
-    chatsss.map(async({jid})=>{
+    chatsss.map(async({
+      jid
+    })=> {
       if (readPc === true) return
       await Ktdprjct.chatRead(jid)
     }
-      )
+    )
     //end
     //════[ hidetag ]════//
 
-    var hideTag = async function(from, text) {
+    var hideTag = async function(from,
+      text) {
       let anu = await Ktdprjct.groupMetadata(from)
       let members = anu.participants
       let ane = []
@@ -909,7 +914,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
         })
       }, 0)
     }
- /*   if(isMuted){
+    /*   if(isMuted){
       if(!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(`only admin`)
       if(budy.toLowerCase()startsWith(`${prefix}unmute`)){
         let mutedd = mute.indexOf(from)
@@ -1003,17 +1008,17 @@ KTDPRJCT メ Bo† ༆ Di Sini
 │❒ Pengembang : KTDPRJCT
 │❒ Total :  [ ${_user.length} ] Pengguna
 ╰─────────────────╯
- ╭❒ *INFO OWNER*
- │❒ Name : ${ownername}
- │❒ Wa : wa.me/62895342581896
- ╰─────────────────╯
- ╭◪ *RULES*
- ├❖ *Spam : Auto Block!*
- ├❖ *Beri Jeda 5 Detik!*
- ├❖ *No Vc/Tlpn = Block!*
- ├❖ *Bot Belum Jadi Sepenuhnya!*
- ╰─────────────────╯`
-          teks1 =`_*JIKA BUTTON TIDAK TERLIHAT KETIK ${prefix}allmenu*_\n_${tanggal}_`
+╭❒ *INFO OWNER*
+│❒ Name : ${ownername}
+│❒ Wa : wa.me/62895342581896
+╰─────────────────╯
+╭◪ *RULES*
+├❖ *Spam : Auto Block!*
+├❖ *Beri Jeda 5 Detik!*
+├❖ *No Vc/Tlpn = Block!*
+├❖ *Bot Belum Jadi Sepenuhnya!*
+╰─────────────────╯`
+          teks1 = `_*JIKA BUTTON TIDAK TERLIHAT KETIK ${prefix}allmenu*_\n_${tanggal}_`
 
           Ktdprjct.sendMessage(from, {
             contentText: `${menu1}`, footerText: `${teks1}`,
@@ -1095,14 +1100,16 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ╰────────────────────╯
 ╭◪ Anime
 ├⊱❥ *${prefix}chara [ Character apa ]*
-├⊱❥ *${prefix}nekonime* error
+├⊱❥ *${prefix}neko* 
+├⊱❥ *${prefix}waifu* 
+├⊱❥ *${prefix}megumin*
 ├⊱❥ *${prefix}loli* error
 ╰────────────────────╯
 ╭◪ 18+
-├❖ *${prefix}ero*
-├❖ *${prefix}tits*
-├❖ *${prefix}neko*
-├❖ *${prefix}futanari*
+├❖ *${prefix}ero* error
+├❖ *${prefix}tits* error
+├❖ *${prefix}neko* error
+├❖ *${prefix}futanari* error
 ├❖ *${prefix}yuri*
 ╰────────────────────╯
 ╭◪ Fun
@@ -1167,7 +1174,7 @@ KTDPRJCT メ Bo† ༆ Di Sini
 
 _*BIG THANKS TO*_
 *ALLAH SWT*
-*MY ORTU*
+*ORTU*
 *KTDPRJCT ( Me )*
 *Ridho ( My pren )*
 *PENYEDIA APIKEY*
@@ -1607,23 +1614,23 @@ _*Tunggu Proses Upload Media......*_`
           })
           break
 
-      case 'brainly':
-        if (isBan) return sticBan(from)
-        if (!isUser) return reply(mess.noregis)
+        case 'brainly':
+          if (isBan) return sticBan(from)
+          if (!isUser) return reply(mess.noregis)
           reply(mess.wait)
-            brainly(args.join(" ")).then(res => {
+          brainly(args.join(" ")).then(res => {
             hmm = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆                     *BRAINLY*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶\n\nquery : ${q}\n❉─────────────────────❉\n\n`
-      
+
             for (let Y of res.data) {
-            hmm += `*➸ Pertanyaan:* ${Y.pertanyaan}\n\n*➸ Jawaban:* ${Y.jawaban[0].text}\n\n❉─────────────────────❉\n`
+              hmm += `*➸ Pertanyaan:* ${Y.pertanyaan}\n\n*➸ Jawaban:* ${Y.jawaban[0].text}\n\n❉─────────────────────❉\n`
             }
-             reply(hmm)
-             //console.log(res)
-            })
-        break
-        
+            reply(hmm)
+            //console.log(res)
+          })
+          break
+
         case 'playstore':
           if (isBan)return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
@@ -2223,7 +2230,7 @@ created by : Ktdproject`,
           Ktdprjct.groupMakeAdmin(from, mentionUser)
           reply(`D O N E ! ! !`)
           break
-          
+
         case 'demote':
           if (isBan) return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
@@ -2309,7 +2316,7 @@ created by : Ktdproject`,
             }, type: 1,
           }], {
             quoted: ftrol
-          }); 
+          });
           if (!isGroup) return sticGrup(from)
           if (!isGroupAdmins && !mek.key.fromMe) return reply(only.admin)
           if (!isBotGroupAdmins) return sticNotAdmin(from)
@@ -2447,11 +2454,11 @@ created by : Ktdproject`,
             reply('Pesan tidak ditemukan!')
           }
           break
-          
-         /* case 'mute':
+
+        /* case 'mute':
             if(!mek.key.fromMe && !isOwner) return reply(`lu bukan owner gw`)
             Ktdprjct.moddify*/
-            
+
         //end
         //════[ case absen ]════//
 
@@ -2463,7 +2470,7 @@ created by : Ktdproject`,
           if (wasVote) return reply(`Kamu sudah absen!`)
           _absen.push(sender)
           list = _absen.map((v, i) => `│ ${i + 1}.  @${v.split`@`[0]}`).join('\n')
-          caption = `Tanggal: ${tanggal}
+caption = `Tanggal: ${tanggal}
 ${Ktdprjct.absen[from][2] ? Ktdprjct.absen[from][2] + '\n': ''}
 ╭─「 Daftar Absen 」
 │Total: ${_absen.length}
@@ -2779,40 +2786,79 @@ Ketik ${prefix}delttc , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {
         //end
         //════[ case fun ]════//
 
-        /*case 'bisakah':
-		if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {quoted: mek})
-				bisakah = q
-					const bisa =['Tentu Saja Bisa! Kamu Adalah Orang Paling beruntung','Gak Bisa','Hmm Gua Gak Tau Yaa, tanya ama bapakau','Ulangi Tod Gua Ga Paham']
-					const keh = bisa[Math.floor(Math.random() * bisa.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : Bisakah *'+bisakah+'*\n\nJawaban : '+ keh, text, { quoted: mek })
-					break
-				case 'kapankah':
-				if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {quoted: mek})
-				kapankah = q
-					const kapan =['Besok','Lusa','Tadi','4 Hari Lagi','5 Hari Lagi','6 Hari Lagi','1 Minggu Lagi','2 Minggu Lagi','3 Minggu Lagi','1 Bulan Lagi','2 Bulan Lagi','3 Bulan Lagi','4 Bulan Lagi','5 Bulan Lagi','6 Bulan Lagi','1 Tahun Lagi','2 Tahun Lagi','3 Tahun Lagi','4 Tahun Lagi','5 Tahun Lagi','6 Tahun Lagi','1 Abad lagi','3 Hari Lagi']
-					const koh = kapan[Math.floor(Math.random() * kapan.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : Kapankah *'+kapankah+'*\n\nJawaban : '+ koh, text, { quoted: mek })
-					break
-           case 'apakah':
-           if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {quoted: mek})
-           apakah = q
-					const apa =['Iya','Tidak','Bisa Jadi']
-					const kah = apa[Math.floor(Math.random() * apa.length)]
-					Ktdprjct.sendMessage(from, 'Pertanyaan : Apakah *'+apakah+'*\n\nJawaban : '+ kah, text, { quoted: mek })
-					break
+        case 'bisakah':
+          if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {
+            quoted: mek
+          })
+          bisakah = q
+          const bisa = ['Tentu Saja Bisa! Kamu Adalah Orang Paling beruntung',
+            'Gak Bisa',
+            'Hmm Gua Gak Tau Yaa, tanya ama bapakau',
+            'Ulangi Tod Gua Ga Paham']
+          const keh = bisa[Math.floor(Math.random() * bisa.length)]
+          Ktdprjct.sendMessage(from, 'Pertanyaan : Bisakah *'+bisakah+'*\n\nJawaban : '+ keh, text, {
+            quoted: mek
+          })
+          break
+        case 'kapankah':
+          if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {
+            quoted: mek
+          })
+          kapankah = q
+          const kapan = ['Besok',
+            'Lusa',
+            'Tadi',
+            '4 Hari Lagi',
+            '5 Hari Lagi',
+            '6 Hari Lagi',
+            '1 Minggu Lagi',
+            '2 Minggu Lagi',
+            '3 Minggu Lagi',
+            '1 Bulan Lagi',
+            '2 Bulan Lagi',
+            '3 Bulan Lagi',
+            '4 Bulan Lagi',
+            '5 Bulan Lagi',
+            '6 Bulan Lagi',
+            '1 Tahun Lagi',
+            '2 Tahun Lagi',
+            '3 Tahun Lagi',
+            '4 Tahun Lagi',
+            '5 Tahun Lagi',
+            '6 Tahun Lagi',
+            '1 Abad lagi',
+            '3 Hari Lagi']
+          const koh = kapan[Math.floor(Math.random() * kapan.length)]
+          Ktdprjct.sendMessage(from, 'Pertanyaan : Kapankah *'+kapankah+'*\n\nJawaban : '+ koh, text, {
+            quoted: mek
+          })
+          break
+        case 'apakah':
+          if (args.length < 1) return Ktdprjct.sendMessage(from, 'Pertanyaan nya apa?', text, {
+            quoted: mek
+          })
+          apakah = q
+          const apa = ['Iya',
+            'Tidak',
+            'Bisa Jadi']
+          const kah = apa[Math.floor(Math.random() * apa.length)]
+          Ktdprjct.sendMessage(from, 'Pertanyaan : Apakah *'+apakah+'*\n\nJawaban : '+ kah, text, {
+            quoted: mek
+          })
+          break
         //end
         //════[ fun group ]════//
 
-case 'ganteng': case 'cantik': case 'jelek': case 'goblok':  case 'bego': case 'pinter': case 'jago': case 'nolep': case 'beban': case 'baik': case 'jahat': case 'haram': case 'pakboy': case 'pakgirl': case 'wibu': case 'hebat': case 'sadboy': case 'sadgirl':
-				   if (!isGroup) return sticGrup(from)
- 				   jds = []
-				   const A1 = groupMembers
-  		 		const B1 = groupMembers
- 				   const C1 = A1[Math.floor(Math.random() * A1.length)]
-				   D1 = `Yang *ter${command}* disini adalah @${C1.jid.split('@')[0]}`
-				   jds.push(C1.jid)
-				   mentions(D1, jds, true)
-				   break*/
+        case 'ganteng': case 'cantik': case 'jelek': case 'goblok': case 'bego': case 'pinter': case 'jago': case 'nolep': case 'beban': case 'baik': case 'jahat': case 'haram': case 'pakboy': case 'pakgirl': case 'wibu': case 'hebat': case 'sadboy': case 'sadgirl':
+          if (!isGroup) return sticGrup(from)
+          jds = []
+          const A1 = groupMembers
+          const B1 = groupMembers
+          const C1 = A1[Math.floor(Math.random() * A1.length)]
+          D1 = `Yang *ter${command}* disini adalah @${C1.jid.split('@')[0]}`
+          jds.push(C1.jid)
+          mentions(D1, jds, true)
+          break
         //end
         //════[ Module ]════//
 
@@ -2841,63 +2887,149 @@ case 'ganteng': case 'cantik': case 'jelek': case 'goblok':  case 'bego': case '
           break
         //end
         //════[ anime h ]════//
-        /*
-case 'neko':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/neko?apikey=${ktdkey}`).then((gambar) => {
-        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
-})
-break
 
-case 'futanari':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/futanari?apikey=${ktdkey}`).then((gambar) => {
-        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
-})
-break
+        case 'neko':
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          let res = await fetch('https://api.waifu.pics/sfw/neko')
+          if (!res.ok) throw await res.text()
+          let json = await res.json()
+          if (!json.url) throw 'Error!'
+          Ktdprjct.sendFile(from, json.url, '', 'Nyaa', mek)
+          break
 
-case 'ero':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/ero?apikey=${ktdkey}`).then((gambar) => {
-        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}*` })
-})
-break
-case 'tits':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/tits?apikey=${ktdkey}`).then((gambar) => {
-        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
-  })
-  break
-case 'pussy':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/pussyart?apikey=${ktdkey}`).then((gambar)=>{
-        Ktdprjct.sendMessage(from, gambar, image, { quoted: ftrol, caption: `©Random ${command}` })
-  })
-  break
-case 'yuri':
-     if (isBan) return sticBan(from)
-     if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}premium` ,buttonText: {displayText: `Premium`,},type: 1,}], {quoted: ftrol});
-     if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{buttonId: `${prefix}ktdprjctreg` ,buttonText: {displayText: `Daftar`,},type: 1,}], {quoted: ftrol});
-        sticWait(from)
-        await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=>{
-        Ktdprjct.sendMessage(from, gambar, image, {quoted: ftrol, caption: `©Random ${command}` })
-  })
-  break    */
+        case 'megumin': {
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          let res = await fetch('https://api.waifu.pics/sfw/megumin')
+          if (!res.ok) throw await res.text()
+          let json = await res.json()
+          if (!json.url) throw 'Error!'
+          Ktdprjct.sendFile(from, json.url, '', '@Ktdprjct', mek)
+        }
+          break
+
+        case 'waifu': {
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          let res = await fetch('https://api.waifu.pics/sfw/waifu')
+          if (!res.ok) throw await res.text()
+          let json = await res.json()
+          if (!json.url) throw 'Error!'
+          Ktdprjct.sendFile(from, json.url, '', 'yahaha istrinya kartun', mek)
+        }
+          break
+        case 'tits':
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/tits?apikey=${ktdkey}`).then((gambar) => {
+            Ktdprjct.sendMessage(from, gambar, image, {
+              quoted: ftrol, caption: `©Random ${command}`
+            })
+          })
+          break
+        case 'pussy':
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/pussyart?apikey=${ktdkey}`).then((gambar)=> {
+            Ktdprjct.sendMessage(from, gambar, image, {
+              quoted: ftrol, caption: `©Random ${command}`
+            })
+          })
+          break
+        case 'yuri':
+          if (isBan) return sticBan(from)
+          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}premium`, buttonText: {
+              displayText: `Premium`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
+            buttonId: `${prefix}ktdprjctreg`, buttonText: {
+              displayText: `Daftar`,
+            }, type: 1,
+          }], {
+            quoted: ftrol
+          });
+          sticWait(from)
+          await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=> {
+            Ktdprjct.sendMessage(from, gambar, image, {
+              quoted: ftrol, caption: `©Random ${command}`
+            })
+          })
+          break
         //end
         //════[ Module ]════//
 
@@ -2911,17 +3043,17 @@ case 'yuri':
 comd = `╭────────❒\n├ ʜᴇɪ *${pushname}* !!!\n├ Perintah / Comand *${prefix}${command}*\n├Tidak Ada Dalam *${prefix}menu*\n└───────────────❏`
 Ktdprjct.sendMessage(from, comd, text, {quoted: mek})
 				  }*/
-				  break
-        }
+          break
+      }
     } catch (e) {
       reply(util.format(e))
     }
-        if (isTTT && isPlayer2) {
-          if (budy.startsWith('Y')) {
-            tto = ky_ttt.filter(ghg => ghg.id.includes(from))
-            tty = tto[0]
-            angka = tto[0].angka
-            ucapan = `*🎳 Game Tictactoe 🎲*
+    if (isTTT && isPlayer2) {
+      if (budy.startsWith('Y')) {
+        tto = ky_ttt.filter(ghg => ghg.id.includes(from))
+        tty = tto[0]
+        angka = tto[0].angka
+        ucapan = `*🎳 Game Tictactoe 🎲*
 
 Player1 @${tty.player1.split('@')[0]}=❌
 Player2 @${tty.player2.split('@')[0]}=⭕
@@ -2931,88 +3063,88 @@ ${angka[4]}${angka[5]}${angka[6]}
 ${angka[7]}${angka[8]}${angka[9]}
 
 Giliran = @${tty.player1.split('@')[0]}`
-            Ktdprjct.sendMessage(from, ucapan, text, {
-              quoted: mek, contextInfo: {
-                mentionedJid: [tty.player1, tty.player2]}})
-          }
-          if (budy.startsWith('N')) {
-            tto = ky_ttt.filter(ghg => ghg.id.includes(from))
-            tty = tto[0]
-            naa = ky_ttt.filter(toek => !toek.id.includes(from))
-            ky_ttt = naa
-            Ktdprjct.sendMessage(from, `Yahh @${tty.player2.split('@')[0]} Menolak:(`, text, {
-              quoted: mek, contextInfo: {
-                mentionedJid: [tty.player2]}})
-          }
-        }
+        Ktdprjct.sendMessage(from, ucapan, text, {
+          quoted: mek, contextInfo: {
+            mentionedJid: [tty.player1, tty.player2]}})
+      }
+      if (budy.startsWith('N')) {
+        tto = ky_ttt.filter(ghg => ghg.id.includes(from))
+        tty = tto[0]
+        naa = ky_ttt.filter(toek => !toek.id.includes(from))
+        ky_ttt = naa
+        Ktdprjct.sendMessage(from, `Yahh @${tty.player2.split('@')[0]} Menolak:(`, text, {
+          quoted: mek, contextInfo: {
+            mentionedJid: [tty.player2]}})
+      }
+    }
 
-        if (isTTT && isPlayer1) {
-          nuber = parseInt(budy)
-          if (isNaN(nuber)) return
-          if (nuber < 1 || nuber > 9) return reply('Masukan Angka Dengan Benar')
-          main = ky_ttt.filter(hjh => hjh.id.includes(from))
-          if (!tttawal.includes(main[0].angka[nuber])) return reply('Udah Di Isi, Isi Yang Lain Gan')
-          if (main[0].gilir.includes(sender)) return reply('Tunggu Giliran Gan')
-          s = '❌'
-          main[0].angka[nuber] = s
-          main[0].gilir = main[0].player1
-          naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-          ky_ttt = naa
-          pop = main[0]
-          ky_ttt.push(pop)
-          tto = ky_ttt.filter(hgh => hgh.id.includes(from))
-          tty = tto[0]
-          angka = tto[0].angka
-          ttt = `${angka[1]}${angka[2]}${angka[3]}\n${angka[4]}${angka[5]}${angka[6]}\n${angka[7]}${angka[8]}${angka[9]}`
+    if (isTTT && isPlayer1) {
+      nuber = parseInt(budy)
+      if (isNaN(nuber)) return
+      if (nuber < 1 || nuber > 9) return reply('Masukan Angka Dengan Benar')
+      main = ky_ttt.filter(hjh => hjh.id.includes(from))
+      if (!tttawal.includes(main[0].angka[nuber])) return reply('Udah Di Isi, Isi Yang Lain Gan')
+      if (main[0].gilir.includes(sender)) return reply('Tunggu Giliran Gan')
+      s = '❌'
+      main[0].angka[nuber] = s
+      main[0].gilir = main[0].player1
+      naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+      ky_ttt = naa
+      pop = main[0]
+      ky_ttt.push(pop)
+      tto = ky_ttt.filter(hgh => hgh.id.includes(from))
+      tty = tto[0]
+      angka = tto[0].angka
+      ttt = `${angka[1]}${angka[2]}${angka[3]}\n${angka[4]}${angka[5]}${angka[6]}\n${angka[7]}${angka[8]}${angka[9]}`
 
-          ucapmenang = () => {
-            ucapan1 = `*🎳Result Game Tictactoe 🎲
+      ucapmenang = () => {
+        ucapan1 = `*🎳Result Game Tictactoe 🎲
 
 *Yeyyy Permainan Di Menangkan Oleh *@${tty.player1.split('@')[0]}*\n`
-            ucapan2 = `*🎳Result Game Tictactoe 🎲*
+        ucapan2 = `*🎳Result Game Tictactoe 🎲*
 
 *Hasil Akhir:*
 
 ${ttt}`
-            Ktdprjct.sendMessage(from, ucapan1, text, {
-              quoted: mek, contextInfo: {
-                mentionedJid: [tty.player1]}})
-            naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-            return ky_ttt = naa
-          }
+        Ktdprjct.sendMessage(from, ucapan1, text, {
+          quoted: mek, contextInfo: {
+            mentionedJid: [tty.player1]}})
+        naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+        return ky_ttt = naa
+      }
 
-          if (angka[1] == s && angka[2] == s && angka[3] == s) return ucapmenang()
+      if (angka[1] == s && angka[2] == s && angka[3] == s) return ucapmenang()
 
-          if (angka[1] == s && angka[4] == s && angka[7] == s) return ucapmenang()
+      if (angka[1] == s && angka[4] == s && angka[7] == s) return ucapmenang()
 
-          if (angka[1] == s && angka[5] == s && angka[9] == s) return ucapmenang()
+      if (angka[1] == s && angka[5] == s && angka[9] == s) return ucapmenang()
 
-          if (angka[2] == s && angka[5] == s && angka[8] == s) return ucapmenang()
+      if (angka[2] == s && angka[5] == s && angka[8] == s) return ucapmenang()
 
-          if (angka[4] == s && angka[5] == s && angka[6] == s) return ucapmenang()
+      if (angka[4] == s && angka[5] == s && angka[6] == s) return ucapmenang()
 
-          if (angka[7] == s && angka[8] == s && angka[9] == s) return ucapmenang()
+      if (angka[7] == s && angka[8] == s && angka[9] == s) return ucapmenang()
 
-          if (angka[3] == s && angka[5] == s && angka[7] == s) return ucapmenang()
+      if (angka[3] == s && angka[5] == s && angka[7] == s) return ucapmenang()
 
-          if (angka[3] == s && angka[6] == s && angka[9] == s) return ucapmenang()
+      if (angka[3] == s && angka[6] == s && angka[9] == s) return ucapmenang()
 
-          if (!ttt.includes('1️⃣') && !ttt.includes('2️⃣') && !ttt.includes('3️⃣') && ! ttt.includes('4️⃣') && !
-            ttt.includes('5️⃣') && !
-            ttt.includes('6️⃣') && ! ttt.includes('7️⃣') && ! ttt.includes('8️⃣') && ! ttt.includes('9️⃣')) {
-            ucapan1 = `*🎳 Result Game Tictactoe 🎲*
+      if (!ttt.includes('1️⃣') && !ttt.includes('2️⃣') && !ttt.includes('3️⃣') && ! ttt.includes('4️⃣') && !
+        ttt.includes('5️⃣') && !
+        ttt.includes('6️⃣') && ! ttt.includes('7️⃣') && ! ttt.includes('8️⃣') && ! ttt.includes('9️⃣')) {
+        ucapan1 = `*🎳 Result Game Tictactoe 🎲*
 
 *_Permainan Seri 🗿👌_*`
-ucapan2 = `*🎳 Result Game Tictactoe 🎲*
+        ucapan2 = `*🎳 Result Game Tictactoe 🎲*
 
 *Hasil Akhir:*
 
 ${ttt}`
-            reply(ucapan1)
-            naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-            return ky_ttt = naa
-          }
-          ucapan = `*🎳 Game Tictactoe 🎲*
+        reply(ucapan1)
+        naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+        return ky_ttt = naa
+      }
+      ucapan = `*🎳 Game Tictactoe 🎲*
 
 Player2 @${tty.player2.split('@')[0]}=⭕
 Player1 @${tty.player1.split('@')[0]}=❌
@@ -3020,69 +3152,69 @@ Player1 @${tty.player1.split('@')[0]}=❌
 ${ttt}
 
 Giliran = @${tty.player2.split('@')[0]}`
-          Ktdprjct.sendMessage(from, ucapan, text, {
-            quoted: mek, contextInfo: {
-              mentionedJid: [tty.player1, tty.player2]}})
-        }
-        if (isTTT && isPlayer2) {
-          nuber = parseInt(budy)
-          if (isNaN(nuber)) return
-          if (nuber < 1 || nuber > 9) return reply('Masukan Angka Dengan Benar')
-          main = ky_ttt.filter(hjh => hjh.id.includes(from))
-          if (!tttawal.includes(main[0].angka[nuber])) return reply('Udah Di Isi, Isi Yang Lain Gan')
-          if (main[0].gilir.includes(sender)) return reply('Tunggu Giliran Gan')
-          s = '⭕'
-          main[0].angka[nuber] = s
-          main[0].gilir = main[0].player2
-          naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-          ky_ttt = naa
-          pop = main[0]
-          ky_ttt.push(pop)
-          tto = ky_ttt.filter(hgh => hgh.id.includes(from))
-          tty = tto[0]
-          angka = tto[0].angka
-          ttt = `${angka[1]}${angka[2]}${angka[3]}\n${angka[4]}${angka[5]}${angka[6]}\n${angka[7]}${angka[8]}${angka[9]}`
+      Ktdprjct.sendMessage(from, ucapan, text, {
+        quoted: mek, contextInfo: {
+          mentionedJid: [tty.player1, tty.player2]}})
+    }
+    if (isTTT && isPlayer2) {
+      nuber = parseInt(budy)
+      if (isNaN(nuber)) return
+      if (nuber < 1 || nuber > 9) return reply('Masukan Angka Dengan Benar')
+      main = ky_ttt.filter(hjh => hjh.id.includes(from))
+      if (!tttawal.includes(main[0].angka[nuber])) return reply('Udah Di Isi, Isi Yang Lain Gan')
+      if (main[0].gilir.includes(sender)) return reply('Tunggu Giliran Gan')
+      s = '⭕'
+      main[0].angka[nuber] = s
+      main[0].gilir = main[0].player2
+      naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+      ky_ttt = naa
+      pop = main[0]
+      ky_ttt.push(pop)
+      tto = ky_ttt.filter(hgh => hgh.id.includes(from))
+      tty = tto[0]
+      angka = tto[0].angka
+      ttt = `${angka[1]}${angka[2]}${angka[3]}\n${angka[4]}${angka[5]}${angka[6]}\n${angka[7]}${angka[8]}${angka[9]}`
 
-          ucapmenang = () => {
-            ucapan1 = `*?? Result Game Tictactoe 🎲*
+      ucapmenang = () => {
+        ucapan1 = `*?? Result Game Tictactoe 🎲*
 
 Yeyyy Permainan Di Menangkan Oleh *@${tty.player2.split('@')[0]}*\n`
-            ucapan2 = `*🎳 Game Tictactoe 🎲*
+        ucapan2 = `*🎳 Game Tictactoe 🎲*
 
 *Hasil Akhir:*
 
 ${ttt}`
-            Ktdprjct.sendMessage(from, ucapan1, text, {
-              quoted: mek, contextInfo: {
-                mentionedJid: [tty.player2]}})
-            naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-            return ky_ttt = naa
-          }
+        Ktdprjct.sendMessage(from, ucapan1, text, {
+          quoted: mek, contextInfo: {
+            mentionedJid: [tty.player2]}})
+        naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+        return ky_ttt = naa
+      }
 
-          if (angka[1] == s && angka[2] == s && angka[3] == s) return ucapmenang()
-          if (angka[1] == s && angka[4] == s && angka[7] == s) return ucapmenang()
-          if (angka[1] == s && angka[5] == s && angka[9] == s) return ucapmenang()
-          if (angka[2] == s && angka[5] == s && angka[8] == s) return ucapmenang()
-          if (angka[4] == s && angka[5] == s && angka[6] == s) return ucapmenang()
-          if (angka[7] == s && angka[8] == s && angka[9] == s) return ucapmenang()
-          if (angka[3] == s && angka[5] == s && angka[7] == s) return ucapmenang()
-          if (angka[3] == s && angka[6] == s && angka[9] == s) return ucapmenang()
-          if (!ttt.includes('1️⃣') && !ttt.includes('2️⃣') && !ttt.includes('3️⃣') && ! ttt.includes('4️⃣') && !
-            ttt.includes('5️⃣') && !
-            ttt.includes('6️⃣') && ! ttt.includes('7️⃣') && ! ttt.includes('8️⃣') && ! ttt.includes('9️⃣')) {
-            ucapan1 = `*🎳Result Game Tictactoe 🎲*
+      if (angka[1] == s && angka[2] == s && angka[3] == s) return ucapmenang()
+      if (angka[1] == s && angka[4] == s && angka[7] == s) return ucapmenang()
+      if (angka[1] == s && angka[5] == s && angka[9] == s) return ucapmenang()
+      if (angka[2] == s && angka[5] == s && angka[8] == s) return ucapmenang()
+      if (angka[4] == s && angka[5] == s && angka[6] == s) return ucapmenang()
+      if (angka[7] == s && angka[8] == s && angka[9] == s) return ucapmenang()
+      if (angka[3] == s && angka[5] == s && angka[7] == s) return ucapmenang()
+      if (angka[3] == s && angka[6] == s && angka[9] == s) return ucapmenang()
+      if (!ttt.includes('1️⃣') && !ttt.includes('2️⃣') && !ttt.includes('3️⃣') && ! ttt.includes('4️⃣') && !
+        ttt.includes('5️⃣') && !
+        ttt.includes('6️⃣') && ! ttt.includes('7️⃣') && ! ttt.includes('8️⃣') && ! ttt.includes('9️⃣')) {
+        ucapan1 = `*🎳Result Game Tictactoe 🎲*
 
 *_Permainan Seri🗿??*`
-            ucapan2 = `*🎳 Result Game Tictactoe 🎲*
+        ucapan2 = `*🎳 Result Game Tictactoe 🎲*
 
 *Hasil Akhir:*
 
 ${ttt}`
-            reply(ucapan1)
-            naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
-            return ky_ttt = naa
-          }
-          ucapan = `*🎳 Game Tictactoe 🎲*
+        reply(ucapan1)
+        naa = ky_ttt.filter(hhg => !hhg.id.includes(from))
+        return ky_ttt = naa
+      }
+      ucapan = `*🎳 Game Tictactoe 🎲*
 
 Player1 @${tty.player1.split('@')[0]}=⭕
 Player2 @${tty.player2.split('@')[0]}=❌
@@ -3090,42 +3222,42 @@ Player2 @${tty.player2.split('@')[0]}=❌
 ${ttt}
 
 Giliran = @${tty.player1.split('@')[0]}`
-          Ktdprjct.sendMessage(from, ucapan, text, {
-            quoted: mek, contextInfo: {
-              mentionedJid: [tty.player1, tty.player2]}})
-        }
+      Ktdprjct.sendMessage(from, ucapan, text, {
+        quoted: mek, contextInfo: {
+          mentionedJid: [tty.player1, tty.player2]}})
+    }
 
-        if (isOwner) {
-          if (budy.startsWith('$')) {
-            if (!mek.key.fromMe && !isOwner) return
-            qur = budy.slice(2)
-            exec(qur, (err, stdout) => {
-              if (err) return reply(`${err}`)
-              if (stdout) {
-                reply(stdout)
-              }
-            })
+    if (isOwner) {
+      if (budy.startsWith('$')) {
+        if (!mek.key.fromMe && !isOwner) return
+        qur = budy.slice(2)
+        exec(qur, (err, stdout) => {
+          if (err) return reply(`${err}`)
+          if (stdout) {
+            reply(stdout)
           }
-          if (isOwner) {
-            if (budy.startsWith('>')) {
-              console.log(color('[EVAL1]'), color(moment(mek.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`eval return`))
-              try {
-                let evaled = await eval(budy.slice(2))
-                if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-                reply(`${evaled}`)
-              } catch (err) {
-                reply(`${err}`)
-              }
-            }
+        })
+      }
+      if (isOwner) {
+        if (budy.startsWith('>')) {
+          console.log(color('[EVAL1]'), color(moment(mek.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`eval return`))
+          try {
+            let evaled = await eval(budy.slice(2))
+            if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
+            reply(`${evaled}`)
+          } catch (err) {
+            reply(`${err}`)
           }
         }
-      } catch (e) {
-        //	  e = String(e)
-        console.log(e)
-
-        // if (!e.includes("this.isKtdprjct") && !e.includes("jid")) {
-        //console.log('Error : %s', color(e, 'red'))
-        //Ktdprjct.sendMessage(mek.key.remoteJid, util.format(e), MessageType.text, { quoted: mek })
-        //Ktdprjct.sendMessage(`─────「 \`\`\`ALERT-ERROR\`\`\` 」─────\n\n\`\`\`${e}\`\`\`\n\n────────────────────`, MessageType.text, {contextInfo: { forwardingScore: 508, isForwarded: true, externalAdreply:{title: "Developer KTDPRJCT",body:"",previewType:"PHOTO",thumbnail:fs.readFileSync('./media/logonya.jpg'),sourceUrl:"https://wa.me/p/62895342581896"}}})
       }
     }
+  } catch (e) {
+    //	  e = String(e)
+    console.log(e)
+
+    // if (!e.includes("this.isKtdprjct") && !e.includes("jid")) {
+    //console.log('Error : %s', color(e, 'red'))
+    //Ktdprjct.sendMessage(mek.key.remoteJid, util.format(e), MessageType.text, { quoted: mek })
+    //Ktdprjct.sendMessage(`─────「 \`\`\`ALERT-ERROR\`\`\` 」─────\n\n\`\`\`${e}\`\`\`\n\n────────────────────`, MessageType.text, {contextInfo: { forwardingScore: 508, isForwarded: true, externalAdreply:{title: "Developer KTDPRJCT",body:"",previewType:"PHOTO",thumbnail:fs.readFileSync('./media/logonya.jpg'),sourceUrl:"https://wa.me/p/62895342581896"}}})
+  }
+}
