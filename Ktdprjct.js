@@ -157,6 +157,8 @@ var game = require("./lib/game")
 
 offline = false
 banChats = true
+readGc = true 
+readPc = true
 blocked = []
 ownernumber = setting.OwnerNumber
 owner = setting.OwnerNumber
@@ -863,7 +865,19 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     //end
     //════[ read ]════//
 
-    Ktdprjct.chatRead(from, "read")
+    //Ktdprjct.chatRead(from, "read")
+    var chatss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
+    chatss.map(async({jid})=>{
+      if (readGc === true) return
+      await Ktdprjct.chatRead(jid)
+    }
+      )
+    var chatsss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+    chatsss.map(async({jid})=>{
+      if (readPc === true) return
+      await Ktdprjct.chatRead(jid)
+    }
+      )
     //end
     //════[ hidetag ]════//
 
