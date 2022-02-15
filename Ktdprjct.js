@@ -174,6 +174,7 @@ var ktdaudio = fs.readFileSync('./media/audio.mp3')
 //════[ Data Base ]════//
 
 var absen = JSON.parse(fs.readFileSync('./database/group/absen.json'))
+var mute = JSON.parse(fs.readFileSync('./database/group/mute.json'))
 var ban = JSON.parse(fs.readFileSync('./database/user/banned.json'))
 var premium = JSON.parse(fs.readFileSync('./database/user/premium.json'))
 var _user = JSON.parse(fs.readFileSync('./database/user/user.json'))
@@ -267,10 +268,9 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     var isAfkOn = off.checkAfkUser(sender, _off)
     var senderNumber = sender.split("@")[0]
     var hour_now = moment().format('HH:mm:ss')
-    var conts = mek.key.fromMe ? Ktdprjct.user.jid: Ktdprjct.contacts[sender] || {
-      notify: jid.replace(/@.+/, '')
-    }
-    var pushname = mek.key.fromMe ? Ktdprjct.user.name: conts.notify || conts.vname || conts.name || '-'
+    var conts = mek.key.fromMe ? Ktdprjct.user.jid: Ktdprjct.contacts[mek.sender]
+    var pushname = mek.key.fromMe ? Ktdprjct.user.name: !conts?'-':conts.notify || conts.vname || conts.name || '-'
+    var isMuted = isGroup ? mute.includes(from) : false
     var mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid: []
     var mentionByreply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "": ""
     var mention = typeof(mentionByTag) == 'string' ? [mentionByTag]: mentionByTag
@@ -298,8 +298,8 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
       noregis: `╭───❒ 「 DAFTAR DULU YA 」 ❒
 ├ 🚀 Hai ${pushname} ${ucapanWaktu}
 ├ 🚀 Sebelum Memakai Bot Verify Dulu Ya!
-├ 🚀 Dengan Clik Button Dibawah Atau
-├ 🚀 Ketik ${prefix}reg
+├ 🚀 Dengan klik Button Dibawah Atau
+├ 🚀 Ketik ${prefix}regist
 └────────────────❏`,
       error: {
         stick: '[❗] _Maaf Itu Bukan Sticker_',
@@ -881,7 +881,7 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
         }})
     }
     //end
-    //════[ anti link ]════//
+    //════[ anti link & mute]════//
 
     if (budy.includes("https://chat.whatsapp.com/")) {
       if (!isGroup) return
@@ -895,6 +895,15 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
         })
       }, 0)
     }
+ /*   if(isMuted){
+      if(!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(`only admin`)
+      if(budy.toLowerCase()startsWith(`${prefix}unmute`)){
+        let mutedd = mute.indexOf(from)
+        mute.splice(mutedd,1)
+        fs.writeFileSync('./database/group/mute', JSON.stringify(mute))
+        reply(`bot di mute di group ini`)
+      }
+    }*/
     //end
     //════[ anti spam & termos ]════//
 
@@ -2196,20 +2205,11 @@ created by : Ktdproject`,
           if (!isGroup) return sticGrup(from)
           if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
           if (!isBotGroupAdmins) return sticNotAdmin(from)
-          if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('Tag target yang ingin di jadi admin!')
-          mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
-          if (mentioned.length > 1) {
-            teks = 'Perintah di terima, anda menjdi admin :\n'
-            for (let _ of mentioned) {
-              teks += `@${_.split('@')[0]}\n`
-            }
-            mentions(teks, mentioned, true)
-            Ktdprjct.groupMakeAdmin(from, mentioned)
-          } else {
-            mentions(`Perintah di terima, @${mentioned[0].split('@')[0]} Kamu Menjadi Admin Di Group *${groupMetadata.subject}*`, mentioned, true)
-            Ktdprjct.groupMakeAdmin(from, mentioned)
-          }
+          if (args.length < 1) return reply(`Tag Orangnya`)
+          Ktdprjct.groupMakeAdmin(from, mentionUser)
+          reply(`D O N E ! ! !`)
           break
+          
         case 'demote':
           if (isBan) return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
@@ -2222,19 +2222,9 @@ created by : Ktdproject`,
           if (!isGroup) return sticGrup(from)
           if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
           if (!isBotGroupAdmins) return sticNotAdmin(from)
-          if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('Tag target yang ingin di tidak jadi admin!')
-          mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
-          if (mentioned.length > 1) {
-            teks = 'Perintah di terima, anda tidak menjadi admin :\n'
-            for (let _ of mentioned) {
-              teks += `@${_.split('@')[0]}\n`
-            }
-            mentions(teks, mentioned, true)
-            Ktdprjct.groupDemoteAdmin(from, mentioned)
-          } else {
-            mentions(`Perintah di terima, Menurunkan : @${mentioned[0].split('@')[0]} Menjadi Member`, mentioned, true)
-            Ktdprjct.groupDemoteAdmin(from, mentioned)
-          }
+          if (args.length < 1) return reply(`Tag Orangnya`)
+          Ktdprjct.groupDemoteAdmin(from, mentionUser)
+          reply(`D O N E ! ! !`)
           break
         case 'add':
           reply(`Punya Tangan? Manual Aja Kenapa!!`)
@@ -2305,7 +2295,7 @@ created by : Ktdproject`,
             }, type: 1,
           }], {
             quoted: ftrol
-          });
+          }); 
           if (!isGroup) return sticGrup(from)
           if (!isGroupAdmins && !mek.key.fromMe) return reply(only.admin)
           if (!isBotGroupAdmins) return sticNotAdmin(from)
@@ -2331,10 +2321,11 @@ created by : Ktdproject`,
           if (!isGroup) return sticGrup(from)
           if (!isGroupAdmins && !isOwner && !mek.key.fromMe) return reply(only.admin)
           try {
+            hidetext = q ? q: 'Nothing'
             quotedText = mek.message.extendedTextMessage.contextInfo.quotedMessage.conversation
             hideTag(from, `${quotedText}`)
           } catch {
-            hideTag(from, `${q}`)
+            hideTag(from, `HIDE TAG\n\nFrom : ${pushname}\nText : ${hidetext}`)
           }
           break
         case 'infogc':
@@ -2442,6 +2433,11 @@ created by : Ktdproject`,
             reply('Pesan tidak ditemukan!')
           }
           break
+          
+         /* case 'mute':
+            if(!mek.key.fromMe && !isOwner) return reply(`lu bukan owner gw`)
+            Ktdprjct.moddify*/
+            
         //end
         //════[ case absen ]════//
 
