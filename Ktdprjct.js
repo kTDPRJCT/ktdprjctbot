@@ -1971,6 +1971,7 @@ created by : Ktdproject`,
           if(!quoted) throw 'reply stickernya'
           let mime = quoted.mimetype||''
            if (!/webp|audio/.test(mime)) throw 'Reply sticker or audio!'
+           sticWait(from)
            let media = await quoted.download()
            let out = Buffer.alloc(0)
            if (/webp/.test(mime)) {
