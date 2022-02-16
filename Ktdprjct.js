@@ -157,8 +157,6 @@ var game = require("./lib/game")
 
 offline = false
 banChats = true
-readGc = true
-readPc = true
 blocked = []
 ownernumber = setting.OwnerNumber
 owner = setting.OwnerNumber
@@ -201,14 +199,17 @@ const cekUser = (sender) => {
 //end
 //════[ Module ]════//
 
-module.exports = Ktdprjct = async (Ktdprjct, mek) => {
+module.exports = Ktdprjct = async (Ktdprjct, chatUpdate, mek) => {
   try {
-    if (!mek.hasNewMessage) return
-    mek = mek.messages.all()[0]
+    if (!chatUpdate.hasNewMessage) return
+    if (!chatUpdate.messages && !chatUpdate.count) return
+    mek = chatUpdate.messages.all()[0]
     if (!mek.message) return
     if (mek.key && mek.key.remoteJid == 'status@broadcast') return
     global.blocked
+    m = simple.smsg(Ktdprjct, mek)
     mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message: mek.message
+    if (typeof text !== 'string') text = ''
     var content = JSON.stringify(mek.message)
     var from = mek.key.remoteJid
     var {
@@ -284,9 +285,11 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     var isOwner = ownerNumber.includes(sender)
     var imagebb = "https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg"
     var isMybot = isOwner || mek.key.fromMe
+    var quoted = m.quoted ? m.quoted : m
     var totalChat = await Ktdprjct.chats.all()
     var groups = Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
     var privat = Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+        //global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
     //end
     //════[ mess ]════//
 
@@ -383,6 +386,18 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     function randomNomor(angka) {
       return Math.floor(Math.random() * angka) + 1
     }
+    function formatDate(n, locale = 'id') {
+    let d = new Date(n)
+    return d.toLocaleDateString(locale, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    })
+  }
     var textImg = (teks) => {
       return Ktdprjct.sendMessage(from, teks, text, {
         quoted: mek, thumbnail: fs.readFileSync('./media/logonya2.png')})
@@ -865,23 +880,8 @@ module.exports = Ktdprjct = async (Ktdprjct, mek) => {
     //end
     //════[ read ]════//
 
-    //Ktdprjct.chatRead(from, "read")
-    var chatss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('g.us'))
-    chatss.map(async({
-      jid
-    })=> {
-      if (readGc === true) return
-      await Ktdprjct.chatRead(jid)
-    }
-    )
-    var chatsss = await Ktdprjct.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
-    chatsss.map(async({
-      jid
-    })=> {
-      if (readPc === true) return
-      await Ktdprjct.chatRead(jid)
-    }
-    )
+    Ktdprjct.chatRead(from, "read")
+
     //end
     //════[ hidetag ]════//
 
@@ -1071,7 +1071,8 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ├❍ *${prefix}stiker [ foto/tag ]*
 ├❍ *${prefix}smeme [ video/foto ]*
 ├❍ *${prefix}memegen [ foto ]*
-├❍ *${prefix}toimg [ Tag sticker ]*
+├❍ *${prefix}toimg [ reply sticker ]*
+├❍ *${prefix}tovideo [ reply sticker ]*
 ├❍ *${prefix}take*
 ╰────────────────────╯
 ╭◪ Edukasi
@@ -1103,14 +1104,14 @@ KTDPRJCT メ Bo† ༆ Di Sini
 ├⊱❥ *${prefix}neko* 
 ├⊱❥ *${prefix}waifu* 
 ├⊱❥ *${prefix}megumin*
-├⊱❥ *${prefix}loli* error
+├⊱❥ *${prefix}loli* 
 ╰────────────────────╯
 ╭◪ 18+
 ├❖ *${prefix}ero* error
 ├❖ *${prefix}tits* error
 ├❖ *${prefix}neko* error
 ├❖ *${prefix}futanari* error
-├❖ *${prefix}yuri*
+├❖ *${prefix}yuri* error
 ╰────────────────────╯
 ╭◪ Fun
 │➸ *${prefix}bisakah*
@@ -1528,7 +1529,7 @@ _*Tunggu Proses Upload Media......*_`
           })
           break
 
-        case 'googlesearch': case 'googlesrc': case 'google': case 'ggs':
+        case 'googlesearch': case 'googlesrc': case 'google': case 'ggs':{
           if (isBan) return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
             buttonId: `${prefix}ktdprjctreg`, buttonText: {
@@ -1540,15 +1541,16 @@ _*Tunggu Proses Upload Media......*_`
           if (args.length < 1) return reply('Yang mau di cari apaan?')
           teks = args.join(' ')
           sticWait(from)
-          res = await ggs({
+          res1 = await ggs({
             'query': `${teks}`
           })
-          kant = ``
-          for (let i of res) {
-            kant += `\n*「 _GOOGLE SEARCH_ 」*\n\n*query* : ${teks}\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
+          kant = `\n*「 _GOOGLE SEARCH_ 」*\n\n*query* : ${teks}`
+          for (let i of res1) {
+            kant += `\n\n*Judul* : ${i.title}\n\n*Link* : ${i.link}\n*Keterangan* : ${i.snippet}\n───────────\n`
           }
           var akhir = kant.trim()
           reply(akhir)
+        }
           break
 
         case 'wiki': case 'wikipedia':
@@ -1687,6 +1689,25 @@ _*Tunggu Proses Upload Media......*_`
           ytresult += '*KTDPRJCT メ Bo† ༆*'
           await fakethumb(tbuff, ytresult)
           break
+          case 'lirik':{
+            let res = await fetch(global.API('https://some-random-api.ml', '/lyrics', {
+              'title':`${text}`
+            }))
+            //if (!res.ok) throw await res.text()
+            let json = await res.json()
+            if (!json.thumbnail.genius) throw json
+            Ktdprjct.sendFile(from, json.thumbnail.genius, '', `
+*${json.title}*
+_${json.author}_
+
+${json.lyrics}
+
+
+${json.links.genius}
+`, mek)
+          }
+          break
+            
         //end
         //════[ case download ]════//
 
@@ -1939,11 +1960,34 @@ created by : Ktdproject`,
             if (err) return reply('Gagal, pada saat mengkonversi sticker ke gambar')
             buffer = fs.readFileSync(ran)
             Ktdprjct.sendMessage(from, buffer, image, {
-              quoted: mek, caption: 'Nih'
+              quoted: mek, caption: '@Ktdprjct'
             })
             fs.unlinkSync(ran)
           })
           break
+        case 'tovideo':{
+          let { webp2mp4 } = require('./lib/webp2mp4')
+          let { ffmpeg } = require('./lib/converter')
+          if(!quoted) throw 'reply stickernya'
+          let mime = quoted.mimetype||''
+           if (!/webp|audio/.test(mime)) throw 'Reply sticker or audio!'
+           let media = await quoted.download()
+           let out = Buffer.alloc(0)
+           if (/webp/.test(mime)) {
+             out = await webp2mp4(media)
+        } else if (/audio/.test(mime)) {
+        out = await ffmpeg(media, [
+            '-filter_complex', 'color',
+            '-pix_fmt', 'yuv420p',
+            '-crf', '51',
+            '-c:a', 'copy',
+            '-shortest'
+        ], 'mp3', 'mp4')
+        }
+        await Ktdprjct.sendFile(from, out, 'out.mp4', null, mek)
+        }
+          break
+          
         case 'take': case 'colong':
           if (isBan) return sticBan(from)
           if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
@@ -2033,6 +2077,7 @@ created by : Ktdproject`,
             reply('Suksess broadcast')
           }
           break
+          
         //end
         //════[ case mute ]════//
 
@@ -2860,8 +2905,56 @@ Ketik ${prefix}delttc , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {
           mentions(D1, jds, true)
           break
         //end
-        //════[ Module ]════//
-
+        //════[ case simi ]════//
+        case 'anonymous': case 'next': case 'leave':{
+          command = command.toLowerCase()
+          this.anonymous = this.anonymous ? this.anonymous : {}
+          let room = Object.values(this.anonymous).find(room => room.check(sender))
+          if(!room){
+            await Ktdprjct.sendButton(from, '_Kamu tidak sedang berada di anonymous chat_', 'KTDPRJCT', 'Cari Partner', `${prefix}start`, mek)
+            throw false
+          }
+          reply('oke')
+          let other = room.other(sender)
+          if (other) await Ktdprjct.sendButton(other, '_Partner meninggalkan chat_', 'KTDPRJCT', 'Cari Partner', `${prefix}start`, mek)
+          delete this.anonymous[room.id]
+          if (command === 'leave')
+          break
+        }
+        
+        case 'start':{
+          command = command.toLowerCase()
+          this.anonymous = this.anonymous ? this.anonymous : {}
+          if (Object.values(this.anonymous).find(room => room.check(sender))){
+            await Ktdprjct.sendButton(from, '_Kamu masih berada di dalam anonymous chat, menunggu partner_', 'KTDPRJCT', 'Keluar', `${prefix}leave`)
+            throw false
+          }
+          let room = Object.values(this.anonymous).find(room => room.state === 'waiting' && !room.check(sender))
+          if (room){
+            await Ktdprjct.sendButton(room.a, '_Partner ditemukan!_', 'KTDPRJCT', 'Next', `${prefix}next`, mek)
+            room.b = sender
+            room.state = 'CHATTING'
+            await Ktdprjct.sendButton(room.a, '_Partner ditemukan!_', 'KTDPRJCT', 'Next', `${prefix}next`, mek)
+          }else{
+            let id = +new Date
+            this.anonymous[id]={
+              id,
+              a : sender,
+              b : '',
+              state : 'waiting',
+              check: function (who =''){
+                return [this.a,this.b].includes(who)
+              },
+              other: function (who =''){
+                return who === this.a?this.b: who === this.b?this.a:''
+              },
+            }
+            await Ktdprjct.sendButton(from, '_Menunggu partner..._', 'KTDPRJCT', 'Keluar', `${prefix}leave`, mek)
+          }
+          break
+        }
+        
+          
 
         //end
         //════[ anime ]════//
@@ -2885,9 +2978,7 @@ Ketik ${prefix}delttc , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {
             quoted: mek, caption: `Random Character ${q}`
           })
           break
-        //end
-        //════[ anime h ]════//
-
+          
         case 'neko':
           if (isBan) return sticBan(from)
           if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
@@ -2961,75 +3052,16 @@ Ketik ${prefix}delttc , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {
           Ktdprjct.sendFile(from, json.url, '', 'yahaha istrinya kartun', mek)
         }
           break
-        case 'tits':
-          if (isBan) return sticBan(from)
-          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}premium`, buttonText: {
-              displayText: `Premium`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}ktdprjctreg`, buttonText: {
-              displayText: `Daftar`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          sticWait(from)
-          await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/tits?apikey=${ktdkey}`).then((gambar) => {
-            Ktdprjct.sendMessage(from, gambar, image, {
-              quoted: ftrol, caption: `©Random ${command}`
-            })
-          })
-          break
-        case 'pussy':
-          if (isBan) return sticBan(from)
-          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}premium`, buttonText: {
-              displayText: `Premium`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}ktdprjctreg`, buttonText: {
-              displayText: `Daftar`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          sticWait(from)
-          await getBuffer(`https://api-${ktdkey}.herokuapp.com/api/nsfw/pussyart?apikey=${ktdkey}`).then((gambar)=> {
-            Ktdprjct.sendMessage(from, gambar, image, {
-              quoted: ftrol, caption: `©Random ${command}`
-            })
-          })
-          break
-        case 'yuri':
-          if (isBan) return sticBan(from)
-          if (!isPrem) return sendButMessage(from, mess.prem, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}premium`, buttonText: {
-              displayText: `Premium`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          if (!isUser) return sendButMessage(from, mess.noregis, `Created By KTDPRJCT メ Bo†`, [{
-            buttonId: `${prefix}ktdprjctreg`, buttonText: {
-              displayText: `Daftar`,
-            }, type: 1,
-          }], {
-            quoted: ftrol
-          });
-          sticWait(from)
-          await getBuffer (`https://api-${ktdkey}.herokuapp.com/api/nsfw/yuri?apikey=${ktdkey}`).then((gambar)=> {
-            Ktdprjct.sendMessage(from, gambar, image, {
-              quoted: ftrol, caption: `©Random ${command}`
-            })
-          })
-          break
+          
+        case 'loli':{
+          let who = quoted ? quoted.sender : mentionedJid && mentionedJid[0] ? mentionedJid[0] : mek.fromMe ? Ktdprjct.user.jid : sender
+          Ktdprjct.sendFile(from, global.API('https://some-random-api.ml', '/canvas/lolice',{
+            avatar: await Ktdprjct.getProfilePicture(who).catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'),
+          }), 'lolice.png', 'liuliuliuliuliu kami dengar disini ada lolicon', mek)
+        }
+        break
+          
+        
         //end
         //════[ Module ]════//
 
