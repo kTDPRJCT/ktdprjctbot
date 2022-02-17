@@ -209,7 +209,7 @@ module.exports = Ktdprjct = async (Ktdprjct, chatUpdate, mek) => {
     global.blocked
     m = simple.smsg(Ktdprjct, mek)
     mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message: mek.message
-    if (typeof text !== 'string') text = ''
+    if (typeof m.text !== 'string') m.text = ''
     var content = JSON.stringify(mek.message)
     var from = mek.key.remoteJid
     var {
@@ -452,6 +452,33 @@ module.exports = Ktdprjct = async (Ktdprjct, chatUpdate, mek) => {
           {
             buttonId: row2, buttonText: {
               displayText: button2
+            }, type: 1
+          }],
+        headerType: 1
+      }, MessageType.buttonsMessage, {
+        contextInfo: {
+          mentionedJid: parseMention(content + footer)
+        }, quoted, ...options
+      })
+    }
+    
+    Ktdprjct.send3Button = async (jid, content, footer, button1, row1, button2, row2, button3, row3, quoted, options = {}) => {
+      return await Ktdprjct.sendMessage(jid, {
+        contentText: content,
+        footerText: footer,
+        buttons: [{
+          buttonId: row1, buttonText: {
+            displayText: button1
+          }, type: 1
+        },
+          {
+            buttonId: row2, buttonText: {
+              displayText: button2
+            }, type: 1
+          },
+           {
+            buttonId: row3, buttonText: {
+              displayText: button3
             }, type: 1
           }],
         headerType: 1
@@ -727,6 +754,86 @@ module.exports = Ktdprjct = async (Ktdprjct, chatUpdate, mek) => {
     } catch {
       pporang = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
     }
+    //end
+    //════[ storage ]════//
+    
+    this.suit = this.suit ? this.suit: {}
+   // if (db.data.users[sender]).suit < 0) db.data.users[sender].suit = 0
+    let room = Object.values(this.suit).find(room => room.id && room.status && [room.p, room.p2].includes(sender))
+    if (room){
+      let win = ''
+      let tie = false
+      if (sender == room.p2 && /^(acc(ept)?|terima|gas|oke?|tolak|gamau|nanti|ga(k.)?bisa)/i.test(args.join``) && isGroup && room.status == 'wait') {
+        if (/^(tolak|gamau|nanti|ga(k.)?bisa)/i.test(args.join``)) {
+          this.reply (from, `@${room.p2.split`@`[0]} menolak suit, suit dibatalkan`, mek)
+          delete this.suit[room.id]
+          return !0
+        }
+        room.status = 'play'
+        room.asal = from
+        clearTimeout(room.waktu)
+        reply(`Suit telah dikirimkan ke chat
+@${room.p.split`@`[0]} dan 
+@${room.p2.split`@`[0]}
+
+Silahkan pilih suit di chat masing"
+klik wa.me/${Ktdprjct.user.jid.split`@`[0]}`, from, {
+    contextInfo: {
+      mentionedJid: [room.p, room.p2]
+    }
+  })
+    if (!room.pilih) this.send3Button(room.p, 'Silahkan pilih', `@Ktdprjct`, 'Batu🗿', 'Batu', 'Kertas📄', 'Kertas', 'Gunting✂️', 'Gunting', mek)
+      if (!room.pilih2) this.send3Button(room.p2, 'Silahkan pilih', `@Ktdprjct`, 'Batu🗿', 'Batu', 'Kertas📄', 'Kertas', 'Gunting✂️', 'Gunting', mek)
+      room.waktu_milih = setTimeout(() => {
+        if (!room.pilih && !room.pilih2) this.reply(from, `Kedua pemain tidak niat main,\nSuit dibatalkan`)
+        else if (!room.pilih || !room.pilih2) {
+          win = !room.pilih ? room.p2 : room.p
+          this.reply(from, `@${(room.pilih ? room.p2 : room.p).split`@`[0]} tidak memilih suit, game berakhir`, mek)
+        }
+      delete this.suit[room.id]
+      return !0
+      },room.timeout)
+    }
+    let jwb = sender == room.p
+    let jwb2 = sender == room.p2
+    let g = /gunting/i
+    let b = /batu/i
+    let k = /kertas/i
+    let reg = /^(gunting|batu|kertas)/i
+    if (jwb && reg.test(args.join``) && !room.pilih && !isGroup) {
+      room.pilih = reg.exec(args.join``.toLowerCase())[0]
+      room.text = args.join``
+      reply(`Kamu telah memilih ${args.join``} ${!room.pilih2 ? `\n\nMenunggu lawan memilih` : ''}`)
+      if (!room.pilih2) this.reply(room.p2, '_Lawan sudah memilih_\nSekarang giliran kamu', 0)
+    }
+    if (jwb2 && reg.test(args.join``) && !room.pilih2 && !isGroup) {
+      room.pilih2 = reg.exec(args.join``.toLowerCase())[0]
+      room.text2 = args.join``
+      reply(`Kamu telah memilih ${args.join``} ${!room.pilih ? `\n\nMenunggu lawan memilih` : ''}`)
+      if (!room.pilih) this.reply(room.p, '_Lawan sudah memilih_\nSekarang giliran kamu', 0)
+    }
+    let stage = room.pilih
+    let stage2 = room.pilih2
+    if (room.pilih && room.pilih2) {
+      clearTimeout(room.waktu_milih)
+      if (b.test(stage) && g.test(stage2)) win = room.p
+      else if (b.test(stage) && k.test(stage2)) win = room.p2
+      else if (g.test(stage) && k.test(stage2)) win = room.p
+      else if (g.test(stage) && b.test(stage2)) win = room.p2
+      else if (k.test(stage) && b.test(stage2)) win = room.p
+      else if (k.test(stage) && g.test(stage2)) win = room.p2
+      else if (stage == stage2) tie = true
+      this.reply(room.asal, `
+_*Hasil Suit*_${tie ? '\nSERI' : ''}
+
+@${room.p.split`@`[0]} (${room.text}) ${tie ? '' : room.p == win ? ` Menang ` : ` Kalah `}
+@${room.p2.split`@`[0]} (${room.text2}) ${tie ? '' : room.p2 == win ? ` Menang ` : ` Kalah `}
+`.trim(), mek, { contextInfo: { mentionedJid: [room.p, room.p2] } })
+    delete this.suit[room.id]
+    }
+  }
+    return !0
+      
     //end
     //════[ storage ]════//
 
@@ -1691,7 +1798,7 @@ _*Tunggu Proses Upload Media......*_`
           break
           case 'lirik':{
             let res = await fetch(global.API('https://some-random-api.ml', '/lyrics', {
-              'title':`${text}`
+              title: args.join``
             }))
             //if (!res.ok) throw await res.text()
             let json = await res.json()
@@ -2500,11 +2607,9 @@ created by : Ktdproject`,
             reply('Pesan tidak ditemukan!')
           }
           break
-
-        /* case 'mute':
-            if(!mek.key.fromMe && !isOwner) return reply(`lu bukan owner gw`)
-            Ktdprjct.moddify*/
-
+        //end
+        //════[ case ]════//
+        
         //end
         //════[ case absen ]════//
 
@@ -2771,6 +2876,34 @@ ${list}
             reply('Pilih gunting/batu/kertas')
           }
           break
+          
+       case 'suitpvp':
+          let timeout = 60000
+          Ktdprjct.suit = Ktdprjct.suit ? Ktdprjct.suit: {}
+          if (Object.values(Ktdprjct.suit).find(room => room.id.startsWith('suit') && [room.p, room.p2].includes(sender))) throw 'Selesaikan suit mu yang sebelumnya'
+          if (!mentionedJid[0]) return reply(`_Siapa yang ingin kamu tantang?_\nTag orangnya.. Contoh\n\n${Prefix}suitpvp @tag lawan`)
+          if (Object.values(Ktdprjct.suit).find(room => room.id.startsWith('suit') && [room.p, room.p2].includes(mentionedJid[0]))) throw `Orang yang kamu tantang sedang bermain suit bersama orang lain :(`
+          let id = 'suit_' + new Date()*1
+          let caption =`
+_*SUIT PvP*_
+
+@${sender.split`@`[0]} menantang @${mentionedJid[0].split`@`[0]} untuk bermain suit
+
+Silahkan @${mentionedJid[0].split`@`[0]} 
+`.trim()
+          let footer =`Ketik "terima/ok/gas" untuk memulai suit\nKetik "tolak/gabisa/nanti" untuk menolak`
+          Ktdprjct.suit[id] ={
+            chat: await Ktdprjct.send2Button(from, caption, footer, 'Terima', 'ok', 'Tolak', 'tolak', mek, { contextInfo: { mentionedJid: Ktdprjct.parseMention(caption) } }),
+            id: id,
+            p: sender,
+            p2: mentionedJid[0],
+            status:'wait',
+            waktu: setTimeout(()=> {
+              if (Ktdprjct.suit[id]) Ktdprjct.reply(from, `_Waktu suit habis_`, mek)
+              delete Ktdprjct.suit[id]
+            },timeout), timeout
+          }
+          break
 
         case 'ttt':
         case 'tictactoe':
@@ -2907,55 +3040,14 @@ Ketik ${prefix}delttc , Untuk Mereset Permainan Yg Ada Di Grup!`, text, {
           break
         //end
         //════[ case simi ]════//
-        case 'anonymous': case 'next': case 'leave':{
-          command = command.toLowerCase()
-          this.anonymous = this.anonymous ? this.anonymous : {}
-          let room = Object.values(this.anonymous).find(room => room.check(sender))
-          if(!room){
-            await Ktdprjct.sendButton(from, '_Kamu tidak sedang berada di anonymous chat_', 'KTDPRJCT', 'Cari Partner', `${prefix}start`, mek)
-            throw false
-          }
-          reply('oke')
-          let other = room.other(sender)
-          if (other) await Ktdprjct.sendButton(other, '_Partner meninggalkan chat_', 'KTDPRJCT', 'Cari Partner', `${prefix}start`, mek)
-          delete this.anonymous[room.id]
-          if (command === 'leave')
-          break
+        case 'simi':{
+          if (typeof m.text !== 'string') m.text = ''
+          let res = await fetch(global.API('https://api.simsimi.net', '/v2/', { text: encodeURIComponent(args.join ``), lc: "id" }, ''))
+          let json = await res.json()
+          if (json.success) reply(json.success)
+          else throw json
         }
-        
-        case 'start':{
-          command = command.toLowerCase()
-          this.anonymous = this.anonymous ? this.anonymous : {}
-          if (Object.values(this.anonymous).find(room => room.check(sender))){
-            await Ktdprjct.sendButton(from, '_Kamu masih berada di dalam anonymous chat, menunggu partner_', 'KTDPRJCT', 'Keluar', `${prefix}leave`)
-            throw false
-          }
-          let room = Object.values(this.anonymous).find(room => room.state === 'waiting' && !room.check(sender))
-          if (room){
-            await Ktdprjct.sendButton(room.a, '_Partner ditemukan!_', 'KTDPRJCT', 'Next', `${prefix}next`, mek)
-            room.b = sender
-            room.state = 'CHATTING'
-            await Ktdprjct.sendButton(room.a, '_Partner ditemukan!_', 'KTDPRJCT', 'Next', `${prefix}next`, mek)
-          }else{
-            let id = +new Date
-            this.anonymous[id]={
-              id,
-              a : sender,
-              b : '',
-              state : 'waiting',
-              check: function (who =''){
-                return [this.a,this.b].includes(who)
-              },
-              other: function (who =''){
-                return who === this.a?this.b: who === this.b?this.a:''
-              },
-            }
-            await Ktdprjct.sendButton(from, '_Menunggu partner..._', 'KTDPRJCT', 'Keluar', `${prefix}leave`, mek)
-          }
-          break
-        }
-        
-          
+        break
 
         //end
         //════[ anime ]════//
