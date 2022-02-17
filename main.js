@@ -18,6 +18,10 @@ const chalk = require('chalk')
 const welkom = JSON.parse(fs.readFileSync('./database/welcome.json'))
 const {  location } = MessageType
 const settings = JSON.parse(fs.readFileSync('./setting.json'))
+
+global.APIs = []
+global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
+
 blocked = []
 baterai = 'unknown'
 charging = 'unknown'
